@@ -1,3 +1,5 @@
+import extensions.*;
+
 class Utils extends Program {
 
     void testIsBetween() {
@@ -27,5 +29,33 @@ class Utils extends Program {
         return (int) (random()*(max-min)+min);
     }
 
+    void debug(String s){
+        println(ANSI_GREEN + "[Fort Bouyard 1.0 DEBUGGER] : " + ANSI_RESET + s);
+    }
+
+    void info(String s){
+        println(ANSI_CYAN + s + ANSI_RESET);
+    }
+
+    String readTxt(String path) {
+        File txt = newFile(path);
+        String res = "";
+
+        while(ready(txt)) {
+            res += readLine(txt) + "\n";
+        }
+
+        return res;
+    }
+
+
+    void printTxt(String path) {
+        println(readTxt(path));
+    }
+
+    void myClearScreen(){
+        clearScreen();
+        cursor(0,0);
+    }
 
 }
