@@ -3,6 +3,7 @@ import extensions.*;
 class Main extends Utils {
 
     final String[] mainMenu = new String[]{"Jouer", "Leaderboard", "Règles", "Crédits", "Quitter"};
+
     void algorithm() {
         myClearScreen();
         // CREER CSV LEADERBOARD SI IL NEXISTE PAS
@@ -23,6 +24,7 @@ class Main extends Utils {
                 // TODO LANCEMENT DU JEU
             } else if(choice == 1) {
                 // TODO LEADERBOARD
+
             } else if(choice == 2) {
                 // TODO REGLES
                 displayRules();
@@ -52,6 +54,14 @@ class Main extends Utils {
         readString();
     }
 
+    void displayLeaderboard() {
+        myClearScreen();
+        CSVFile csv = loadCSV("leaderboard.csv");
+        String[][] cells = getCells(csv);
+        // A FAIRE
+        printCells(csv, 10);
+    }
+
     void printMenu() {
         for(int i = 0; i < length(mainMenu); i++){
             println((i+1) + ". " + mainMenu[i]);
@@ -67,6 +77,20 @@ class Main extends Utils {
             choice = readString();
         } while(!(length(choice) > 0) || !isDigit(charAt(choice, 0)) || !isBetween(stringToInt(choice), 1, length(mainMenu)));
         return stringToInt(choice);
+    }
+
+    // TODO
+
+    void printCells(CSVFile csv, int rowCount) {
+        int columns = columnCount(csv);
+        String line;
+        for(int row = 0; row < rowCount; row++) {
+            line = row+1 + " - ";
+            for(int col = 0; col < columns; col++) {
+                line = line + getCell(csv, row, col) + " ";
+            }
+            println(line);
+        }
     }
 
 }
