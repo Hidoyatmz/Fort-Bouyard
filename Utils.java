@@ -1,7 +1,7 @@
 import extensions.*;
 
 class Utils extends Program {
-
+    final boolean DEBUG = false;
     void testIsBetween() {
         assertTrue(isBetween(5, 1, 10));
         assertFalse(isBetween(15, 1, 10));
@@ -54,8 +54,23 @@ class Utils extends Program {
     }
 
     void myClearScreen(){
-        clearScreen();
-        cursor(0,0);
+        if(!DEBUG){
+            clearScreen();
+            cursor(0,0);
+        }
+    }
+
+    boolean csvFileExist(String filename){
+        String[] files = getAllFilesFromCurrentDirectory();
+        boolean exist = false;
+        int i = 0;
+        while(i < length(files) && !exist){
+            if(equals(files[i], filename)){
+                exist = true;
+            }
+            i++;
+        }
+        return exist;
     }
 
 }

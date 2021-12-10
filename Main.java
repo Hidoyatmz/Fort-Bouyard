@@ -3,9 +3,14 @@ import extensions.*;
 class Main extends Utils {
 
     final String[] mainMenu = new String[]{"Jouer", "Leaderboard", "Règles", "Crédits", "Quitter"};
-
     void algorithm() {
+        myClearScreen();
         // CREER CSV LEADERBOARD SI IL NEXISTE PAS
+        if(!csvFileExist("leaderboard.csv")){
+            debug("LeaderBoard file doesn't exist ! Creating...");
+            delay(1000);
+            saveCSV(new String[][]{{"Teamname", "score"}}, "leaderboard.csv");
+        }
         // TODO
 
         // MENU CHOIX
@@ -23,16 +28,26 @@ class Main extends Utils {
                 displayRules();
             } else if(choice == 3) {
                 // TODO CREDITS
+                displayCredits();
             } else {
                 play = false;
             }
         }
+        myClearScreen();
         println("A bientôt !");
+        delay(1000);
     }
 
     void displayRules(){
         myClearScreen();
         printTxt("Regles.txt");
+        info("Appuyez sur entrée pour continuer.");
+        readString();
+    }
+
+    void displayCredits() {
+        myClearScreen();
+        printTxt("Credits.txt");
         info("Appuyez sur entrée pour continuer.");
         readString();
     }
