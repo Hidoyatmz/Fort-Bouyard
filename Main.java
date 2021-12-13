@@ -23,6 +23,7 @@ class Main extends Utils {
             debug("User choiced : " + mainMenu[choice]);
             if(choice == 0) {
                 // TODO LANCEMENT DU JEU
+                Team team = newTeam();
             } else if(choice == 1) {
                 displayLeaderboard();
             } else if(choice == 2) {
@@ -85,15 +86,42 @@ class Main extends Utils {
         }
     }
 
-    Game newGame() {
+    /*Game newGame(Team team) {
 
-    }
+    }*/
 
     Player newPlayer(String pseudo) {
         Player player = new Player();
         player.pseudo = pseudo;
         player.jail = false;
         return player;
+    }
+
+    Team newTeam() {
+        Team team = new Team();
+        myClearScreen();
+        println("Entrez le nom de votre team :");
+        team.name = readString();
+        myClearScreen();
+        println("Entrez votre cri de guerre :");
+        team.cri = readString();
+        
+        String choice;
+        do {
+            myClearScreen();
+            println("Combien de joueurs comporte votre équipe ?");
+            choice = readString();
+        } while(!(length(choice) > 0) || !isDigit(charAt(choice, 0)) || stringToInt(choice) < 2);
+
+        team.players = new Player[stringToInt(choice)];
+
+        for(int i=0; i<length(team.players); i++) {
+            myClearScreen();
+            println("Entrez le nom du joueur " + (i+1));
+            team.players[i] = newPlayer(readString());
+        }
+
+        return team;
     }
 
 }
