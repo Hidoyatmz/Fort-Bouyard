@@ -61,6 +61,10 @@ class Utils extends Program {
         }
     }
 
+    void csvMissingError(String filename){
+        println(ANSI_RED + "Couldnt start the game.. (" + filename + " is missing)" + ANSI_RESET);
+    }
+
     boolean csvFileExist(String filename){
         String[] files = getAllFilesFromCurrentDirectory();
         boolean exist = false;
@@ -72,6 +76,17 @@ class Utils extends Program {
             i++;
         }
         return exist;
+    }
+
+    int enterNumber() {
+        String s;
+        cusp();
+        do {
+            curp();
+            clearLine();
+            s = readString();
+        } while(!(length(s) > 0) || !isDigit(charAt(s, 0)));
+        return stringToInt(s);
     }
 
 }

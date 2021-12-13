@@ -1,22 +1,27 @@
 import extensions.*;
 
-class Main extends Utils {
+class Main extends GameManager {
 
     final String[] mainMenu = new String[]{"Jouer", "Leaderboard", "Règles", "Crédits", "Quitter"};
+    final String WORDSCSV = "words.csv";
+    final String LEADERBOARDCSV = "leaderboard.csv";
 
     void algorithm() {
         myClearScreen();
 
-        // CREER CSV LEADERBOARD SI IL NEXISTE PAS
-        if(!csvFileExist("leaderboard.csv")){
-            debug("LeaderBoard file doesn't exist ! Creating...");
-            delay(1000);
-            saveCSV(new String[][]{{"Teamname", "score"}}, "leaderboard.csv");
+        if(!csvFileExist(WORDSCSV)){
+            csvMissingError(WORDSCSV);
+            return;
         }
-        // TODO
+
+        // CREER CSV LEADERBOARD SI IL NEXISTE PAS
+        if(!csvFileExist(LEADERBOARDCSV)){
+            createLeaderboardFile();
+        }
 
         // MENU CHOIX
         boolean play = true;
+        boolean startGame = true;
         int choice;
         while(play){
             choice = choiceMenuOption()-1;
@@ -24,6 +29,8 @@ class Main extends Utils {
             if(choice == 0) {
                 // TODO LANCEMENT DU JEU
                 Team team = newTeam();
+                Game g = newGame(team);
+                
             } else if(choice == 1) {
                 displayLeaderboard();
             } else if(choice == 2) {
@@ -37,6 +44,20 @@ class Main extends Utils {
         myClearScreen();
         println("A bientôt !");
         delay(1000);
+    }
+
+    void createLeaderboardFile(){
+        debug("LeaderBoard file doesn't exist ! Creating...");
+        delay(1000);
+        saveCSV(new String[][]{{"Teamname", "score"}}, LEADERBOARDCSV);
+    }
+
+    void displayLeaderboard() {
+        myClearScreen();
+        CSVFile csv = loadCSV(LEADERBOARDCSV);
+        printLeaderboard(csv, 10);
+        info("\nAppuyez sur entrée pour continuer.");
+        readString();
     }
 
     void displayRules(){
@@ -53,29 +74,21 @@ class Main extends Utils {
         readString();
     }
 
-    void displayLeaderboard() {
-        myClearScreen();
-        CSVFile csv = loadCSV("leaderboard.csv");
-        printLeaderboard(csv, 10);
-        info("\nAppuyez sur entrée pour continuer.");
-        readString();
-    }
-
     void printMenu() {
+        myClearScreen();
         for(int i = 0; i < length(mainMenu); i++){
             println((i+1) + ". " + mainMenu[i]);
         }
     }
 
     int choiceMenuOption() {
-        String choice;
+        int choice;
+        printMenu();
+        println("Entrez votre choix : ");
         do {
-            myClearScreen();
-            printMenu();
-            println("Entrez votre choix : ");
-            choice = readString();
-        } while(!(length(choice) > 0) || !isDigit(charAt(choice, 0)) || !isBetween(stringToInt(choice), 1, length(mainMenu)));
-        return stringToInt(choice);
+            choice = enterNumber();
+        } while(!isBetween(choice, 1, length(mainMenu)));
+        return choice;
     }
 
     void printLeaderboard(CSVFile csv, int rowCount) {
@@ -85,10 +98,6 @@ class Main extends Utils {
             println(row + " - " + getCell(csv, row, 0) + " - " + getCell(csv, row, 1));
         }
     }
-
-    /*Game newGame(Team team) {
-
-    }*/
 
     Player newPlayer(String pseudo) {
         Player player = new Player();
@@ -105,15 +114,15 @@ class Main extends Utils {
         myClearScreen();
         println("Entrez votre cri de guerre :");
         team.cri = readString();
-        
-        String choice;
+        myClearScreen();
+        int choice;
+        println("Combien de joueurs comporte votre équipe ?");
         do {
-            myClearScreen();
-            println("Combien de joueurs comporte votre équipe ?");
-            choice = readString();
-        } while(!(length(choice) > 0) || !isDigit(charAt(choice, 0)) || stringToInt(choice) < 2);
+            choice = enterNumber();
+        } while(choice < 2);
 
-        team.players = new Player[stringToInt(choice)];
+
+        team.players = new Player[choice];
 
         for(int i=0; i<length(team.players); i++) {
             myClearScreen();
@@ -122,6 +131,42 @@ class Main extends Utils {
         }
 
         return team;
+    }
+
+    Indice newIndice(String indice) {
+        Indice i = new Indice();
+        i.indice = indice;
+        i.found = false;
+        return i;
+    }
+
+    Game newGame(Team team) {
+        Game game = new Game();
+        game.team = team;
+        game.nbKeys = 0;
+        generateCode(game);
+        setIndiceFind(game.indices[0]);
+        return game;
+    }
+    
+    void println(String[] s){
+        for(int i = 0; i < length(s); i++){
+            println(s[i]);
+        }
+    }
+
+    void setIndiceFind(Indice indice){
+        indice.found = true;
+    }
+
+    void generateCode(Game game){
+        CSVFile words = loadCSV(WORDSCSV);
+        int line = randInt(1, rowCount(words));
+        game.motCode = getCell(words, line, 0);
+        game.indices = new Indice[6];
+        for(int i = 1; i < columnCount(words); i++){
+            game.indices[i-1] = newIndice(getCell(words, line, i));
+        }
     }
 
 }
