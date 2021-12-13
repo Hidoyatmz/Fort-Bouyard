@@ -1,6 +1,6 @@
 class Team {
 
-    Joueur[] players;
+    Player[] players;
     String name;
     String cri;
     

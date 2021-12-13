@@ -2,6 +2,7 @@ import extensions.*;
 
 class Utils extends Program {
     final boolean DEBUG = false;
+
     void testIsBetween() {
         assertTrue(isBetween(5, 1, 10));
         assertFalse(isBetween(15, 1, 10));

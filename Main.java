@@ -6,6 +6,7 @@ class Main extends Utils {
 
     void algorithm() {
         myClearScreen();
+
         // CREER CSV LEADERBOARD SI IL NEXISTE PAS
         if(!csvFileExist("leaderboard.csv")){
             debug("LeaderBoard file doesn't exist ! Creating...");
@@ -23,13 +24,10 @@ class Main extends Utils {
             if(choice == 0) {
                 // TODO LANCEMENT DU JEU
             } else if(choice == 1) {
-                // TODO LEADERBOARD
-
+                displayLeaderboard();
             } else if(choice == 2) {
-                // TODO REGLES
                 displayRules();
             } else if(choice == 3) {
-                // TODO CREDITS
                 displayCredits();
             } else {
                 play = false;
@@ -57,9 +55,9 @@ class Main extends Utils {
     void displayLeaderboard() {
         myClearScreen();
         CSVFile csv = loadCSV("leaderboard.csv");
-        String[][] cells = getCells(csv);
-        // A FAIRE
-        printCells(csv, 10);
+        printLeaderboard(csv, 10);
+        info("\nAppuyez sur entrée pour continuer.");
+        readString();
     }
 
     void printMenu() {
@@ -79,18 +77,23 @@ class Main extends Utils {
         return stringToInt(choice);
     }
 
-    // TODO
-
-    void printCells(CSVFile csv, int rowCount) {
-        int columns = columnCount(csv);
-        String line;
-        for(int row = 0; row < rowCount; row++) {
-            line = row+1 + " - ";
-            for(int col = 0; col < columns; col++) {
-                line = line + getCell(csv, row, col) + " ";
-            }
-            println(line);
+    void printLeaderboard(CSVFile csv, int rowCount) {
+        println("Rank - Name - Score");
+        int maxRows = rowCount <= rowCount(csv)-1 ? rowCount : rowCount(csv)-1;
+        for(int row = 1; row <= maxRows; row++) {
+            println(row + " - " + getCell(csv, row, 0) + " - " + getCell(csv, row, 1));
         }
+    }
+
+    Game newGame() {
+
+    }
+
+    Player newPlayer(String pseudo) {
+        Player player = new Player();
+        player.pseudo = pseudo;
+        player.jail = false;
+        return player;
     }
 
 }
