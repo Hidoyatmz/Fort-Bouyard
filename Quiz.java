@@ -6,7 +6,7 @@ class Quiz extends EpreuvesCreator {
         return newEpreuve("Quiz", -1, "Ya pas", GameState.KEYS);
     }
 
-    void startQuiz(Epreuve quiz, Game game){
+    boolean startQuiz(Epreuve quiz, Game game){
         String[] charade = getRandomCharade(CHARADECSV);
         String answer;
         int trys = 3;
@@ -29,6 +29,7 @@ class Quiz extends EpreuvesCreator {
             println("Ne perdez pas le rythme ! Il vous faut encore " + (4-game.nbKeys) + " clefs");
         }
         delay(3000);
+        return true;
     }
 
     void printIntro(Epreuve quiz, String[] charade) {

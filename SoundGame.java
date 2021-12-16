@@ -6,7 +6,7 @@ class SoundGame extends Quiz {
         return newEpreuve("SoundGame", -1, "Ya pas", GameState.KEYS);
     }
 
-    void startSoundGame(Epreuve soundgame, Game game){
+    boolean startSoundGame(Epreuve soundgame, Game game){
         CSVFile soundCSV = loadCSV(SOUNDGAMECSV);
         String[] answers = new String[rowCount(soundCSV)-1];
         Sound[] sounds = registerSounds(soundCSV, answers);
@@ -20,6 +20,7 @@ class SoundGame extends Quiz {
             }
             tour = tour +1;
         }
+        return true;
     }
 
     Sound[] registerSounds(CSVFile soundCSV, String[] res) {

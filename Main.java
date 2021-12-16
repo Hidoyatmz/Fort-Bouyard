@@ -32,7 +32,7 @@ class Main extends GameManager {
                 Game g = newGame(team);
                 startGame(g);
                 startQuiz(g.epreuves[0], g);
-                //startSoundGame(g.epreuves[1], g);
+                startSoundGame(g.epreuves[1], g);
             } else if(choice == 1) {
                 displayLeaderboard();
             } else if(choice == 2) {
