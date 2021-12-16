@@ -5,12 +5,13 @@ class Main extends GameManager {
     final String[] mainMenu = new String[]{"Jouer", "Leaderboard", "Règles", "Crédits", "Quitter"};
     final String WORDSCSV = "words.csv";
     final String LEADERBOARDCSV = "leaderboard.csv";
+    final String[] DEPENDENCIES = new String[]{WORDSCSV, CHARADECSV};
 
     void algorithm() {
         myClearScreen();
 
-        if(!csvFileExist(WORDSCSV)){
-            csvMissingError(WORDSCSV);
+        // NE LANCE PAS LE JEU SI LE CSV DES MOTS N'EXISTE PAS
+        if(!checkDependencies()){
             return;
         }
 
@@ -21,7 +22,6 @@ class Main extends GameManager {
 
         // MENU CHOIX
         boolean play = true;
-        boolean startGame = true;
         int choice;
         while(play){
             choice = choiceMenuOption()-1;
@@ -30,7 +30,8 @@ class Main extends GameManager {
                 // TODO LANCEMENT DU JEU
                 Team team = newTeam();
                 Game g = newGame(team);
-                
+                startGame(g);
+                startQuiz(g.epreuves[0]);
             } else if(choice == 1) {
                 displayLeaderboard();
             } else if(choice == 2) {
@@ -98,6 +99,12 @@ class Main extends GameManager {
             println(row + " - " + getCell(csv, row, 0) + " - " + getCell(csv, row, 1));
         }
     }
+    
+    void println(String[] s){
+        for(int i = 0; i < length(s); i++){
+            println(s[i]);
+        }
+    }
 
     Player newPlayer(String pseudo) {
         Player player = new Player();
@@ -146,17 +153,9 @@ class Main extends GameManager {
         game.nbKeys = 0;
         generateCode(game);
         setIndiceFind(game.indices[0]);
+        game.gameState = GameState.KEYS;
+        initEpreuves(game);
         return game;
-    }
-    
-    void println(String[] s){
-        for(int i = 0; i < length(s); i++){
-            println(s[i]);
-        }
-    }
-
-    void setIndiceFind(Indice indice){
-        indice.found = true;
     }
 
     void generateCode(Game game){
@@ -168,5 +167,26 @@ class Main extends GameManager {
             game.indices[i-1] = newIndice(getCell(words, line, i));
         }
     }
+
+    boolean checkDependencies(){
+        boolean res = true;
+        String file;
+        for(int i = 0; i < length(DEPENDENCIES); i++){
+            file = DEPENDENCIES[i];
+            if(!csvFileExist(file)){
+                csvMissingError(file);
+                res = false;
+            }
+        }
+        return res;
+    }
+
+    // TODO CREATION ET SELECTION EPREUVES
+
+    void initEpreuves(Game game) {
+        game.epreuves = new Epreuve[4];
+        game.epreuves[0] = initQuiz();
+    }
+    
 
 }

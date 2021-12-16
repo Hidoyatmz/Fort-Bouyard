@@ -89,4 +89,31 @@ class Utils extends Program {
         return stringToInt(s);
     }
 
+    boolean onlyChars(String text){
+        boolean res = true;
+        int i = 0;
+        while(i < length(text) && res){
+            if(!isBetween(charToInt(charAt(text, i)), charToInt('A'), charToInt('Z'))){
+                res = false;
+            }
+            i = i +1;
+        }
+        return res;
+    }
+
+    String enterText(){
+        String s;
+        cusp();
+        do {
+            curp();
+            clearLine();
+            s = readString();
+        } while(!(length(s)>0));
+        return s;
+    }
+
+    void setIndiceFind(Indice indice){
+        indice.found = true;
+    }
+
 }

@@ -1,0 +1,5 @@
+enum GameState {
+
+    KEYS, JUGEMENT, INDICES, CONSEIL, TRESOR;
+
+}
