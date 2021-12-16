@@ -5,12 +5,12 @@ class Main extends GameManager {
     final String[] mainMenu = new String[]{"Jouer", "Leaderboard", "Règles", "Crédits", "Quitter"};
     final String WORDSCSV = "words.csv";
     final String LEADERBOARDCSV = "leaderboard.csv";
-    final String[] DEPENDENCIES = new String[]{WORDSCSV, CHARADECSV};
+    final String[] DEPENDENCIES = new String[]{WORDSCSV, CHARADECSV, SOUNDGAMECSV};
 
     void algorithm() {
         myClearScreen();
 
-        // NE LANCE PAS LE JEU SI LE CSV DES MOTS N'EXISTE PAS
+        // NE LANCE PAS LE JEU SI IL MANQUE DES DEPENDENCIES
         if(!checkDependencies()){
             return;
         }
@@ -28,10 +28,11 @@ class Main extends GameManager {
             debug("User choiced : " + mainMenu[choice]);
             if(choice == 0) {
                 // TODO LANCEMENT DU JEU
-                Team team = newTeam();
+                Team team = registerTeam();
                 Game g = newGame(team);
                 startGame(g);
-                startQuiz(g.epreuves[0]);
+                startQuiz(g.epreuves[0], g);
+                //startSoundGame(g.epreuves[1], g);
             } else if(choice == 1) {
                 displayLeaderboard();
             } else if(choice == 2) {
@@ -48,7 +49,7 @@ class Main extends GameManager {
     }
 
     void createLeaderboardFile(){
-        debug("LeaderBoard file doesn't exist ! Creating...");
+        debug("LeaderBoard file doesn't exist ! Creating it...");
         delay(1000);
         saveCSV(new String[][]{{"Teamname", "score"}}, LEADERBOARDCSV);
     }
@@ -113,30 +114,44 @@ class Main extends GameManager {
         return player;
     }
 
-    Team newTeam() {
-        Team team = new Team();
+    Team registerTeam(){
+        /* Init variables */
+        String teamName;
+        String teamCry;
+        int playersNumber;
+        String[] playersName;
+
+        /* Ask player informations */
         myClearScreen();
         println("Entrez le nom de votre team :");
-        team.name = readString();
+        teamName = readString();
         myClearScreen();
         println("Entrez votre cri de guerre :");
-        team.cri = readString();
+        teamCry = readString();
         myClearScreen();
-        int choice;
-        println("Combien de joueurs comporte votre équipe ?");
+        println("Combien de joueurs comporte votre équipe ? (minimum 2)");
         do {
-            choice = enterNumber();
-        } while(choice < 2);
+            playersNumber = enterNumber();
+        } while(playersNumber < 2);
 
-
-        team.players = new Player[choice];
-
-        for(int i=0; i<length(team.players); i++) {
+        playersName = new String[playersNumber];
+        for(int i = 0; i < length(playersName); i++){
             myClearScreen();
-            println("Entrez le nom du joueur " + (i+1));
-            team.players[i] = newPlayer(readString());
+            println("Entrez le nom du joueur n°" + (i+1));
+            playersName[i] = readString();
         }
 
+        return newTeam(teamName, teamCry, playersNumber, playersName);
+    }
+
+    Team newTeam(String teamName, String teamCry, int playersNumber, String[] playersName) {
+        Team team = new Team();
+        team.name = teamName;
+        team.cry = teamCry;
+        team.players = new Player[playersNumber];
+        for(int i = 0; i < length(team.players); i++){
+            team.players[i] = newPlayer(playersName[i]);
+        }
         return team;
     }
 
@@ -186,6 +201,7 @@ class Main extends GameManager {
     void initEpreuves(Game game) {
         game.epreuves = new Epreuve[4];
         game.epreuves[0] = initQuiz();
+        game.epreuves[1] = initSoundGame();
     }
     
 

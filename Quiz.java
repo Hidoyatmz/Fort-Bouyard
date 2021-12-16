@@ -6,7 +6,7 @@ class Quiz extends EpreuvesCreator {
         return newEpreuve("Quiz", -1, "Ya pas", GameState.KEYS);
     }
 
-    void startQuiz(Epreuve quiz){
+    void startQuiz(Epreuve quiz, Game game){
         String[] charade = getRandomCharade(CHARADECSV);
         String answer;
         int trys = 3;
@@ -16,12 +16,17 @@ class Quiz extends EpreuvesCreator {
             println("Attention ! Tu as " + quiz.timer + " secondes pour trouver la réponse.");
             println("Entrez votre réponse : ");
             answer = enterText();
-            trys = trys - 1;
+            if(!isCharadeValidAnswer(answer, charade)){
+                trys = trys - 1;
+            }
         } while(!isCharadeValidAnswer(answer, charade) && trys > 0);
         if(trys > 0){
-            println("Bravo ! Tu as gagné une clef pour ton équipe !");
+            println("Félicitation jeune padawan, tu as gagné une clef pour ton équipe !");
+            game.nbKeys = game.nbKeys + 1;
+            println("Vous avez maintenant " + game.nbKeys + "/4 clefs !");
         } else {
             println("C'est perdu.. Quel dommage ahah !");
+            println("Ne perdez pas le rythme ! Il vous faut encore " + (4-game.nbKeys) + " clefs");
         }
         delay(3000);
     }

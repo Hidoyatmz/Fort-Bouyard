@@ -1,7 +1,7 @@
-class GameManager extends Quiz {
+class GameManager extends SoundGame {
 
     void startGame(Game game) {
-        println("Et tout de suite : LE QUIZ DU PERE FOURTAS!");
+        println("Et tout de suite : UN NOUVEAU JEU !");
         delay(2000);
     }
     
