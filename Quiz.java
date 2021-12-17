@@ -29,7 +29,7 @@ class Quiz extends EpreuvesCreator {
 
     void wonQuiz(Game game){
         game.nbKeys = game.nbKeys + 1;
-        println("Félicitation jeune padawan, tu as gagné une clef pour ton équipe !\n Vous avez maintenant " + game.nbKeys + "/4 clefs !");
+        println("Félicitation jeune padawan, tu as gagné une clef pour ton équipe !\nVous avez maintenant " + game.nbKeys + "/4 clefs !");
     }
 
     void lostQuiz(Game game){
@@ -44,7 +44,7 @@ class Quiz extends EpreuvesCreator {
     }
 
     void printInfos(Epreuve quiz, int trys){
-        println("Il te reste " + trys + " essais !");
+        println("Tu as " + ANSI_RED + trys + ANSI_RESET + " essais !");
         println("Attention ! Tu as " + quiz.timer + " secondes pour trouver la réponse.");
         println("Entrez votre réponse : ");
     }

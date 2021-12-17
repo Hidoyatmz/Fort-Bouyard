@@ -46,7 +46,7 @@ class SoundGame extends Quiz {
 
     void wonSoundGame(Game game){
         game.nbKeys = game.nbKeys + 1;
-        println("Félicitation jeune padawan, tu as gagné une clef pour ton équipe !\n Vous avez maintenant " + game.nbKeys + "/4 clefs !");
+        println("Félicitation jeune padawan, tu as gagné une clef pour ton équipe !\nVous avez maintenant " + game.nbKeys + "/4 clefs !");
     }
 
     void lostSoundGame(Game game){
@@ -78,7 +78,7 @@ class SoundGame extends Quiz {
             myClearScreen();
             println("Animal n°" + tour);
             println("De quel animal sagit-il ?");
-            println("Tu as " + trys + " essais !");
+            println("Tu as " + ANSI_RED + trys + ANSI_RESET + " essais !");
             println("Entrez votre réponse : ");
             toCheck = toLowerCase(enterText());
             if(!equals(answer, toCheck)){

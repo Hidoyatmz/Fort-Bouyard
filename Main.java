@@ -11,6 +11,7 @@ class Main extends GameManager {
         myClearScreen();
 
         // NE LANCE PAS LE JEU SI IL MANQUE DES DEPENDENCIES
+        /* @TODO : Check les sounds */
         if(!checkDependencies()){
             return;
         }
@@ -193,6 +194,7 @@ class Main extends GameManager {
                 res = false;
             }
         }
+        info("Votre jeu est corrompu, veuillez le télécharger à nouveau.");
         return res;
     }
 
