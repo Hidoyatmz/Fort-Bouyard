@@ -12,24 +12,28 @@ class Quiz extends EpreuvesCreator {
         int trys = 3;
         do{
             printIntro(quiz, charade);
-            println("Il te reste " + trys + " essais !");
-            println("Attention ! Tu as " + quiz.timer + " secondes pour trouver la réponse.");
-            println("Entrez votre réponse : ");
+            printInfos(quiz, trys);
             answer = enterText();
             if(!isCharadeValidAnswer(answer, charade)){
                 trys = trys - 1;
             }
         } while(!isCharadeValidAnswer(answer, charade) && trys > 0);
         if(trys > 0){
-            println("Félicitation jeune padawan, tu as gagné une clef pour ton équipe !");
-            game.nbKeys = game.nbKeys + 1;
-            println("Vous avez maintenant " + game.nbKeys + "/4 clefs !");
+            wonQuiz(game);
         } else {
-            println("C'est perdu.. Quel dommage ahah !");
-            println("Ne perdez pas le rythme ! Il vous faut encore " + (4-game.nbKeys) + " clefs");
+            lostQuiz(game);
         }
         delay(3000);
         return true;
+    }
+
+    void wonQuiz(Game game){
+        game.nbKeys = game.nbKeys + 1;
+        println("Félicitation jeune padawan, tu as gagné une clef pour ton équipe !\n Vous avez maintenant " + game.nbKeys + "/4 clefs !");
+    }
+
+    void lostQuiz(Game game){
+        println("C'est perdu.. Quel dommage ahah !\nNe perdez pas le rythme ! Il vous faut encore " + (4-game.nbKeys) + " clefs");
     }
 
     void printIntro(Epreuve quiz, String[] charade) {
@@ -37,6 +41,12 @@ class Quiz extends EpreuvesCreator {
         println("Bonjour et bienvenue dans le QUIQUIQUIZZZ !");
         println("Voici les règles : " + quiz.rules);
         printCharade(charade);
+    }
+
+    void printInfos(Epreuve quiz, int trys){
+        println("Il te reste " + trys + " essais !");
+        println("Attention ! Tu as " + quiz.timer + " secondes pour trouver la réponse.");
+        println("Entrez votre réponse : ");
     }
 
     String getCharadeAnswer(String[] charade){
@@ -62,7 +72,5 @@ class Quiz extends EpreuvesCreator {
             println(ANSI_BLUE + charade[i] + ANSI_RESET);
         }
     }
-
-
 
 }

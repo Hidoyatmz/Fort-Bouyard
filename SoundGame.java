@@ -3,7 +3,7 @@ import extensions.*;
 class SoundGame extends Quiz {
     final String SOUNDGAMECSV = "soundgame.csv";
     Epreuve initSoundGame() {
-        return newEpreuve("SoundGame", -1, "Ya pas", GameState.KEYS);
+        return newEpreuve("SoundGame", -1, "Vous devez trouver 3 animaux sur les 5 joués !", GameState.KEYS);
     }
 
     boolean startSoundGame(Epreuve soundgame, Game game){
@@ -11,16 +11,50 @@ class SoundGame extends Quiz {
         String[] answers = new String[rowCount(soundCSV)-1];
         Sound[] sounds = registerSounds(soundCSV, answers);
         int tour = 1;
+        int goodAnswers = 0;
+        introSoundGame(soundgame);
         for(int i = 0; i < length(answers); i++){
             boolean found = doSound(sounds[i], answers[i], tour);
+            myClearScreen();
             if(found){
-                myClearScreen();
                 println("Bravo ! C'était bien un(e) " + answers[i]);
-                delay(1500);
+                goodAnswers += 1;
+            } else {
+                println("Pas de chance ! La réponse était : " + answers[i]);
             }
+            if(i < length(answers)-1 ){
+                println("Passons au prochain animal !");
+            }
+            delay(1500);
             tour = tour +1;
         }
+        if(userWon(goodAnswers, answers)){
+            wonSoundGame(game);
+        } else {
+            lostSoundGame(game);
+        }
+        delay(3000);
         return true;
+    }
+
+    void introSoundGame(Epreuve soundgame){
+        myClearScreen();
+        println("Bonjour et bienvenue au " + soundgame.name);
+        println("Règles : " + soundgame.rules);
+        delay(3000);
+    }
+
+    void wonSoundGame(Game game){
+        game.nbKeys = game.nbKeys + 1;
+        println("Félicitation jeune padawan, tu as gagné une clef pour ton équipe !\n Vous avez maintenant " + game.nbKeys + "/4 clefs !");
+    }
+
+    void lostSoundGame(Game game){
+        println("C'est perdu.. Quel dommage ahah !\nNe perdez pas le rythme ! Il vous faut encore " + (4-game.nbKeys) + " clefs");
+    }
+
+    boolean userWon(int goodAnswers, String[] answers){
+        return goodAnswers >= ((length(answers)/2) + 1);
     }
 
     Sound[] registerSounds(CSVFile soundCSV, String[] res) {
@@ -35,7 +69,7 @@ class SoundGame extends Quiz {
     }
 
     boolean doSound(Sound sound, String answer, int tour){
-        int trys = 3;
+        int trys = 2;
         String toCheck;
         boolean res = false;
         debug("Sound is running...");
@@ -44,7 +78,7 @@ class SoundGame extends Quiz {
             myClearScreen();
             println("Animal n°" + tour);
             println("De quel animal sagit-il ?");
-            println("Il te reste " + trys + " essais !");
+            println("Tu as " + trys + " essais !");
             println("Entrez votre réponse : ");
             toCheck = toLowerCase(enterText());
             if(!equals(answer, toCheck)){
@@ -56,6 +90,5 @@ class SoundGame extends Quiz {
         }
         return res;
     }
-    
 
 }
