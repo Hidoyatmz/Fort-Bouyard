@@ -3,7 +3,7 @@ import extensions.*;
 class SoundGame extends Quiz {
     final String SOUNDGAMECSV = "soundgame.csv";
     Epreuve initSoundGame() {
-        return newEpreuve("SoundGame", -1, "Vous devez trouver 3 animaux sur les 5 joués !", GameState.KEYS);
+        return newEpreuve(1, "SoundGame", -1, "Vous devez trouver 3 animaux sur les 5 joués !", GameState.KEYS);
     }
 
     boolean startSoundGame(Epreuve soundgame, Game game){

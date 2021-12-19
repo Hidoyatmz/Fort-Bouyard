@@ -3,7 +3,7 @@ import extensions.*;
 class Quiz extends EpreuvesCreator {
     final String CHARADECSV = "charades.csv";
     Epreuve initQuiz() {
-        return newEpreuve("Quiz", -1, "Ya pas", GameState.KEYS);
+        return newEpreuve(0, "Quiz", -1, "Ya pas", GameState.KEYS);
     }
 
     boolean startQuiz(Epreuve quiz, Game game){
