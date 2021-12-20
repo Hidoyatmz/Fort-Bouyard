@@ -201,6 +201,9 @@ class Main extends GameManager {
     // TODO CREATION ET SELECTION EPREUVES
 
     void initEpreuves(Game game) {
+        Epreuve[] generals = new Epreuve[]{initQuiz(), initSoundGame()};
+        Epreuve[] jugements = new Epreuves[1];
+        Epreuve[] conseils = new Epreuve[1];
         game.epreuves = new Epreuve[4];
         game.epreuves[0] = initQuiz();
         game.epreuves[1] = initSoundGame();
