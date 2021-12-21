@@ -6,6 +6,10 @@ class Main extends GameManager {
     final String WORDSCSV = "words.csv";
     final String LEADERBOARDCSV = "leaderboard.csv";
     final String[] DEPENDENCIES = new String[]{WORDSCSV, CHARADECSV, SOUNDGAMECSV};
+    final int MAXEPREUVESKEY = 4;
+    final int MAXEPREUVESJUGEMENT = 2;
+    final int MAXEPREUVESINDICES = 5;
+    final int MAXEPREUVESCONSEIL = 3;
 
     void algorithm() {
         myClearScreen();
@@ -204,10 +208,36 @@ class Main extends GameManager {
         Epreuve[] generals = new Epreuve[]{initQuiz(), initSoundGame()};
         Epreuve[] jugements = new Epreuves[1];
         Epreuve[] conseils = new Epreuve[1];
-        game.epreuves = new Epreuve[4];
+        game.epreuves = new Epreuve[MAXEPREUVESKEY + MAXEPREUVESJUGEMENT + MAXEPREUVESINDICES + MAXEPREUVESCONSEIL];
+        /*int i = 0;
+        randomEpreuves(game, i, generals, MAXEPREUVESKEY);
+        i = i + MAXEPREUVESKEY;
+        randomEpreuves(game, i, jugements, MAXEPREUVESJUGEMENT);
+        i = i + MAXEPREUVESJUGEMENT;
+        randomEpreuves(game, i, generals, MAXEPREUVESINDICES);
+        i = i + MAXEPREUVESINDICES;
+        randomEpreuves(game, i, conseils, MAXEPREUVESCONSEIL);*/
         game.epreuves[0] = initQuiz();
         game.epreuves[1] = initSoundGame();
     }
     
+    // A TESTER QUAND IL Y AURA ASSEZ DEPREUVES
+    void randomEpreuves(Game game, int startIndex, Epreuve[] epreuves, int maxEpreuves) {
+        int r;
+        Epreuve tmp;
+        int lastIndex = length(epreuves)-1;
+        for(int i=0; i<maxEpreuves; i++) {
+            r = (int) (random()*(lastIndex-i));
+            tmp = epreuves[r];
+            epreuves[r] = epreuves[lastIndex-i];
+            epreuves[lastIndex-i] = tmp;
+        }
+        for(int i=startIndex; i<maxEpreuves; i++) {
+            setEpreuve(game.epreuves, epreuves[lastIndex-i], i);
+        }
+    }
 
+    void setEpreuve(Epreuve[] epreuves, Epreuve epreuve, int index) {
+        epreuves[index] = epreuve;
+    }
 }
