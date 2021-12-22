@@ -1,4 +1,4 @@
-class GameManager extends SoundGame {
+class GameManager extends PileOuFace {
 
     void startGame(Game game) {
         myClearScreen();
@@ -6,6 +6,7 @@ class GameManager extends SoundGame {
         delay(2000);
         startEpreuve(game, game.epreuves[0]);
         startEpreuve(game, game.epreuves[1]);
+        startEpreuve(game, game.epreuves[2]);
     }
 
     void startEpreuve(Game game, Epreuve epreuve) {
@@ -14,6 +15,9 @@ class GameManager extends SoundGame {
         }
         else if(epreuve.id == 1) {
             startSoundGame(epreuve, game);
+        }
+        else if(epreuve.id == 2) {
+            startPileOuFace(epreuve, game);
         }
     }
     
