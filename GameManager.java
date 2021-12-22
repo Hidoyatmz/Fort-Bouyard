@@ -4,6 +4,8 @@ class GameManager extends SoundGame {
         myClearScreen();
         println("Et tout de suite : UN NOUVEAU JEU !");
         delay(2000);
+        startEpreuve(game, game.epreuves[0]);
+        startEpreuve(game, game.epreuves[1]);
     }
 
     void startEpreuve(Game game, Epreuve epreuve) {

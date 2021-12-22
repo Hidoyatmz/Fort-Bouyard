@@ -36,8 +36,6 @@ class Main extends GameManager {
                 Team team = registerTeam();
                 Game g = newGame(team);
                 startGame(g);
-                startQuiz(g.epreuves[0], g);
-                startSoundGame(g.epreuves[1], g);
             } else if(choice == 1) {
                 displayLeaderboard();
             } else if(choice == 2) {
@@ -206,7 +204,7 @@ class Main extends GameManager {
 
     void initEpreuves(Game game) {
         Epreuve[] generals = new Epreuve[]{initQuiz(), initSoundGame()};
-        Epreuve[] jugements = new Epreuves[1];
+        Epreuve[] jugements = new Epreuve[1];
         Epreuve[] conseils = new Epreuve[1];
         game.epreuves = new Epreuve[MAXEPREUVESKEY + MAXEPREUVESJUGEMENT + MAXEPREUVESINDICES + MAXEPREUVESCONSEIL];
         /*int i = 0;
@@ -217,8 +215,8 @@ class Main extends GameManager {
         randomEpreuves(game, i, generals, MAXEPREUVESINDICES);
         i = i + MAXEPREUVESINDICES;
         randomEpreuves(game, i, conseils, MAXEPREUVESCONSEIL);*/
-        game.epreuves[0] = initQuiz();
-        game.epreuves[1] = initSoundGame();
+        game.epreuves[0] = generals[0];
+        game.epreuves[1] = generals[1];
     }
     
     // A TESTER QUAND IL Y AURA ASSEZ DEPREUVES
@@ -233,11 +231,7 @@ class Main extends GameManager {
             epreuves[lastIndex-i] = tmp;
         }
         for(int i=startIndex; i<maxEpreuves; i++) {
-            setEpreuve(game.epreuves, epreuves[lastIndex-i], i);
+            game.epreuves[i] = epreuves[lastIndex-i];
         }
-    }
-
-    void setEpreuve(Epreuve[] epreuves, Epreuve epreuve, int index) {
-        epreuves[index] = epreuve;
     }
 }

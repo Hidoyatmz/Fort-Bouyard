@@ -2,6 +2,7 @@ import extensions.*;
 
 class Quiz extends EpreuvesCreator {
     final String CHARADECSV = "charades.csv";
+    
     Epreuve initQuiz() {
         return newEpreuve(0, "Quiz", -1, "Ya pas", GameState.KEYS);
     }
