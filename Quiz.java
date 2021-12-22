@@ -1,6 +1,6 @@
 import extensions.*;
 
-class Quiz extends EpreuvesCreator {
+class Quiz extends Fakir {
     final String CHARADECSV = "charades.csv";
     
     Epreuve initQuiz() {

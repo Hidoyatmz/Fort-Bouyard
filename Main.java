@@ -204,7 +204,7 @@ class Main extends GameManager {
 
     void initEpreuves(Game game) {
         Epreuve[] generals = new Epreuve[]{initQuiz(), initSoundGame()};
-        Epreuve[] jugements = new Epreuve[]{initPileOuFace()};
+        Epreuve[] jugements = new Epreuve[]{initPileOuFace(), initFakir()};
         Epreuve[] conseils = new Epreuve[1];
         game.epreuves = new Epreuve[MAXEPREUVESKEY + MAXEPREUVESJUGEMENT + MAXEPREUVESINDICES + MAXEPREUVESCONSEIL];
         /*int i = 0;
