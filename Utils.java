@@ -27,7 +27,7 @@ class Utils extends Program {
     }
 
     int randInt(int min, int max){
-        return (int) (random()*(max-min)+min);
+        return (int) (random()*((max+1)-min)+min);
     }
 
     void debug(String s){

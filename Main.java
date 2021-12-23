@@ -178,7 +178,7 @@ class Main extends GameManager {
 
     void generateCode(Game game){
         CSVFile words = loadCSV(WORDSCSV);
-        int line = randInt(1, rowCount(words));
+        int line = randInt(1, rowCount(words)-1);
         game.motCode = getCell(words, line, 0);
         game.indices = new Indice[6];
         for(int i = 1; i < columnCount(words); i++){
@@ -204,7 +204,7 @@ class Main extends GameManager {
 
     void initEpreuves(Game game) {
         Epreuve[] generals = new Epreuve[]{initQuiz(), initSoundGame()};
-        Epreuve[] jugements = new Epreuve[]{initPileOuFace(), initFakir()};
+        Epreuve[] jugements = new Epreuve[]{initPileOuFace(), initFakir(), initShiFuMi()};
         Epreuve[] conseils = new Epreuve[1];
         game.epreuves = new Epreuve[MAXEPREUVESKEY + MAXEPREUVESJUGEMENT + MAXEPREUVESINDICES + MAXEPREUVESCONSEIL];
         /*int i = 0;
@@ -218,6 +218,7 @@ class Main extends GameManager {
         game.epreuves[0] = generals[0];
         game.epreuves[1] = generals[1];
         game.epreuves[2] = jugements[0];
+        game.epreuves[3] = jugements[2];
     }
     
     // A TESTER QUAND IL Y AURA ASSEZ DEPREUVES

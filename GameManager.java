@@ -7,6 +7,7 @@ class GameManager extends PileOuFace {
         startEpreuve(game, game.epreuves[0]);
         startEpreuve(game, game.epreuves[1]);
         startEpreuve(game, game.epreuves[2]);
+        startEpreuve(game, game.epreuves[3]);
     }
 
     void startEpreuve(Game game, Epreuve epreuve) {
@@ -18,6 +19,12 @@ class GameManager extends PileOuFace {
         }
         else if(epreuve.id == 2) {
             startPileOuFace(epreuve, game);
+        }
+        else if(epreuve.id == 3) {
+            startFakir(epreuve, game);
+        }
+        else if(epreuve.id == 4) {
+            startShiFuMi(epreuve, game);
         }
     }
     
