@@ -1,4 +1,4 @@
-class GameManager extends PileOuFace {
+class GameManager extends Quiz {
 
     void startGame(Game game) {
         myClearScreen();

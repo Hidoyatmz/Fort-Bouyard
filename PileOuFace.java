@@ -1,4 +1,4 @@
-class PileOuFace extends SoundGame {
+class PileOuFace extends Shifumi {
 
     Epreuve initPileOuFace() {
         return newEpreuve(2, "Pile Ou Face", -1, "Epreuve de chance : choisis de quel côté la pièce tombera.", GameState.JUGEMENT);
@@ -13,6 +13,7 @@ class PileOuFace extends SoundGame {
             res = enterNumber();
         } while(!isBetween(res, 1, 2));
         int r = randInt(1, 2);
+        println("La pièce est tombé sur " + getFace(r));
         if(r == res) {
             wonEpreuve(game);
         } else {
@@ -20,6 +21,12 @@ class PileOuFace extends SoundGame {
         }
         delay(5000);
         return true;
+    }
+
+    String getFace(int n) {
+        String res = "Face";
+        if(n == 1) res = "Pile";
+        return res;
     }
 
     void wonEpreuve(Game game){

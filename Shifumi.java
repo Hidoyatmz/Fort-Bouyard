@@ -16,15 +16,34 @@ class Shifumi extends EpreuvesCreator {
                 res = enterNumber();
             } while(!isBetween(res, 1, 3));
             r = randInt(1, 3);
+            println("Tu as joué " + getCoups(res));
+            println("Le robot a joué " + getCoups(r));
             updateWinLose(winLose, res, r);
-            delay(3000);
+            delay(2000);
         }
+        printWinner(winLose);
         delay(5000);
         return true;
     }
 
+    void printWinner(int[] winLose) {
+        if(winLose[0] > winLose[1]) {
+            println("Bien jouer tu remportes la partie !");
+        } else {
+            println("Dommage ! Le robot remporte la partie");
+        }
+    }
+
     boolean shiFuMiFinish(int[] winLose) {
         return winLose[0] == 3 || winLose[1] == 3;
+    }
+
+    String getCoups(int n) {
+        String res;
+        if(n == 1) res = "Pierre";
+        else if(n == 2) res = "Ciseaux";
+        else res = "Papier";
+        return res;
     }
 
     void updateWinLose(int[] winLose, int player, int robot) {

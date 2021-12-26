@@ -1,6 +1,6 @@
 import extensions.*;
 
-class Quiz extends Fakir {
+class Quiz extends SoundGame {
     final String CHARADECSV = "charades.csv";
     
     Epreuve initQuiz() {
