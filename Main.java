@@ -61,22 +61,19 @@ class Main extends GameManager {
         myClearScreen();
         CSVFile csv = loadCSV(LEADERBOARDCSV);
         printLeaderboard(csv, 10);
-        info("\nAppuyez sur entrée pour continuer.");
-        readString();
+        pressEnterToContinue();
     }
 
     void displayRules(){
         myClearScreen();
         printTxt("Regles.txt");
-        info("Appuyez sur entrée pour continuer.");
-        readString();
+        pressEnterToContinue();
     }
 
     void displayCredits() {
         myClearScreen();
         printTxt("Credits.txt");
-        info("Appuyez sur entrée pour continuer.");
-        readString();
+        pressEnterToContinue();
     }
 
     void printMenu() {
@@ -102,6 +99,7 @@ class Main extends GameManager {
         for(int row = 1; row <= maxRows; row++) {
             println(row + " - " + getCell(csv, row, 0) + " - " + getCell(csv, row, 1));
         }
+        println("");
     }
     
     void println(String[] s){

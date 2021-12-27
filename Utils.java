@@ -116,4 +116,9 @@ class Utils extends Program {
         indice.found = true;
     }
 
+    void pressEnterToContinue() {
+        info("Appuyez sur entrée pour continuer.");
+        readString();
+    }
+
 }
