@@ -218,7 +218,8 @@ class Main extends GameManager {
         game.epreuves[0] = generals[0];
         game.epreuves[1] = generals[1];
         game.epreuves[2] = jugements[0];
-        game.epreuves[3] = jugements[2];
+        game.epreuves[3] = jugements[1];
+        game.epreuves[4] = jugements[2];
     }
     
     // A TESTER QUAND IL Y AURA ASSEZ DEPREUVES
