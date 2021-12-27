@@ -1,14 +1,20 @@
 class GameManager extends Quiz {
 
+    final int MAXEPREUVESKEY = 4;
+    final int MAXEPREUVESJUGEMENT = 2;
+    final int MAXEPREUVESINDICES = 5;
+    final int MAXEPREUVESCONSEIL = 3;
+
     void startGame(Game game) {
         myClearScreen();
-        println("Et tout de suite : UN NOUVEAU JEU !");
-        delay(2000);
+        println("Epreuves des clés !");
+        println("Ton but est de " + ANSI_RED + "ramasser un maximum de clés !" + ANSI_RESET);
+        delay(5000);
         /*
             TODO
-            - LA BOUCLE DE JEU
+            - LA BOUCLE DE JEU -- PAS FAIT
             - ASSIGNER UN JOUEUR A L'EPREUVE (TIRER ALEATOIREMENT PARMIS LES JOUEURS QUI NE SONT PAS EN PRISON) -- FAIT
-            - L'EPREUVE RETOURNE TRUE SI LE JOUEUR A REUSSI SINON FALSE ET L'ENVOIE EN PRISON
+            - L'EPREUVE RETOURNE TRUE SI LE JOUEUR A REUSSI SINON FALSE ET L'ENVOIE EN PRISON -- EN COURS
         */
         //startEpreuve(game, game.epreuves[0]);
         //startEpreuve(game, game.epreuves[1]);
@@ -17,23 +23,25 @@ class GameManager extends Quiz {
         //startEpreuve(game, game.epreuves[4]);
     }
 
-    void startEpreuve(Game game, Epreuve epreuve) {
+    boolean startEpreuve(Game game, Epreuve epreuve) {
+        boolean res = false;
         initEpreuve(game, epreuve);
         if(epreuve.id == 0) {
-            startQuiz(epreuve, game);
+            res = startQuiz(epreuve, game);
         }
         else if(epreuve.id == 1) {
-            startSoundGame(epreuve, game);
+            res = startSoundGame(epreuve, game);
         }
         else if(epreuve.id == 2) {
-            startPileOuFace(epreuve, game);
+            res = startPileOuFace(epreuve, game);
         }
         else if(epreuve.id == 3) {
-            startFakir(epreuve, game);
+            res = startFakir(epreuve, game);
         }
         else if(epreuve.id == 4) {
-            startShiFuMi(epreuve, game);
+            res = startShiFuMi(epreuve, game);
         }
+        return res;
     }
 
     void initEpreuve(Game game, Epreuve epreuve) {

@@ -6,10 +6,6 @@ class Main extends GameManager {
     final String WORDSCSV = "words.csv";
     final String LEADERBOARDCSV = "leaderboard.csv";
     final String[] DEPENDENCIES = new String[]{WORDSCSV, CHARADECSV, SOUNDGAMECSV};
-    final int MAXEPREUVESKEY = 4;
-    final int MAXEPREUVESJUGEMENT = 2;
-    final int MAXEPREUVESINDICES = 5;
-    final int MAXEPREUVESCONSEIL = 3;
 
     void algorithm() {
         myClearScreen();
