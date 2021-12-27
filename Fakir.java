@@ -42,10 +42,6 @@ class Fakir extends PileOuFace {
         return true;
     }
 
-    enum FakirItems {
-        VIDE, BILLE, BARRE, TROU_BLANC, TROU_BLEU, TROU_ALL;
-    }
-
     boolean fakirWin(FakirItems predit, FakirItems atteri) {
         boolean res = false;
         if(atteri == FakirItems.TROU_ALL || predit == atteri) {
