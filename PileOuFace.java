@@ -14,28 +14,13 @@ class PileOuFace extends Shifumi {
         } while(!isBetween(res, 1, 2));
         int r = randInt(1, 2);
         println("La pièce est tombé sur " + getFace(r));
-        if(r == res) {
-            wonEpreuve(game);
-        } else {
-            lostEpreuve(game);
-        }
-        delay(5000);
-        return true;
+        return r == res;
     }
 
     String getFace(int n) {
         String res = "Face";
         if(n == 1) res = "Pile";
         return res;
-    }
-
-    void wonEpreuve(Game game){
-        game.nbKeys = game.nbKeys + 1;
-        println("Félicitation jeune padawan, tu as gagné une clef pour ton équipe !\nVous avez maintenant " + game.nbKeys + "/4 clefs !");
-    }
-
-    void lostEpreuve(Game game){
-        println("C'est perdu.. Quel dommage ahah !\nNe perdez pas le rythme ! Il vous faut encore " + (4-game.nbKeys) + " clefs");
     }
     
 }

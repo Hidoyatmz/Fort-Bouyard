@@ -38,8 +38,7 @@ class Fakir extends PileOuFace {
         } else {
             println("Tu as perdu !");
         }
-        delay(20*1000);
-        return true;
+        return win;
     }
 
     boolean fakirWin(FakirItems predit, FakirItems atteri) {

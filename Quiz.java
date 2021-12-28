@@ -19,22 +19,7 @@ class Quiz extends SoundGame {
                 trys = trys - 1;
             }
         } while(!isCharadeValidAnswer(answer, charade) && trys > 0);
-        if(trys > 0){
-            wonQuiz(game);
-        } else {
-            lostQuiz(game);
-        }
-        delay(3000);
-        return true;
-    }
-
-    void wonQuiz(Game game){
-        game.nbKeys = game.nbKeys + 1;
-        println("Félicitation jeune padawan, tu as gagné une clef pour ton équipe !\nVous avez maintenant " + game.nbKeys + "/4 clefs !");
-    }
-
-    void lostQuiz(Game game){
-        println("C'est perdu.. Quel dommage ahah !\nNe perdez pas le rythme ! Il vous faut encore " + (4-game.nbKeys) + " clefs");
+        return trys > 0;
     }
 
     void printIntro(Epreuve quiz, String[] charade) {

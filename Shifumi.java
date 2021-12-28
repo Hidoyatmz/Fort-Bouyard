@@ -22,8 +22,7 @@ class Shifumi extends EpreuvesCreator {
             delay(2000);
         }
         printWinner(winLose);
-        delay(5000);
-        return true;
+        return winLose[0] > winLose[1];
     }
 
     void printWinner(int[] winLose) {

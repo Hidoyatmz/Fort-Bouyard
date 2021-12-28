@@ -28,13 +28,7 @@ class SoundGame extends Fakir {
             delay(1500);
             tour = tour +1;
         }
-        if(userWon(goodAnswers, answers)){
-            wonSoundGame(game);
-        } else {
-            lostSoundGame(game);
-        }
-        delay(3000);
-        return true;
+        return userWon(goodAnswers, answers);
     }
 
     void introSoundGame(Epreuve soundgame){
@@ -42,15 +36,6 @@ class SoundGame extends Fakir {
         println("Bonjour et bienvenue au " + soundgame.name);
         println("Règles : " + soundgame.rules);
         delay(3000);
-    }
-
-    void wonSoundGame(Game game){
-        game.nbKeys = game.nbKeys + 1;
-        println("Félicitation jeune padawan, tu as gagné une clef pour ton équipe !\nVous avez maintenant " + game.nbKeys + "/4 clefs !");
-    }
-
-    void lostSoundGame(Game game){
-        println("C'est perdu.. Quel dommage ahah !\nNe perdez pas le rythme ! Il vous faut encore " + (4-game.nbKeys) + " clefs");
     }
 
     boolean userWon(int goodAnswers, String[] answers){
