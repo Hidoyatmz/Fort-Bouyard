@@ -7,27 +7,31 @@ class SoundGame extends Fakir {
     }
 
     boolean startSoundGame(Epreuve soundgame, Game game){
-        CSVFile soundCSV = loadCSV(SOUNDGAMECSV);
+        CSVFile soundCSV = myLoadCSV(SOUNDGAMECSV);
         String[] answers = new String[rowCount(soundCSV)-1];
         Sound[] sounds = registerSounds(soundCSV, answers);
-        int tour = 1;
+        int tour = 0;
         int goodAnswers = 0;
         introSoundGame(soundgame);
-        for(int i = 0; i < length(answers); i++){
-            boolean found = doSound(sounds[i], answers[i], tour);
+        /* @TODO :
+            -- Shuffle les sounds au début du lancement
+            -- En jouer que 5.
+        */
+        do {
+            boolean found = doSound(sounds[tour], answers[tour], tour);
             myClearScreen();
             if(found){
-                println("Bravo ! C'était bien un(e) " + answers[i]);
+                println("Bravo ! C'était bien un(e) " + answers[tour]);
                 goodAnswers += 1;
             } else {
-                println("Pas de chance ! La réponse était : " + answers[i]);
+                println("Pas de chance ! La réponse était : " + answers[tour]);
             }
-            if(i < length(answers)-1 ){
+            if(tour < length(answers)-1 ){
                 println("Passons au prochain animal !");
             }
             delay(1500);
             tour = tour +1;
-        }
+        } while(!userWon(goodAnswers, answers) && tour < length(answers));
         return userWon(goodAnswers, answers);
     }
 
@@ -39,15 +43,15 @@ class SoundGame extends Fakir {
     }
 
     boolean userWon(int goodAnswers, String[] answers){
-        return goodAnswers >= ((length(answers)/2) + 1);
+        return goodAnswers >= 3;
     }
 
     Sound[] registerSounds(CSVFile soundCSV, String[] res) {
         int rowCount = rowCount(soundCSV);
-        int colCount = columnCount(soundCSV);
+        // int colCount = columnCount(soundCSV);
         Sound[] sounds = new Sound[rowCount-1];
         for(int i = 1; i < rowCount; i++){
-            sounds[i-1] = newSound("sounds/" + getCell(soundCSV, i, 0));
+            sounds[i-1] = newSound("../ressources/sounds/" + getCell(soundCSV, i, 0));
             res[i-1] = toLowerCase(getCell(soundCSV, i, 1));
         }
         return sounds;
@@ -61,7 +65,7 @@ class SoundGame extends Fakir {
         play(sound);
         do{
             myClearScreen();
-            println("Animal n°" + tour);
+            println("Animal n°" + (tour + 1));
             println("De quel animal sagit-il ?");
             println("Tu as " + ANSI_RED + trys + ANSI_RESET + " essais !");
             println("Entrez votre réponse : ");

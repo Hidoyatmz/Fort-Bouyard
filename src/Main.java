@@ -55,20 +55,20 @@ class Main extends GameManager {
 
     void displayLeaderboard() {
         myClearScreen();
-        CSVFile csv = loadCSV(LEADERBOARDCSV);
+        CSVFile csv = myLoadCSV(LEADERBOARDCSV);
         printLeaderboard(csv, 10);
         pressEnterToContinue();
     }
 
     void displayRules(){
         myClearScreen();
-        printTxt("Regles.txt");
+        printTxt("../ressources/rules.txt");
         pressEnterToContinue();
     }
 
     void displayCredits() {
         myClearScreen();
-        printTxt("Credits.txt");
+        printTxt("../ressources/credits.txt");
         pressEnterToContinue();
     }
 
@@ -171,7 +171,7 @@ class Main extends GameManager {
     }
 
     void generateCode(Game game){
-        CSVFile words = loadCSV(WORDSCSV);
+        CSVFile words = myLoadCSV(WORDSCSV);
         int line = randInt(1, rowCount(words)-1);
         game.motCode = getCell(words, line, 0);
         game.indices = new Indice[6];

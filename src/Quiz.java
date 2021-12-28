@@ -44,7 +44,7 @@ class Quiz extends SoundGame {
     }
 
     String[] getRandomCharade(String filename) {
-        CSVFile charades = loadCSV(CHARADECSV);
+        CSVFile charades = myLoadCSV(CHARADECSV);
         String[] res = new String[rowCount(charades)-1];
         int line = randInt(1, rowCount(charades));
         for(int i = 0; i < length(res); i++){

@@ -66,7 +66,7 @@ class Utils extends Program {
     }
 
     boolean csvFileExist(String filename){
-        String[] files = getAllFilesFromCurrentDirectory();
+        String[] files = getAllFilesFromDirectory("../ressources/csv");
         boolean exist = false;
         int i = 0;
         while(i < length(files) && !exist){
@@ -76,6 +76,10 @@ class Utils extends Program {
             i++;
         }
         return exist;
+    }
+
+    CSVFile myLoadCSV(String filename){
+        return loadCSV("../ressources/csv/" + filename);
     }
 
     int enterNumber() {
