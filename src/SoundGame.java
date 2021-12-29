@@ -1,9 +1,9 @@
 import extensions.*;
 
-class SoundGame extends Fakir {
+class SoundGame extends PipeGame {
     final String SOUNDGAMECSV = "soundgame.csv";
     Epreuve initSoundGame() {
-        return newEpreuve(1, "SoundGame", -1, "Vous devez trouver 3 animaux sur les 5 joués !", GameState.KEYS);
+        return newEpreuve(2, "SoundGame", -1, "Vous devez trouver 3 animaux sur les 5 joués !", GameState.KEYS);
     }
 
     boolean startSoundGame(Epreuve soundgame, Game game){

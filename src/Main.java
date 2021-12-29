@@ -197,8 +197,8 @@ class Main extends GameManager {
     // TODO CREATION ET SELECTION EPREUVES
 
     void initEpreuves(Game game) {
-        Epreuve[] generals = new Epreuve[]{initQuiz(), initSoundGame()};
-        Epreuve[] jugements = new Epreuve[]{initPileOuFace(), initFakir(), initShiFuMi()};
+        Epreuve[] generals = new Epreuve[]{initQuiz(), initPipeGame(), initSoundGame()};
+        Epreuve[] jugements = new Epreuve[]{initFakir(), initPileOuFace(), initShiFuMi()};
         Epreuve[] conseils = new Epreuve[1];
         game.epreuves = new Epreuve[MAXEPREUVESKEY + MAXEPREUVESJUGEMENT + MAXEPREUVESINDICES + MAXEPREUVESCONSEIL];
         /*int i = 0;

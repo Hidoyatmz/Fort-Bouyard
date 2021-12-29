@@ -95,15 +95,18 @@ class GameManager extends Quiz {
             res = startQuiz(epreuve, game);
         }
         else if(epreuve.id == 1) {
-            res = startSoundGame(epreuve, game);
+            res = startPipeGame(epreuve, game);
         }
         else if(epreuve.id == 2) {
-            res = startPileOuFace(epreuve, game);
+            res = startSoundGame(epreuve, game);
         }
         else if(epreuve.id == 3) {
-            res = startFakir(epreuve, game);
+            res = startPileOuFace(epreuve, game);
         }
         else if(epreuve.id == 4) {
+            res = startFakir(epreuve, game);
+        }
+        else if(epreuve.id == 5) {
             res = startShiFuMi(epreuve, game);
         }
         return res;

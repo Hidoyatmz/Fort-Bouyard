@@ -1,7 +1,7 @@
 class Shifumi extends EpreuvesCreator {
     
     Epreuve initShiFuMi() {
-        return newEpreuve(4, "ShiFuMi", -1, "Choisis soit la pierre, le papier ou les ciseaux. La pierre bat les ciseaux, les ciseaux battent le papier et le papier bat la pierre. Le premier qui gagne 3 manches remporte la victoire !", GameState.JUGEMENT);
+        return newEpreuve(5, "ShiFuMi", -1, "Choisis soit la pierre, le papier ou les ciseaux. La pierre bat les ciseaux, les ciseaux battent le papier et le papier bat la pierre. Le premier qui gagne 3 manches remporte la victoire !", GameState.JUGEMENT);
     }
 
     boolean startShiFuMi(Epreuve epreuve, Game game) {
