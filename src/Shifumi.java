@@ -64,13 +64,4 @@ class Shifumi extends Maths {
         println("2 - Ciseaux");
         println("3 - Papier");
     }
-
-    void wonEpreuve(Game game){
-        game.nbKeys = game.nbKeys + 1;
-        println("Félicitation jeune padawan, tu as gagné une clef pour ton équipe !\nVous avez maintenant " + game.nbKeys + "/4 clefs !");
-    }
-
-    void lostEpreuve(Game game){
-        println("C'est perdu.. Quel dommage ahah !\nNe perdez pas le rythme ! Il vous faut encore " + (4-game.nbKeys) + " clefs");
-    }
 }
