@@ -211,7 +211,7 @@ class Main extends GameManager {
         randomEpreuves(game, i, conseils, MAXEPREUVESCONSEIL);*/
         // game.epreuves[0] = generals[0];
         //game.epreuves[0] = generals[2];
-        game.epreuves[0] = generals[3];
+        game.epreuves[0] = generals[1];
         game.epreuves[1] = generals[1];
         game.epreuves[2] = jugements[0];
         game.epreuves[3] = jugements[1];
