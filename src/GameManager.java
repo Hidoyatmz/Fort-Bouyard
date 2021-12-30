@@ -109,6 +109,9 @@ class GameManager extends Quiz {
         else if(epreuve.id == 5) {
             res = startShiFuMi(epreuve, game);
         }
+        else if(epreuve.id == 6) {
+            res = startMathematix(epreuve, game);
+        }
         return res;
     }
 

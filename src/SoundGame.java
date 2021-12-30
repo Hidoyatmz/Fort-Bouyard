@@ -1,9 +1,10 @@
-import extensions.*;
 /**
  * @STATUS          : 100% COMPLETED;
  * @TODO            : ---
  * @OPTIMIZATION    : NOT DONE
  */
+
+import extensions.*;
 class SoundGame extends PipeGame {
     final String SOUNDGAMECSV = "soundgame.csv";
     Epreuve initSoundGame() {

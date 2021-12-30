@@ -38,6 +38,10 @@ class Utils extends Program {
         println(ANSI_CYAN + s + ANSI_RESET);
     }
 
+    void erreur(String s){
+        println(ANSI_RED + s + ANSI_RESET);
+    }
+
     String readTxt(String path) {
         File txt = newFile(path);
         String res = "";
@@ -129,6 +133,18 @@ class Utils extends Program {
         for(int i = 0; i < length(a); i++){
             println(a[i]);
         }
+    }
+
+    boolean inArray(int[] a, int x){
+        boolean found = false;
+        int i = 0;
+        do {
+            if(a[i] == x){
+                found = true;
+            }
+            i++;
+        } while(!found && i < length(a));
+        return found;
     }
 
 }
