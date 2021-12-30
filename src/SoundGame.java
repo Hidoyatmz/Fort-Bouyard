@@ -1,5 +1,9 @@
 import extensions.*;
-
+/**
+ * @STATUS          : 100% COMPLETED;
+ * @TODO            : ---
+ * @OPTIMIZATION    : NOT DONE
+ */
 class SoundGame extends PipeGame {
     final String SOUNDGAMECSV = "soundgame.csv";
     Epreuve initSoundGame() {
@@ -13,10 +17,9 @@ class SoundGame extends PipeGame {
         int tour = 0;
         int goodAnswers = 0;
         introSoundGame(soundgame);
-        /* @TODO :
-            -- Shuffle les sounds au début du lancement
-            -- En jouer que 5.
-        */
+        shuffleArrays(sounds,answers);
+        sounds = cutArray(0,4,sounds);
+        answers = cutArray(0,4,answers);
         do {
             boolean found = doSound(sounds[tour], answers[tour], tour);
             myClearScreen();
@@ -35,6 +38,40 @@ class SoundGame extends PipeGame {
         return userWon(goodAnswers, answers);
     }
 
+    Sound[] cutArray(int s, int e, Sound[] sounds) {
+        int size = e-s;
+        Sound[] newArray = new Sound[size+1];
+        for(int i = s; i <= e; i++){
+            newArray[i] = sounds[i];
+        }
+        return newArray;
+    }
+
+    String[] cutArray(int s, int e, String[] strings) {
+        int size = e-s;
+        String[] newArray = new String[size+1];
+        for(int i = s; i <= e; i++){
+            newArray[i] = strings[i];
+        }
+        return newArray;
+    }
+
+    void shuffleArrays(Sound[] sounds, String[] answers) {
+        int r;
+        int lenSounds = length(sounds);
+        Sound tempSound;
+        String tempString;
+        for(int i = 0; i < lenSounds; i++) {
+            r = randInt(0, lenSounds-1);
+            tempSound = sounds[r];
+            tempString = answers[r];
+            sounds[r] = sounds[i];
+            answers[r] = answers[i];
+            sounds[i] = tempSound;
+            answers[i] = tempString;
+        }
+    }
+
     void introSoundGame(Epreuve soundgame){
         myClearScreen();
         println("Bonjour et bienvenue au " + soundgame.name);
@@ -48,7 +85,6 @@ class SoundGame extends PipeGame {
 
     Sound[] registerSounds(CSVFile soundCSV, String[] res) {
         int rowCount = rowCount(soundCSV);
-        // int colCount = columnCount(soundCSV);
         Sound[] sounds = new Sound[rowCount-1];
         for(int i = 1; i < rowCount; i++){
             sounds[i-1] = newSound("../ressources/sounds/" + getCell(soundCSV, i, 0));

@@ -125,4 +125,10 @@ class Utils extends Program {
         readString();
     }
 
+    void println(String[] a){
+        for(int i = 0; i < length(a); i++){
+            println(a[i]);
+        }
+    }
+
 }
