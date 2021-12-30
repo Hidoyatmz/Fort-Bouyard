@@ -44,7 +44,7 @@ class Maths extends EpreuvesCreator {
     }
 
     String getRandomCompliment() {
-        final String[] compliments = new String[]{"Tu es très bon en calcul mentaux !", "Tu maîtrises les chiffres !"};
+        final String[] compliments = new String[]{"Tu es très bon en calcul mentaux !", "Tu maîtrises les chiffres !", "Ca se voit que tu es un bon élève !"};
         return compliments[(randInt(1,length(compliments))-1)];
     }
 
