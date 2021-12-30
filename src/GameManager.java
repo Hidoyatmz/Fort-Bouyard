@@ -11,7 +11,7 @@ class GameManager extends Quiz {
         myClearScreen();
         println("Epreuves des clés !");
         println("Ton but est de " + ANSI_RED + "ramasser un maximum de clés !" + ANSI_RESET);
-        println(ANSI_RED + "ATTENTION si tout les joueurs sont en prison, la partie s'arrete !" + ANSI_RESET);
+        println(ANSI_RED + "ATTENTION si tous les joueurs sont en prison, la partie s'arrête !" + ANSI_RESET);
         delay(5000);
         int epreuveIndex = 0;
         boolean success;
