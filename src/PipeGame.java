@@ -48,6 +48,7 @@ class PipeGame extends Fakir {
             }
             res = res + "\n";
         }
+        println(res);
     }
 
     String getStringPipe(Pipe pipe) {
