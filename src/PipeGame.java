@@ -33,21 +33,72 @@ class PipeGame extends Fakir {
         return files;
     }
 
-    Pipe[][] initPlateau(File file) {
+    void afficherMap(Pipe[][] plateau) {
         // DECODAGE MAP
         // 1er ligne : hauteur largeur
         // 0 -> VIDE
-        // 1 -> START
-        // 2 -> FIN
-        // 3 -> L
-        // 4 -> DROIT
-        // 5 -> CROIX
-        // 6 -> T
-        // N
-        // E
-        // S
-        // W
-        Pipe[][] res = new Pipe[0][0];
+        // 1 -> START  ⯌
+        // 2 -> FIN    ⊔ ⊏ ⊓ ⊐
+        // 3 -> L      ╚ ╔ ╗ ╝             ┗ ┏ ┓ ┛
+        // 4 -> DROIT  ═ ║                 ━ ┃
+        // 5 -> CROIX  ╬                   ╋
+        // 6 -> T      ╩ ╠ ╦ ╣             ┻ ┣ ┳ ┫
+        //             N E S W
+    }
+
+    Pipe[][] initPlateau(File file) {
+        String[][] map = loadMapFromFile(file);
+        Pipe[][] res = new Pipe[length(map, 1)][length(map, 2)];
+        for(int i=0; i<length(map, 1); i++) {
+            for(int j=0; j<length(map, 2); j++) {
+                initPipe(res, i, j, map[i][j]);
+            }
+        }
+        return res;
+    }
+
+    Pipe newPipe(PipeType pipeType, Direction direction, boolean energie, boolean bloquer) {
+        Pipe pipe = new Pipe();
+        pipe.pipeType = pipeType;
+        pipe.direction = direction;
+        pipe.energie = energie;
+        pipe.bloquer = bloquer;
+        return pipe;
+    }
+
+    void initPipe(Pipe[][] plateau, int l, int c, String code) {
+        int pipeTypeInt = getPipeType(code);
+        char dir = length(code) > 1 ? getDir(code) : ' ';
+        boolean energie = pipeTypeInt == 1 ? true : false;
+        boolean bloquer = length(code) == 3 ? true : false;
+        plateau[l][c] = newPipe(pipeFromInt(pipeTypeInt), dirFromCar(dir), energie, bloquer);
+    }
+
+    char getDir(String s) {
+        return charAt(s, 1);
+    }
+
+    int getPipeType(String s) {
+        return charAt(s, 0) - '0';
+    }
+
+    PipeType pipeFromInt(int n) {
+        PipeType res = PipeType.VOID;
+        if(n == 1) res = PipeType.START;
+        else if(n == 2) res = PipeType.END;
+        else if(n == 3) res = PipeType.L;
+        else if(n == 4) res = PipeType.DROIT;
+        else if(n == 5) res = PipeType.CROIX;
+        else if(n == 6) res = PipeType.T;
+        return res;
+    }
+
+    Direction dirFromCar(char c) {
+        Direction res = Direction.NULL;
+        if(c == 'N') res = Direction.N;
+        else if(c == 'E') res = Direction.E;
+        else if(c == 'S') res = Direction.S;
+        else if(c == 'W') res = Direction.W;
         return res;
     }
 

@@ -1,3 +1,3 @@
 enum Direction {
-    N, S, E, W, NE, NW, SE, SW;
+    NULL, N, S, E, W;
 }

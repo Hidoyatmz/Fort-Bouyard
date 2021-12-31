@@ -1,3 +1,3 @@
 enum PipeType {
-    VIDE, SOURCE, ARRIVER, DROIT, T, L, CROIX;
+    VOID, START, END, DROIT, T, L, CROIX;
 }
