@@ -44,9 +44,9 @@ class Roulette extends Fakir {
             res = equals(userChoice, ANSI_GREEN) ? true : false;
         }
         if(res){
-            println(ANSI_CURSOR_SHOW + ANSI_GREEN + "Bravo ! " + ANSI_RESET + " C'est gagné.");
+            println(ANSI_CURSOR_SHOW + ANSI_GREEN + "Bravo ! " + ANSI_RESET + "C'est gagné.");
         } else {
-            println(ANSI_CURSOR_SHOW + ANSI_RED + "Dommage ! " + ANSI_RESET + " C'est perdu.");
+            println(ANSI_CURSOR_SHOW + ANSI_RED + "Dommage ! " + ANSI_RESET + "C'est perdu.");
         }
         delay(2000);
         return res;

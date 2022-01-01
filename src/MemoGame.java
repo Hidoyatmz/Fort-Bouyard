@@ -6,7 +6,7 @@
  */
 
 import extensions.*;
-class MemoGame extends Roulette {
+class MemoGame extends Mastermind {
     final int SIZE = 8;
     Epreuve initMemoGame() {
         return newEpreuve(7, "MemoGame", -1, "Une combinaison de lettres s'affiche à l'écran, vous avez 10 secondes pour la mémoriser et la redonner dans l'ordre.\nSi le maître en mémorise plus que vous, vous perdez la manche.\nComptabilisez un score de 3/5 pour gagner la partie.", GameState.KEYS);

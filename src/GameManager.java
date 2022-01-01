@@ -118,6 +118,9 @@ class GameManager extends Quiz {
         else if(epreuve.id == 8) {
             res = startRoulette(epreuve, game);
         }
+        else if(epreuve.id == 9) {
+            res = startMastermind(epreuve, game);
+        }
         return res;
     }
 

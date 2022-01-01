@@ -2,11 +2,11 @@ import extensions.*;
 
 class Main extends GameManager {
 
-    final String[] mainMenu = new String[]{"Jouer", "Leaderboard", "Règles", "Crédits", "Quitter"};
+    final String[] mainMenu = new String[]{"Jouer", "Leaderboard", "Règles", "Crédits", "Activer la musique", "Quitter"};
     final String WORDSCSV = "words.csv";
     final String LEADERBOARDCSV = "leaderboard.csv";
     final String[] DEPENDENCIES = new String[]{WORDSCSV, CHARADECSV, SOUNDGAMECSV};
-
+    
     void algorithm() {
         myClearScreen();
 
@@ -42,7 +42,9 @@ class Main extends GameManager {
                 displayRules();
             } else if(choice == 3) {
                 displayCredits();
-            } else if (debug && choice == 5) {
+            } else if(choice == 4) {
+                playSound("../ressources/sounds/theme.mp3", true);
+            } else if (debug && choice == 6) {
                 Team team = registerTeam();
                 Game g = newGame(team);
                 for(int i = 0; i < length(g.epreuves); i++) {
@@ -98,7 +100,7 @@ class Main extends GameManager {
             println((i+1) + ". " + mainMenu[i]);
         }
         if(debug){
-            println("6. Test a minigame");
+            println("7. Test a minigame");
         }
     }
 
@@ -228,7 +230,7 @@ class Main extends GameManager {
     // TODO CREATION ET SELECTION EPREUVES
 
     void initEpreuves(Game game) {
-        Epreuve[] generals = new Epreuve[]{initRoulette(), initQuiz(), initPipeGame(), initSoundGame(), initMathematix(), initMemoGame()};
+        Epreuve[] generals = new Epreuve[]{initMastermind(), initRoulette(), initQuiz(), initPipeGame(), initSoundGame(), initMathematix(), initMemoGame()};
         Epreuve[] jugements = new Epreuve[]{initFakir(), initPileOuFace(), initShiFuMi()};
         //Epreuve[] conseils = new Epreuve[1];
         //game.epreuves = new Epreuve[MAXEPREUVESKEY + MAXEPREUVESJUGEMENT + MAXEPREUVESINDICES + MAXEPREUVESCONSEIL];

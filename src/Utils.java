@@ -172,6 +172,17 @@ class Utils extends Program {
         return found;
     }
 
+    void shuffleArray(String[] a) {
+        String temp;
+        int r;
+        for(int i = 0; i < length(a); i++) {
+            r = randInt(0, length(a)-1);
+            temp = a[r];
+            a[r] = a[i];
+            a[i] = temp;
+        }
+    }
+
     void testCountChar() {
         assertEquals(2, countChar("Bleu,Jaune,Rouge", ','));
     }
