@@ -1,7 +1,6 @@
 /**
  * @STATUS          : 90% COMPLETED;
- * @TODO            : Passer la saisie de askUserAnswer en readString pour éviter les plantages en cas de non entées
- *                    + Utiliser des symboles genre ⯌ ⯍ ⯁ ⯀ au lieu des lettres ?
+ * @TODO            : Ptet utiliser checkMastermind dans la boucle.
  * @OPTIMIZATION    : NOT DONE
  */
 
