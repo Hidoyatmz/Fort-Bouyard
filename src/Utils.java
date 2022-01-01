@@ -1,7 +1,7 @@
 import extensions.*;
 
 class Utils extends Program {
-    final boolean DEBUG = false;
+    boolean debug = false;
 
     void testIsBetween() {
         assertTrue(isBetween(5, 1, 10));
@@ -59,7 +59,7 @@ class Utils extends Program {
     }
 
     void myClearScreen(){
-        if(!DEBUG){
+        if(!debug){
             clearScreen();
             cursor(0,0);
         }
@@ -127,6 +127,14 @@ class Utils extends Program {
     void pressEnterToContinue() {
         info("Appuyez sur entrée pour continuer.");
         readString();
+    }
+
+    boolean customPressEnterToContinue() {
+        info("Appuyez sur entrée pour continuer.");
+        if(equals(readString(), "debugme")){
+            return true;
+        }
+        return false;
     }
 
     void println(String[] a){

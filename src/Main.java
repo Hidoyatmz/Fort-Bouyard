@@ -20,13 +20,17 @@ class Main extends GameManager {
         if(!csvFileExist(LEADERBOARDCSV)){
             createLeaderboardFile();
         }
-
+        
+        displayIntroGame();
+        myClearScreen();
         // MENU CHOIX
         boolean play = true;
         int choice;
         while(play){
             choice = choiceMenuOption()-1;
-            debug("User choiced : " + mainMenu[choice]);
+            if(!debug){
+                debug("User choiced : " + mainMenu[choice]);
+            }
             if(choice == 0) {
                 // TODO LANCEMENT DU JEU
                 Team team = registerTeam();
@@ -38,6 +42,15 @@ class Main extends GameManager {
                 displayRules();
             } else if(choice == 3) {
                 displayCredits();
+            } else if (debug && choice == 5) {
+                Team team = registerTeam();
+                Game g = newGame(team);
+                for(int i = 0; i < length(g.epreuves); i++) {
+                    println(i + " " + g.epreuves[i].name);
+                }
+                info("Entrez l'id du jeu à tester : ");
+                int debugGameId = enterNumber();
+                startEpreuve(g, g.epreuves[debugGameId]);
             } else {
                 play = false;
             }
@@ -45,6 +58,13 @@ class Main extends GameManager {
         myClearScreen();
         println("A bientôt !");
         delay(1000);
+    }
+
+    void displayIntroGame() {
+        println("Bienvenue dans Fort Bouyard !");
+        if(customPressEnterToContinue()){
+            debug = true;
+        }
     }
 
     void createLeaderboardFile(){
@@ -77,15 +97,19 @@ class Main extends GameManager {
         for(int i = 0; i < length(mainMenu); i++){
             println((i+1) + ". " + mainMenu[i]);
         }
+        if(debug){
+            println("6. Test a minigame");
+        }
     }
 
     int choiceMenuOption() {
         int choice;
+        int lenoptions = debug ? length(mainMenu) + 1 : length(mainMenu);
         printMenu();
         println("Entrez votre choix : ");
         do {
             choice = enterNumber();
-        } while(!isBetween(choice, 1, length(mainMenu)));
+        } while(!isBetween(choice, 1, lenoptions));
         return choice;
     }
 
@@ -119,25 +143,31 @@ class Main extends GameManager {
         String[] playersName;
 
         /* Ask player informations */
-        myClearScreen();
-        println("Entrez le nom de votre team :");
-        teamName = readString();
-        myClearScreen();
-        println("Entrez votre cri de guerre :");
-        teamCry = readString();
-        myClearScreen();
-        println("Combien de joueurs comporte votre équipe ? (minimum 2)");
-        do {
-            playersNumber = enterNumber();
-        } while(playersNumber < 2);
-
-        playersName = new String[playersNumber];
-        for(int i = 0; i < length(playersName); i++){
+        if(!debug){
             myClearScreen();
-            println("Entrez le nom du joueur n°" + (i+1));
-            playersName[i] = readString();
-        }
+            println("Entrez le nom de votre team :");
+            teamName = readString();
+            myClearScreen();
+            println("Entrez votre cri de guerre :");
+            teamCry = readString();
+            myClearScreen();
+            println("Combien de joueurs comporte votre équipe ? (minimum 2)");
+            do {
+                playersNumber = enterNumber();
+            } while(playersNumber < 2);
 
+            playersName = new String[playersNumber];
+            for(int i = 0; i < length(playersName); i++){
+                myClearScreen();
+                println("Entrez le nom du joueur n°" + (i+1));
+                playersName[i] = readString();
+            }
+        } else {
+            teamName = "DEBUG";
+            teamCry = "DEBUG";
+            playersNumber = 2;
+            playersName = new String[]{"Debug1", "Debug2"};
+        }
         return newTeam(teamName, teamCry, playersNumber, playersName);
     }
 
@@ -190,7 +220,8 @@ class Main extends GameManager {
                 res = false;
             }
         }
-        info("Votre jeu est corrompu, veuillez le télécharger à nouveau.");
+        if(!res)
+            info("Votre jeu est corrompu, veuillez le télécharger à nouveau.");
         return res;
     }
 
@@ -199,8 +230,9 @@ class Main extends GameManager {
     void initEpreuves(Game game) {
         Epreuve[] generals = new Epreuve[]{initQuiz(), initPipeGame(), initSoundGame(), initMathematix(), initMemoGame()};
         Epreuve[] jugements = new Epreuve[]{initFakir(), initPileOuFace(), initShiFuMi()};
-        Epreuve[] conseils = new Epreuve[1];
-        game.epreuves = new Epreuve[MAXEPREUVESKEY + MAXEPREUVESJUGEMENT + MAXEPREUVESINDICES + MAXEPREUVESCONSEIL];
+        //Epreuve[] conseils = new Epreuve[1];
+        //game.epreuves = new Epreuve[MAXEPREUVESKEY + MAXEPREUVESJUGEMENT + MAXEPREUVESINDICES + MAXEPREUVESCONSEIL];
+        game.epreuves = new Epreuve[length(generals) + length(jugements)];
         /*int i = 0;
         randomEpreuves(game, i, generals, MAXEPREUVESKEY);
         i = i + MAXEPREUVESKEY;
@@ -212,11 +244,20 @@ class Main extends GameManager {
         // game.epreuves[0] = generals[0];
         // game.epreuves[0] = generals[2];
         // game.epreuves[0] = generals[1];
-        game.epreuves[0] = generals[4];
-        game.epreuves[1] = generals[1];
-        game.epreuves[2] = jugements[0];
-        game.epreuves[3] = jugements[1];
-        game.epreuves[4] = jugements[2];
+        int indexEpreuve = 0;
+        for(int i = 0; i < length(generals); i++) {
+            game.epreuves[indexEpreuve] = generals[i];
+            indexEpreuve++;
+        }
+        for(int i = 0; i < length(jugements); i++) {
+            game.epreuves[indexEpreuve] = jugements[i];
+            indexEpreuve++;
+        }
+        // game.epreuves[0] = generals[4];
+        // game.epreuves[1] = generals[1];
+        // game.epreuves[2] = jugements[0];
+        // game.epreuves[3] = jugements[1];
+        // game.epreuves[4] = jugements[2];
     }
     
     // A TESTER QUAND IL Y AURA ASSEZ DEPREUVES
