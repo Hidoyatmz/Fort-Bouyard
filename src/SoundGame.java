@@ -17,7 +17,6 @@ class SoundGame extends PipeGame {
         Sound[] sounds = registerSounds(soundCSV, answers);
         int tour = 0;
         int goodAnswers = 0;
-        introSoundGame(soundgame);
         shuffleArrays(sounds,answers);
         sounds = cutArray(0,4,sounds);
         answers = cutArray(0,4,answers);
@@ -71,13 +70,6 @@ class SoundGame extends PipeGame {
             sounds[i] = tempSound;
             answers[i] = tempString;
         }
-    }
-
-    void introSoundGame(Epreuve soundgame){
-        myClearScreen();
-        println("Bonjour et bienvenue au " + soundgame.name);
-        println("Règles : " + soundgame.rules);
-        delay(3000);
     }
 
     boolean userWon(int goodAnswers, String[] answers){

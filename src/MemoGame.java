@@ -9,7 +9,7 @@ import extensions.*;
 class MemoGame extends Fakir {
     final int SIZE = 8;
     Epreuve initMemoGame() {
-        return newEpreuve(7, "MemoGame", -1, "Vous devez trouver 3 animaux sur les 5 joués !", GameState.KEYS);
+        return newEpreuve(7, "MemoGame", -1, "Une combinaison de lettres s'affiche à l'écran, vous avez 10 secondes pour la mémoriser et la redonner dans l'ordre. Si le maître en mémorise plus que vous, vous perdez la manche. Comptabilisez un score de 3/5 pour gagner la partie.", GameState.KEYS);
     }
 
     boolean startMemoGame(Epreuve epreuve, Game game) {

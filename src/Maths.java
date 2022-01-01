@@ -31,7 +31,7 @@ class Maths extends EpreuvesCreator {
             alive = doCalc(calc, tour);
             if(alive){
                 println(ANSI_GREEN + "Bravo ! "+ ANSI_RESET + getRandomCompliment());
-                if(tour < MAXCALC){
+                if(tour+1 < MAXCALC){
                     println("Passons au prochain calcul !");
                 }
             } else {
@@ -66,12 +66,6 @@ class Maths extends EpreuvesCreator {
         res[0] = getCell(mathematixCSV, r, 0);
         res[1] = getCell(mathematixCSV, r, 1);
         return res;
-    }
-    void introMathematix(Epreuve mathematix){
-        myClearScreen();
-        println("Bonjour et bienvenue au " + mathematix.name);
-        println("Règles : " + mathematix.rules);
-        delay(3000);
     }
 }
     
