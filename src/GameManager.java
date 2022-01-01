@@ -112,6 +112,9 @@ class GameManager extends Quiz {
         else if(epreuve.id == 6) {
             res = startMathematix(epreuve, game);
         }
+        else if(epreuve.id == 7) {
+            res = startMemoGame(epreuve, game);
+        }
         return res;
     }
 

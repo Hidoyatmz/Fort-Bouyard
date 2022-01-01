@@ -1,6 +1,6 @@
 import extensions.*;
 
-class PipeGame extends Fakir {
+class PipeGame extends MemoGame {
 
     final int MAPSPLAYCOUNT = 2;
     final Direction[] dirs = new Direction[]{Direction.N, Direction.E, Direction.S, Direction.W};

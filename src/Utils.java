@@ -152,6 +152,18 @@ class Utils extends Program {
         return found;
     }
 
+    boolean inArray(char[] a, char x){
+        boolean found = false;
+        int i = 0;
+        do {
+            if(a[i] == x){
+                found = true;
+            }
+            i++;
+        } while(!found && i < length(a));
+        return found;
+    }
+
     void testCountChar() {
         assertEquals(2, countChar("Bleu,Jaune,Rouge", ','));
     }
