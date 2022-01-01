@@ -1,0 +1,3 @@
+﻿class RouletteCase {
+    String color;
+}

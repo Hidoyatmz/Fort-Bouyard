@@ -59,10 +59,10 @@ class Utils extends Program {
     }
 
     void myClearScreen(){
-        if(!debug){
+        /*if(!debug){*/
             clearScreen();
             cursor(0,0);
-        }
+        /*}*/
     }
 
     void csvMissingError(String filename){

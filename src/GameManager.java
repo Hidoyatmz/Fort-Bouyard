@@ -115,6 +115,9 @@ class GameManager extends Quiz {
         else if(epreuve.id == 7) {
             res = startMemoGame(epreuve, game);
         }
+        else if(epreuve.id == 8) {
+            res = startRoulette(epreuve, game);
+        }
         return res;
     }
 
