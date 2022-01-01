@@ -112,11 +112,6 @@ class Roulette extends Fakir {
             cursor = "^";
         } else {
             cursor = "  " + cursor;
-            // if(tour%2 == 0){
-            //     cursor = " " + cursor;
-            // } else {
-            //     cursor = "  " + cursor;
-            // }
         }
         return cursor;
     }
