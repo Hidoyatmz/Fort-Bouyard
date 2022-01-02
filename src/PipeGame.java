@@ -1,3 +1,9 @@
+/**
+ * @STATUS          : 90% COMPLETED;
+ * @TODO            : Manque le timer
+ * @OPTIMIZATION    : NOT DONE MAIS PAS MAL JPENSE
+ */
+
 import extensions.*;
 
 class PipeGame extends MemoGame {
