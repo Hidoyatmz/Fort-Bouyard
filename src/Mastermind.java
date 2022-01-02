@@ -33,7 +33,7 @@ class Mastermind extends Roulette {
             }
             printMastermind(usermap);
             println("Vous avez " + ANSI_BLUE + getGoodBlues(map, usermap) + ANSI_RESET + " bonnes balles bleues et il vous reste " + ANSI_RED + health + ANSI_RESET + " essais");
-            println("Quelles balles souhaitez vous bouger ?");
+            println("Quelles balles souhaitez vous intervetir ? (ex: 14)");
             cusp();
             do {
                 curp();
