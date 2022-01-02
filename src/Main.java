@@ -173,6 +173,7 @@ class Main extends GameManager {
         return newTeam(teamName, teamCry, playersNumber, playersName);
     }
 
+    // Team constructor
     Team newTeam(String teamName, String teamCry, int playersNumber, String[] playersName) {
         Team team = new Team();
         team.name = teamName;
@@ -184,6 +185,7 @@ class Main extends GameManager {
         return team;
     }
 
+    // Indice constructor
     Indice newIndice(String indice) {
         Indice i = new Indice();
         i.indice = indice;
@@ -191,6 +193,7 @@ class Main extends GameManager {
         return i;
     }
 
+    // Game constructor
     Game newGame(Team team) {
         Game game = new Game();
         game.team = team;

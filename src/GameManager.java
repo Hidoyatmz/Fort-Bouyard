@@ -101,10 +101,10 @@ class GameManager extends Quiz {
             res = startSoundGame(epreuve, game);
         }
         else if(epreuve.id == 3) {
-            res = startPileOuFace(epreuve, game);
+            res = startFakir(epreuve, game);
         }
         else if(epreuve.id == 4) {
-            res = startFakir(epreuve, game);
+            res = startPileOuFace(epreuve, game);
         }
         else if(epreuve.id == 5) {
             res = startShiFuMi(epreuve, game);

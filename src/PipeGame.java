@@ -133,32 +133,9 @@ class PipeGame extends MemoGame {
 
     boolean canReceiveEnergie(Pipe[][] plateau, int l, int c, Direction dir) {
         Pipe pipe = plateau[l][c];
-        int dirInt = getIntFromDir(pipe.direction);
-        boolean res = false;
-        if(pipe.pipeType == PipeType.L) {
-            if(dirs[(dirInt+2) % length(dirs)] == dir || dirs[(dirInt+3) % length(dirs)] == dir) {
-                res = true;
-            }
-        }
-        else if(pipe.pipeType == PipeType.T) {
-            if(pipe.direction != dir) {
-                res = true;
-            }
-        }
-        else if(pipe.pipeType == PipeType.DROIT) {
-            if(pipe.direction == dir || dirs[(dirInt+2) % length(dirs)] == dir) {
-                res = true;
-            }
-        }
-        else if(pipe.pipeType == PipeType.CROIX) {
-            res = true;
-        }
-        else if(pipe.pipeType == PipeType.END) {
-            if(pipe.direction == dir || dirs[(dirInt+2) % length(dirs)] == dir) {
-                res = true;
-            }
-        }
-        return res;
+        int dirInt = getIntFromDir(dir);
+        
+        return contains(pipe.connexions, dirs[(dirInt+2) % length(dirs)]);
     }
 
     // Tourner une piece d'un crang vers la droite sur le plateau aux coordonnees pos
@@ -218,7 +195,9 @@ class PipeGame extends MemoGame {
     File[] randomMaps() {
         String path = "../ressources/pipegame/";
         String[] maps = getAllFilesFromDirectory(path);
-        shuffleMaps(maps);
+        for(int i=0; i<10; i++) {
+            shuffleMaps(maps);
+        }
         File[] files = new File[MAPSPLAYCOUNT];
         for(int i=0; i<MAPSPLAYCOUNT; i++) {
             files[i] = newFile(path + maps[i]);
