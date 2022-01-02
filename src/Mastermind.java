@@ -58,7 +58,7 @@ class Mastermind extends Roulette {
     boolean isValideMove(String move){
         int first = charToInt(charAt(move, 0));
         int second = charToInt(charAt(move, 1));
-        return ((first >= 1 && first <= 5) && (second >= 1 && second <= 5) && (second != first));
+        return ((first >= 1 && first <= 5) && (second >= 1 && second <= 5) && (second != first) && (length(move) == 2));
     }
 
     /*boolean checkMastermind(String[] map, String[] usermap) {
