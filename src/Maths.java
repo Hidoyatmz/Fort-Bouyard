@@ -5,13 +5,13 @@
  */
 
 import extensions.*;
-class Maths extends EpreuvesCreator {
+class Maths extends BouyardCard {
     final String MATHEMATIXCSV = "mathematix.csv";
 
     Epreuve initMathematix() {
         return newEpreuve(6, "Mathematix", -1, "Résolvez cette suite de 6 calculs mentaux pour gagner ! (Vous pouvez utiliser 1 fois le mot Joker pour changer de calcul)", GameState.KEYS);
     }
-    boolean startMathematix(Epreuve mathematix, Game game) {
+    boolean startMathematix(Epreuve mathematix) {
         CSVFile mathematixCSV = myLoadCSV(MATHEMATIXCSV);
         final int MAXCALC = rowCount(mathematixCSV) - 1;
         final int solveToWin = 6;

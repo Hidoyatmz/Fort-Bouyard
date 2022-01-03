@@ -4,7 +4,7 @@ class Shifumi extends Maths {
         return newEpreuve(5, "ShiFuMi", -1, "Choisis soit la pierre, le papier ou les ciseaux. La pierre bat les ciseaux, les ciseaux battent le papier et le papier bat la pierre. Le premier qui gagne 3 manches remporte la victoire !", GameState.JUGEMENT);
     }
 
-    boolean startShiFuMi(Epreuve epreuve, Game game) {
+    boolean startShiFuMi(Epreuve epreuve) {
         int[] winLose = new int[]{0, 0};
         int res; // joueur
         int r; // robot

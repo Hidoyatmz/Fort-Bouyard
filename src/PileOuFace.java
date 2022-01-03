@@ -4,7 +4,7 @@ class PileOuFace extends Shifumi {
         return newEpreuve(4, "Pile Ou Face", -1, "Epreuve de chance : choisis de quel côté la pièce tombera.", GameState.JUGEMENT);
     }
 
-    boolean startPileOuFace(Epreuve epreuve, Game game) {
+    boolean startPileOuFace(Epreuve epreuve) {
         println("De quel coté veux-tu que la pièce tombe ?");
         println("1 - Pile");
         println("2 - Face");

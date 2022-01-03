@@ -1,9 +1,3 @@
-/**
- * @STATUS          : 90% COMPLETED;
- * @TODO            : Manque le timer
- * @OPTIMIZATION    : NOT DONE MAIS PAS MAL JPENSE
- */
-
 import extensions.*;
 
 class PipeGame extends MemoGame {
@@ -12,7 +6,9 @@ class PipeGame extends MemoGame {
     final Direction[] dirs = new Direction[]{Direction.N, Direction.E, Direction.S, Direction.W};
 
     Epreuve initPipeGame() {
-        return newEpreuve(1, "PipeGame", 55, "Pour résoudre ce puzzle vous devez relier les extrémités à la source avec l'aide des tuyaux pour faire circuler l'énergie avant que le temps ne soit écoulé.", GameState.KEYS);
+        return newEpreuve(1, "PipeGame", 55, "Pour résoudre ce puzzle vous devez relier les extrémités à la source\n" +
+                             "avec l'aide des tuyaux pour faire circuler l'énergie avant que le temps ne soit écoulé.\n" +
+                             "Les tuyaux " + ANSI_RED_BG + "marqué d'un arrière plan rouge " + ANSI_RESET + "ne peuvent pas être tourné.", GameState.KEYS);
     }
 
     // DECODAGE MAP
@@ -20,14 +16,14 @@ class PipeGame extends MemoGame {
     // 0 -> VIDE
     // 1 -> START  ⯌
     // 2 -> FIN    ⊔ ⊏ ⊓ ⊐
-    // 3 -> L      ╚ ╔ ╗ ╝             ┗ ┏ ┓ ┛
-    // 4 -> DROIT  ═ ║                 ━ ┃
-    // 5 -> CROIX  ╬                   ╋
-    // 6 -> T      ╩ ╠ ╦ ╣             ┻ ┣ ┳ ┫
+    // 3 -> L      ┗ ┏ ┓ ┛
+    // 4 -> DROIT  ━ ┃
+    // 5 -> CROIX  ╋
+    // 6 -> T      ┻ ┣ ┳ ┫
     //             N E S W
 
     // Boucle de l'épreuve
-    boolean startPipeGame(Epreuve epreuve, Game game) {
+    boolean startPipeGame(Epreuve epreuve) {
         File[] maps = randomMaps();
         boolean win = false;
         int imaps = 0;
@@ -36,34 +32,56 @@ class PipeGame extends MemoGame {
         Coordonnees pos;
 
         int timer;
+        long start;
+
         while(imaps < length(maps) && !win) {
             plateau = initPlateau(maps[imaps]);
+            
             timer = epreuve.timer;
-            plateau.timer = timer;
+            start = getTime();
 
-            while(!allEnergie(plateau) && plateau.timer > 0) {
+            while(!allEnergie(plateau) && (timer - ((getTime() - start)/1000)) > 0) {
                 myClearScreen();
                 updateEnergie(plateau);
                 afficherMap(plateau.plateau);
-                printTimer(plateau.timer);
                 if(!allEnergie(plateau)) {
+                    printTimer(timer, start);
                     // demander les coordonnees de la case a tourner au joueur
-                    pos = askCoordonneesAndUpdateTimer(plateau);
+                    pos = askCoordonnees(plateau);
                     // tourner la pièce
                     rotate(plateau, pos);
+                    delay(300);
                 }
             }
-            println("Bien joué !");
-            delay(3000);
-            win = true;
+            win = allEnergie(plateau);
+            if(win) println("Bravo !");
+            else println("Dommage !");
+            delay(2000);
             imaps++;
         }
 
         return win;
     }
 
-    void printTimer(int timer) {
-        println("Il te reste " + ANSI_YELLOW + timer + ANSI_RESET + " secondes !");
+    void printTimer(int timer, long start) {
+        println("Il te reste " + ANSI_YELLOW + (int) (timer - ((getTime() - start)/1000)) + ANSI_RESET + " secondes !");
+    }
+
+    // Demande des coordonnees de la case a tourner (jusqu'elle soit valide) au joueur
+    Coordonnees askCoordonnees(PipePlateau plateau) {
+        String pos;
+        Coordonnees coordonnees = newCoordonnees(-1, -1);
+        println("Quelle case veux tu tourner ? (A1 par exemple)");
+        do {
+            pos = toUpperCase(readString());
+            
+            if(length(pos) > 1) {
+                coordonnees.l = charAt(pos, 0)-'A';
+                coordonnees.c = charAt(pos, 1)-'0'-1;
+            }
+            
+        } while(!validPos(plateau.plateau, coordonnees));
+        return coordonnees;
     }
 
     void updateEnergie(PipePlateau plateau) {
@@ -175,34 +193,6 @@ class PipeGame extends MemoGame {
         return res;
     }
 
-    // Demande des coordonnees de la case a tourner (jusqu'elle soit valide) au joueur
-    Coordonnees askCoordonneesAndUpdateTimer(PipePlateau plateau) {
-        String pos;
-        Coordonnees coordonnees = newCoordonnees(-1, -1);
-        println("Quel case veux tu tourner ? (A1 par exemple)");
-        long action;
-        do {
-            action = getTime();
-            pos = toUpperCase(readString(1000));
-            
-            if(length(pos) > 1) {
-                coordonnees.l = charAt(pos, 0)-'A';
-                coordonnees.c = charAt(pos, 1)-'0'-1;
-            }
-            plateau.timer--;
-            updateAffichageTimer(plateau);
-        } while(!validPos(plateau.plateau, coordonnees));
-        return coordonnees;
-    }
-
-    void updateAffichageTimer(PipePlateau plateau) {
-        cusp();
-        cursor(length(plateau.plateau, 1)+3, 0);
-        clearLine();
-        printTimer(plateau.timer);
-        curp();
-    }
-
     // Renvoie true si les coordonnees d'une case peut etre tourner sinon false
     boolean validPos(Pipe[][] plateau, Coordonnees coordonnees) {
         boolean res = false;
@@ -224,9 +214,7 @@ class PipeGame extends MemoGame {
     File[] randomMaps() {
         String path = "../ressources/pipegame/";
         String[] maps = getAllFilesFromDirectory(path);
-        for(int i=0; i<10; i++) {
-            shuffleMaps(maps);
-        }
+        shuffleMaps(maps);
         File[] files = new File[MAPSPLAYCOUNT];
         for(int i=0; i<MAPSPLAYCOUNT; i++) {
             files[i] = newFile(path + maps[i]);
@@ -257,6 +245,7 @@ class PipeGame extends MemoGame {
             res = res + cLine + " ";
             for(int j=0; j<length(plateau, 2); j++) {
                 if(plateau[i][j].bloquer) res = res + ANSI_RED_BG;
+                if(plateau[i][j].pipeType == PipeType.END) res = res + ANSI_CYAN;
                 if(plateau[i][j].energie) res = res + ANSI_YELLOW;
                 res = res + getStringPipe(plateau[i][j]) + ANSI_RESET + " ";
             }
@@ -433,11 +422,13 @@ class PipeGame extends MemoGame {
     void shuffleMaps(String[] maps) {
         int randomPosition;
         String temp;
-        for(int i=0; i<length(maps); i++) {
-            randomPosition = (int) (random()*length(maps));
-            temp = maps[i];
-            maps[i] = maps[randomPosition];
-            maps[randomPosition] = temp;
+        for(int i=0; i<10; i++) {
+            for(int j=0; j<length(maps); j++) {
+                randomPosition = (int) (random()*length(maps));
+                temp = maps[j];
+                maps[j] = maps[randomPosition];
+                maps[randomPosition] = temp;
+            }
         }
     }
     

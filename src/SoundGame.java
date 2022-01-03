@@ -11,7 +11,7 @@ class SoundGame extends PipeGame {
         return newEpreuve(2, "SoundGame", -1, "Vous devez trouver 3 animaux sur les 5 joués !", GameState.KEYS);
     }
 
-    boolean startSoundGame(Epreuve soundgame, Game game){
+    boolean startSoundGame(Epreuve soundgame){
         CSVFile soundCSV = myLoadCSV(SOUNDGAMECSV);
         String[] answers = new String[rowCount(soundCSV)-1];
         Sound[] sounds = registerSounds(soundCSV, answers);

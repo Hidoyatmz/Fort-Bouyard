@@ -4,10 +4,10 @@ class Quiz extends SoundGame {
     final String CHARADECSV = "charades.csv";
     
     Epreuve initQuiz() {
-        return newEpreuve(0, "Quiz", -1, "Ya pas", GameState.KEYS);
+        return newEpreuve(0, "Quiz", -1, "Trouve la réponse à la charade !", GameState.KEYS);
     }
 
-    boolean startQuiz(Epreuve quiz, Game game){
+    boolean startQuiz(Epreuve quiz){
         String[] charade = getRandomCharade(CHARADECSV);
         String answer;
         int trys = 3;

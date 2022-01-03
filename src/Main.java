@@ -235,9 +235,9 @@ class Main extends GameManager {
     void initEpreuves(Game game) {
         Epreuve[] generals = new Epreuve[]{initMastermind(), initRoulette(), initQuiz(), initPipeGame(), initSoundGame(), initMathematix(), initMemoGame()};
         Epreuve[] jugements = new Epreuve[]{initFakir(), initPileOuFace(), initShiFuMi()};
-        //Epreuve[] conseils = new Epreuve[1];
+        Epreuve[] conseils = new Epreuve[]{initBouyardCard()};
         //game.epreuves = new Epreuve[MAXEPREUVESKEY + MAXEPREUVESJUGEMENT + MAXEPREUVESINDICES + MAXEPREUVESCONSEIL];
-        game.epreuves = new Epreuve[length(generals) + length(jugements)];
+        game.epreuves = new Epreuve[length(generals) + length(jugements) + length(conseils)];
         /*int i = 0;
         randomEpreuves(game, i, generals, MAXEPREUVESKEY);
         i = i + MAXEPREUVESKEY;
@@ -256,6 +256,10 @@ class Main extends GameManager {
         }
         for(int i = 0; i < length(jugements); i++) {
             game.epreuves[indexEpreuve] = jugements[i];
+            indexEpreuve++;
+        }
+        for(int i = 0; i < length(conseils); i++) {
+            game.epreuves[indexEpreuve] = conseils[i];
             indexEpreuve++;
         }
         // game.epreuves[0] = generals[4];

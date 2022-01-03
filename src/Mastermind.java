@@ -14,7 +14,7 @@ class Mastermind extends Roulette {
         return newEpreuve(9, "Mastermind", -1, "Retrouve la combinaison !", GameState.KEYS);
     }
 
-    boolean startMastermind(Epreuve epreuve, Game game) {
+    boolean startMastermind(Epreuve epreuve) {
         int health = 3;
         String move;
         String[] map = new String[SIZE];

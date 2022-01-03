@@ -11,7 +11,7 @@ class Roulette extends Fakir {
         return newEpreuve(8, "Roulette", -1, "Devinez sur quelle couleur s'arretera le curseur ! +1 clef bonus si vert.", GameState.KEYS);
     }
 
-    boolean startRoulette(Epreuve epreuve, Game game) {
+    boolean startRoulette(Epreuve epreuve) {
         String[] roulette = new String[15];
         String cursor = "^" + ANSI_CURSOR_HIDE;
         boolean res = false;

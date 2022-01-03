@@ -4,7 +4,7 @@ class Fakir extends PileOuFace {
         return newEpreuve(3, "Le Fakir", -1, "Choisi la couleur où la bille va tomber et met là où tu as envie qu'elle tombe.", GameState.JUGEMENT);
     }
 
-    boolean startFakir(Epreuve epreuve, Game game) {
+    boolean startFakir(Epreuve epreuve) {
         FakirItems[][] grille = new FakirItems[12][9];
         initFakirGrille(grille);
         afficherFakir(grille);

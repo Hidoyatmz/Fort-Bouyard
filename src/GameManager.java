@@ -12,7 +12,7 @@ class GameManager extends Quiz {
         println("Epreuves des clés !");
         println("Ton but est de " + ANSI_RED + "ramasser un maximum de clés !" + ANSI_RESET);
         println(ANSI_RED + "ATTENTION si tous les joueurs sont en prison, la partie s'arrête !" + ANSI_RESET);
-        delay(5000);
+        pressEnterToContinue();
         int epreuveIndex = 0;
         boolean success;
         while(!allPlayersInJail(game.team) && epreuveIndex < MAXEPREUVESKEY) {
@@ -38,11 +38,6 @@ class GameManager extends Quiz {
             - ASSIGNER UN JOUEUR A L'EPREUVE (TIRER ALEATOIREMENT PARMIS LES JOUEURS QUI NE SONT PAS EN PRISON) -- FAIT
             - L'EPREUVE RETOURNE TRUE SI LE JOUEUR A REUSSI SINON FALSE ET L'ENVOIE EN PRISON -- FAIT
         */
-        //startEpreuve(game, game.epreuves[0]);
-        //startEpreuve(game, game.epreuves[1]);
-        //startEpreuve(game, game.epreuves[2]);
-        //startEpreuve(game, game.epreuves[3]);
-        //startEpreuve(game, game.epreuves[4]);
     }
 
     boolean needJugement(Game game) {
@@ -92,34 +87,37 @@ class GameManager extends Quiz {
         boolean res = false;
         initEpreuve(game, epreuve);
         if(epreuve.id == 0) {
-            res = startQuiz(epreuve, game);
+            res = startQuiz(epreuve);
         }
         else if(epreuve.id == 1) {
-            res = startPipeGame(epreuve, game);
+            res = startPipeGame(epreuve);
         }
         else if(epreuve.id == 2) {
-            res = startSoundGame(epreuve, game);
+            res = startSoundGame(epreuve);
         }
         else if(epreuve.id == 3) {
-            res = startFakir(epreuve, game);
+            res = startFakir(epreuve);
         }
         else if(epreuve.id == 4) {
-            res = startPileOuFace(epreuve, game);
+            res = startPileOuFace(epreuve);
         }
         else if(epreuve.id == 5) {
-            res = startShiFuMi(epreuve, game);
+            res = startShiFuMi(epreuve);
         }
         else if(epreuve.id == 6) {
-            res = startMathematix(epreuve, game);
+            res = startMathematix(epreuve);
         }
         else if(epreuve.id == 7) {
-            res = startMemoGame(epreuve, game);
+            res = startMemoGame(epreuve);
         }
         else if(epreuve.id == 8) {
-            res = startRoulette(epreuve, game);
+            res = startRoulette(epreuve);
         }
         else if(epreuve.id == 9) {
-            res = startMastermind(epreuve, game);
+            res = startMastermind(epreuve);
+        }
+        else if(epreuve.id == 10) {
+            res = startBouyardCard(epreuve);
         }
         return res;
     }
