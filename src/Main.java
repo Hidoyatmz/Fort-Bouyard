@@ -43,7 +43,7 @@ class Main extends GameManager {
             } else if(choice == 3) {
                 displayCredits();
             } else if(choice == 4) {
-                playSound("../ressources/sounds/theme.mp3", true);
+                playSound("../ressources/sounds/aigle.mp3", true);
             } else if (debug && choice == 6) {
                 Team team = registerTeam();
                 Game g = newGame(team);
