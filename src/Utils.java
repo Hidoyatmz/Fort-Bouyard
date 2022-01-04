@@ -7,6 +7,15 @@ class Utils extends Program {
         assertTrue(isBetween(5, 1, 10));
         assertFalse(isBetween(15, 1, 10));
     }
+    
+    /**
+    * Returns if the integerer is in the interval, min and max values are include.
+    *
+    * @param entry integer to test
+    * @param min minimum value of entry to be in the interval
+    * @param max maximum value of entry to be in the interval
+    * @return true if value is inside interval and false otherwise.
+    */
 
     boolean isBetween(int entry, int min, int max) {
         return ((entry >= min) && (entry <= max));
@@ -17,6 +26,13 @@ class Utils extends Program {
         assertFalse(isDigit('a'));
     }
 
+    /**
+    * Returns if the letter is a digit or not. 
+    *
+    * @param letter the char to test
+    * @return true if the param is a digit, false otherwise.
+    */
+
     boolean isDigit(char letter){
         return ((letter >= '0') && (letter <= '9'));
     }
@@ -26,21 +42,54 @@ class Utils extends Program {
         assertEquals(false, isBetween(randInt(101,150),1,100));
     }
 
+    /**
+    * Returns a random integer in the interval of the two params.Boundarys are includes.
+    *
+    * @param min minimum value possible
+    * @param max maximum value possible
+    * @return the random integer.
+    */
+
     int randInt(int min, int max){
         return (int) (random()*((max+1)-min)+min);
     }
+
+    /**
+    * Display the param formated with debug prefix
+    *
+    * @param s string to display
+    */
 
     void debug(String s){
         println(ANSI_GREEN + "[Fort Bouyard 1.0 DEBUGGER] : " + ANSI_RESET + s);
     }
 
+    /**
+    * Display the param formated in cyan color.
+    *
+    * @param s string to display
+    */
+
     void info(String s){
         println(ANSI_CYAN + s + ANSI_RESET);
     }
 
+    /**
+    * Display the param formated in red color.
+    *
+    * @param s string to display
+    */
+
     void erreur(String s){
         println(ANSI_RED + s + ANSI_RESET);
     }
+
+    /**
+    * Returns a String with all the content of a txt file after opening it.
+    *
+    * @param path   relative path to the txt file
+    * @return       the string with all the content including breaklines.
+    * */
 
     String readTxt(String path) {
         File txt = newFile(path);
@@ -53,11 +102,19 @@ class Utils extends Program {
         return res;
     }
 
+    /**
+    * Display a txt file in the terminal.
+    *
+    * @param path   relative path to the txt file
+    */
 
     void printTxt(String path) {
         println(readTxt(path));
     }
 
+    /**
+    * Clear the screen and place cursor on the top of the terminal.
+    */
     void myClearScreen(){
         /*if(!debug){*/
             clearScreen();
@@ -65,9 +122,21 @@ class Utils extends Program {
         /*}*/
     }
 
+    /**
+    * Used to display message when a CSV File is missing
+    * 
+    * @param filename   Filename used to print.
+    */
     void csvMissingError(String filename){
         println(ANSI_RED + "Couldnt start the game.. (" + filename + " is missing)" + ANSI_RESET);
     }
+
+    /**
+    * Returns if a csv file exist by checking it with filename.
+    *
+    * @param filename   filename of the csvfile without .csv extension.
+    * @return           true if the file has been found, false otherwise. 
+    */
 
     boolean csvFileExist(String filename){
         String[] files = getAllFilesFromDirectory("../ressources/csv");
@@ -81,6 +150,13 @@ class Utils extends Program {
         }
         return exist;
     }
+
+    /**
+    * Returns a CSVFile by his filename by searching in the directory with all csvs.
+    *
+    * @param filename   filename of the csv without .csv extension.
+    * @return           CSVFile after loading it.
+    */
 
     CSVFile myLoadCSV(String filename){
         return loadCSV("../ressources/csv/" + filename);
@@ -148,6 +224,14 @@ class Utils extends Program {
         assertFalse(inArray(new int[]{1, 2, 3}, 5));
     }
 
+    /**
+    * Returns if an integer is inside an array of integers.
+    *
+    * @param a  array to check
+    * @param x  integer to be inside array
+    * @return   true if x is inside a 
+    */
+
     boolean inArray(int[] a, int x){
         boolean found = false;
         int i = 0;
@@ -160,6 +244,14 @@ class Utils extends Program {
         return found;
     }
 
+    /**
+    * Returns if a char is inside an array of chars.
+    *
+    * @param a  array to check
+    * @param x  char to be inside array
+    * @return   true if x is inside a 
+    */
+
     boolean inArray(char[] a, char x){
         boolean found = false;
         int i = 0;
@@ -171,6 +263,10 @@ class Utils extends Program {
         } while(!found && i < length(a));
         return found;
     }
+
+    /**
+    * Shuffle the given array.
+    */
 
     void shuffleArray(String[] a) {
         String temp;
@@ -266,6 +362,15 @@ class Utils extends Program {
         res = substring(res, 0, i+1);
         return res;
     }
+
+    /**
+    * Returns a string where every occurence of toFind has been replaced by replace.
+    *
+    * @param s          Given string to replace occurences.
+    * @param toFind     Given char to replace occurences.
+    * @param replace    Char to replace every occurences.
+    * @return           The initial string with occurences replaced by replace.
+    */
 
     String replaceInString(String s, char toFind, char replace){
         char toCheck;
