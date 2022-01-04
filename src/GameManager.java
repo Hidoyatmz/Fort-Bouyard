@@ -4,6 +4,7 @@ class GameManager extends Quiz {
     final int MAXEPREUVESJUGEMENT = 2;
     final int MAXEPREUVESINDICES = 5;
     final int MAXEPREUVESCONSEIL = 3;
+    boolean musicRunning = false;
 
     // BOUCLE DU JEU
     void startGame(Game game) {
@@ -112,7 +113,7 @@ class GameManager extends Quiz {
             res = startMemoGame(epreuve);
         }
         else if(epreuve.id == 8) {
-            res = startRoulette(epreuve);
+            res = startRoulette(game, epreuve);
         }
         else if(epreuve.id == 9) {
             res = startMastermind(epreuve);

@@ -1,6 +1,6 @@
 /**
- * @STATUS          : 90% COMPLETED;
- * @TODO            : C'passe des trucs bressons avec le comptage des espaces sur le cursor Kappa
+ * @STATUS          : 100% COMPLETED;
+ * @TODO            : ---
  * @OPTIMIZATION    : NOT DONE
  */
 
@@ -11,7 +11,7 @@ class Roulette extends Fakir {
         return newEpreuve(8, "Roulette", -1, "Devinez sur quelle couleur s'arretera le curseur ! +1 clef bonus si vert.", GameState.KEYS);
     }
 
-    boolean startRoulette(Epreuve epreuve) {
+    boolean startRoulette(Game game, Epreuve epreuve) {
         String[] roulette = new String[15];
         String cursor = "⮝" + ANSI_CURSOR_HIDE;
         boolean res = false;
@@ -21,7 +21,7 @@ class Roulette extends Fakir {
         fillRoulette(roulette);
         String userChoice = askUserChoice();
         myClearScreen();
-        println("Voyons voir si vous aviez raison !");
+        println("Voyons voir si vous avez raison !");
         printRoulette(roulette);
         cusp();
         do {
@@ -30,23 +30,24 @@ class Roulette extends Fakir {
                 clearEOL();
             }
             print(cursor);
-            cursor = moveCursor(cursor,tour);
-            delay(getDelay(tour, tourTodo));
+            // Check if we need to move cursor for next occurence
+            if(!(tour+1 > tourTodo)){
+                cursor = moveCursor(cursor,tour);
+                delay(getDelay(tour, tourTodo));
+            }
             tour = tour + 1;
         } while (tour <= tourTodo);
-        println();
-        if(inArray(posBlue,(countSpaceInString(cursor)+1)) || countSpaceInString(cursor) == -2){
+        println(ANSI_CURSOR_SHOW);
+        if(inArray(posBlue,(countSpaceInString(cursor)+1))){
             res = equals(userChoice, ANSI_BLUE) ? true : false;
         } else {
             res = equals(userChoice, ANSI_RED) ? true : false;
         }
         if(countSpaceInString(cursor) == 14){
             res = equals(userChoice, ANSI_GREEN) ? true : false;
-        }
-        if(res){
-            println(ANSI_CURSOR_SHOW + ANSI_GREEN + "Bravo ! " + ANSI_RESET + "C'est gagné.");
-        } else {
-            println(ANSI_CURSOR_SHOW + ANSI_RED + "Dommage ! " + ANSI_RESET + "C'est perdu.");
+            if(res) {
+                game.nbKeys += 1;
+            }
         }
         delay(2000);
         return res;
@@ -152,7 +153,7 @@ class Roulette extends Fakir {
                 res++;
             }
         }
-        return res-2;
+        return res;
     }
     
 }

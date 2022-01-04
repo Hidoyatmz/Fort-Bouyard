@@ -42,7 +42,16 @@ class Main extends GameManager {
             } else if(choice == 3) {
                 displayCredits();
             } else if(choice == 4) {
-                playSound("../ressources/sounds/theme.mp3", true);
+                myClearScreen();
+                if(!musicRunning){
+                    musicRunning = true;
+                    playSound("../ressources/sounds/theme.mp3", true);
+                    info("La musique est maintenant lancé !");
+                    pressEnterToContinue();
+                } else {
+                    info("La musique est déjà en cours..");
+                    pressEnterToContinue();
+                }
             } else if (debug && choice == 6) {
                 myClearScreen();
                 Team team = registerTeam();
@@ -234,7 +243,7 @@ class Main extends GameManager {
     // TODO CREATION ET SELECTION EPREUVES
 
     void initEpreuves(Game game) {
-        Epreuve[] generals = new Epreuve[]{initQuiz(), initMastermind(), initRoulette(), initPipeGame(), initSoundGame(), initMathematix(), initMemoGame()};
+        Epreuve[] generals = new Epreuve[]{initRoulette(), initQuiz(), initMastermind(), initPipeGame(), initSoundGame(), initMathematix(), initMemoGame()};
         Epreuve[] jugements = new Epreuve[]{initFakir(), initPileOuFace(), initShiFuMi()};
         Epreuve[] conseils = new Epreuve[]{initBouyardCard()};
         //game.epreuves = new Epreuve[MAXEPREUVESKEY + MAXEPREUVESJUGEMENT + MAXEPREUVESINDICES + MAXEPREUVESCONSEIL];
