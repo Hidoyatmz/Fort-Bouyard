@@ -169,9 +169,9 @@ class Fakir extends PileOuFace {
             for(int j=0; j<length(grille, 2); j++) {
                 if(grille[i][j] == FakirItems.BILLE) affichage = affichage + ANSI_YELLOW + " O " + ANSI_RESET;
                 else if(grille[i][j] == FakirItems.BARRE) affichage = affichage + " * ";
-                else if(grille[i][j] == FakirItems.TROU_BLANC) affichage = affichage + ANSI_WHITE + " _ " + ANSI_RESET;
-                else if(grille[i][j] == FakirItems.TROU_BLEU) affichage = affichage + ANSI_CYAN + " _ " + ANSI_RESET;
-                else if(grille[i][j] == FakirItems.TROU_ALL) affichage = affichage + ANSI_PURPLE + " _ " + ANSI_RESET;
+                else if(grille[i][j] == FakirItems.TROU_BLANC) affichage = affichage + ANSI_WHITE + " ▁ " + ANSI_RESET;
+                else if(grille[i][j] == FakirItems.TROU_BLEU) affichage = affichage + ANSI_CYAN + " ▁ " + ANSI_RESET;
+                else if(grille[i][j] == FakirItems.TROU_ALL) affichage = affichage + ANSI_PURPLE + " ▁ " + ANSI_RESET;
                 else affichage = affichage + "   ";
             }
         }
