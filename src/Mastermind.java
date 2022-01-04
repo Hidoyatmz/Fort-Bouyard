@@ -1,6 +1,6 @@
 /**
  * @STATUS          : 90% COMPLETED;
- * @TODO            : Ptet utiliser checkMastermind dans le while du jeu.
+ * @TODO            : Ptet utiliser checkMastermind dans le while du jeu & Passer les couleurs en variable pour les changer facilement.
  * @OPTIMIZATION    : NOT DONE
  */
 
