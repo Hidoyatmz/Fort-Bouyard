@@ -55,7 +55,7 @@ class GameManager extends Quiz {
         else {
             println(ANSI_RED + "C'est perdu.. Quel dommage ahah !\nNe perdez pas le rythme ! Il vous faut encore " + (MAXEPREUVESKEY-game.nbKeys) + " clefs" + ANSI_RESET);
             if(epreuve.gameState == GameState.KEYS) {
-                println("Le joueur " + ANSI_YELLOW + epreuve.player.pseudo + ANSI_RESET + " est envoyer en prsion !");
+                println("Le joueur " + ANSI_YELLOW + epreuve.player.pseudo + ANSI_RESET + " est envoyé en prsion !");
                 epreuve.player.jail = true;
             }
         }
