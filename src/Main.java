@@ -46,12 +46,11 @@ class Main extends GameManager {
                 if(!musicRunning){
                     musicRunning = true;
                     playSound("../ressources/sounds/theme.mp3", true);
-                    info("La musique est maintenant lancé !");
-                    pressEnterToContinue();
+                    printTxt("../ressources/music.txt");
                 } else {
                     info("La musique est déjà en cours..");
-                    pressEnterToContinue();
                 }
+                delay(1000);
             } else if (debug && choice == 6) {
                 myClearScreen();
                 Team team = registerTeam();
@@ -72,7 +71,13 @@ class Main extends GameManager {
     }
 
     void displayIntroGame() {
-        println("Bienvenue dans Fort Bouyard !");
+        println(ANSI_CURSOR_HIDE);
+        for(int i = 0; i <= 10; i++){
+            myClearScreen();
+            print(readTxt("../ressources/welcome/welcome"+i+".txt"));
+            delay(250);
+        }
+        println(ANSI_CURSOR_SHOW);
         if(customPressEnterToContinue()){
             debug = true;
         }

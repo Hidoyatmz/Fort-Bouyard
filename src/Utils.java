@@ -8,6 +8,7 @@ class Utils extends Program {
     final String ANSI_LIGHT_BLUE = "\u001B[94m";
     final String ANSI_LIGHT_PINK = "\u001B[95m";
     final String ANSI_LIGHT_CYAN = "\u001B[96m";
+    final String ANSI_BLINK = "\u001B[05m";
 
     /* Enter "debugme" on the first screen to activate debug mode */
     boolean debug = false;
