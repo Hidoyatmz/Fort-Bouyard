@@ -1,6 +1,15 @@
 import extensions.*;
 
 class Utils extends Program {
+    /* ANSI Light colors */
+    final String ANSI_LIGHT_RED = "\u001B[91m";
+    final String ANSI_LIGHT_GREEN = "\u001B[92m";
+    final String ANSI_LIGHT_YELLOW = "\u001B[93m";
+    final String ANSI_LIGHT_BLUE = "\u001B[94m";
+    final String ANSI_LIGHT_PINK = "\u001B[95m";
+    final String ANSI_LIGHT_CYAN = "\u001B[96m";
+
+    /* Enter "debugme" on the first screen to activate debug mode */
     boolean debug = false;
 
     void testIsBetween() {
