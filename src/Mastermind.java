@@ -1,6 +1,6 @@
 /**
  * @STATUS          : 90% COMPLETED;
- * @TODO            : Ptet utiliser checkMastermind dans la boucle.
+ * @TODO            : Ptet utiliser checkMastermind dans le while du jeu.
  * @OPTIMIZATION    : NOT DONE
  */
 
@@ -46,6 +46,12 @@ class Mastermind extends Roulette {
         return health >= 0;
     }
 
+    /**
+     * Swap the given stars entered by their positions in the array.
+     * @param usermap
+     * @param move
+     */
+
     void makeMove(String[] usermap, String move) {
         String temp;
         int first = (charToInt(charAt(move, 0))-1);
@@ -54,6 +60,12 @@ class Mastermind extends Roulette {
         usermap[first] = usermap[second];
         usermap[second] = temp;
     }
+
+    /**
+     * Returns if the move entered by the user can be done or not.
+     * @param move
+     * @return true if it can be done, false otherwise.
+     */
 
     boolean isValideMove(String move){
         if(length(move) >= 2){
@@ -75,6 +87,13 @@ class Mastermind extends Roulette {
         return false;
     }*/
 
+    /**
+     * Returns the amount of good blue stars in the user array.
+     * @param map
+     * @param usermap
+     * @return number of placed blue stars.
+     */
+
     int getGoodBlues(String[] map, String[] usermap) {
         int res = 0;
         for(int i = 0; i < length(map); i++){
@@ -85,6 +104,11 @@ class Mastermind extends Roulette {
         return res;
     }
 
+    /**
+     * Init the board with blue & red stars.
+     * @param map
+     */
+
     void initMastermind(String[] map) {
         for(int i = 0; i < BLUE; i++){
             map[i] = ANSI_BLUE;
@@ -94,10 +118,15 @@ class Mastermind extends Roulette {
         }
     }
 
+    /**
+     * Display the stars of the map on the screen with their colors.
+     * @param mastermind
+     */
+
     void printMastermind(String[] mastermind) {
         println("1 2 3 4 5");
         for(int i = 0; i < length(mastermind); i++){
-            print(mastermind[i] + "•"+ ANSI_RESET + " ");
+            print(mastermind[i] + "★"+ ANSI_RESET + " ");
         }
         println();
     }
