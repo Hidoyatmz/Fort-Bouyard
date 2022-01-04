@@ -32,7 +32,6 @@ class Main extends GameManager {
                 debug("User choiced : " + mainMenu[choice]);
             }
             if(choice == 0) {
-                // TODO LANCEMENT DU JEU
                 Team team = registerTeam();
                 Game g = newGame(team);
                 startGame(g);
