@@ -162,6 +162,11 @@ class Utils extends Program {
         return loadCSV("../ressources/csv/" + filename);
     }
 
+    /**
+     * Returns an integer asked to user while it is not a valid digit between 0 and 9.
+     * @return integer from user after validation.
+     */
+
     int enterNumber() {
         String s;
         cusp();
@@ -173,17 +178,10 @@ class Utils extends Program {
         return stringToInt(s);
     }
 
-    boolean onlyChars(String text){
-        boolean res = true;
-        int i = 0;
-        while(i < length(text) && res){
-            if(!isBetween(charToInt(charAt(text, i)), charToInt('A'), charToInt('Z'))){
-                res = false;
-            }
-            i = i +1;
-        }
-        return res;
-    }
+    /**
+     * Returns a string asked to user while it is not a valid string.
+     * @return string from user after validation.
+     */
 
     String enterText(){
         String s;
