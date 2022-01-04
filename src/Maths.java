@@ -9,12 +9,13 @@ class Maths extends BouyardCard {
     final String MATHEMATIXCSV = "mathematix.csv";
 
     Epreuve initMathematix() {
-        return newEpreuve(6, "Mathematix", -1, "Résolvez cette suite de 6 calculs mentaux pour gagner ! (Vous pouvez utiliser 1 fois le mot Joker pour changer de calcul)", GameState.KEYS);
+        return newEpreuve(6, "Mathematix", -1, "Résolvez cette suite de 6 calculs mentaux pour gagner !", GameState.KEYS);
     }
     boolean startMathematix(Epreuve mathematix) {
         CSVFile mathematixCSV = myLoadCSV(MATHEMATIXCSV);
         final int MAXCALC = rowCount(mathematixCSV) - 1;
         final int solveToWin = 6;
+        // Check if the game can be run (If there is enough uniq questions.);
         if(solveToWin > MAXCALC){
             erreur(solveToWin + ">" + MAXCALC + " couldnt start " + mathematix.name + "...");
             info("Votre jeu est corrompu, veuillez le télécharger à nouveau.");
@@ -48,6 +49,13 @@ class Maths extends BouyardCard {
         return compliments[(randInt(1,length(compliments))-1)];
     }
 
+    /**
+     * Display the next question and return if the user has the correct answers.
+     * @param calc
+     * @param tour
+     * @return true if user answered good, false otherwise.
+     */
+
     boolean doCalc(String[] calc, int tour) {
         myClearScreen();
         println("Calcul n°" + tour + " !");
@@ -55,6 +63,15 @@ class Maths extends BouyardCard {
         int uChoice = enterNumber();
         return uChoice == stringToInt(calc[1]);
     }
+
+    /**
+     * Return the next question from the given CSVFile that has not been done yet.
+     * @param mathematixCSV
+     * @param MAXCALC
+     * @param played
+     * @param tour
+     * @return A table of String being the next question with it answers.
+     */
 
     String[] getNextCalc(CSVFile mathematixCSV, int MAXCALC, int[] played, int tour) {
         String[] res = new String[2];
