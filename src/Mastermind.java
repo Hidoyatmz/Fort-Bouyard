@@ -4,7 +4,7 @@
  * @OPTIMIZATION    : NOT DONE
  */
 
-import extensions.*;
+// import extensions.*;
 
 class Mastermind extends Roulette {
     final int SIZE = 5;

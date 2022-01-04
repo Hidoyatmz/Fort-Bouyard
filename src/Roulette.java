@@ -4,7 +4,7 @@
  * @OPTIMIZATION    : NOT DONE
  */
 
-import extensions.*;
+// import extensions.*;
 class Roulette extends Fakir {
     final int SIZE = 8;
     Epreuve initRoulette() {

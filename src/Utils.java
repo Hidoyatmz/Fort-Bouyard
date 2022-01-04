@@ -213,6 +213,10 @@ class Utils extends Program {
         return false;
     }
 
+    /**
+     * Display an array of string on screen.
+     */
+
     void println(String[] a){
         for(int i = 0; i < length(a); i++){
             println(a[i]);
@@ -408,9 +412,23 @@ class Utils extends Program {
         return res;
     }
 
+    /**
+     * Returns 1 if true, 0 if false.
+     * 
+     * @version debug
+     * @param bool boolean to test
+     * @return 1 for true, 0 if false.
+     */
+
     String toString(boolean bool){
         return bool ? "1" : "0";
     }
+
+    /**
+     * Returns the time formated with minutes and seconds.
+     * @param time  the time as a long to format
+     * @return      a String formated, ready to be displayed.
+     */
 
     String formatTime(long time){
         String res = time+"s";
