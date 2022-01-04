@@ -44,12 +44,25 @@ class MemoGame extends Mastermind {
         return points >= ROUNDSTOWIN;
     }
 
+    /**
+     * Display who won the round depending on the score
+     * @param uScore Score of the user
+     * @param iaScore Score of the IA
+     */
+
     void printUserWon(int uScore, int iaScore) {
         println("Vous avez trouvé : " + ANSI_PURPLE + uScore + ANSI_RESET + " bon symboles.");
         println("Le maître a trouvé : " + ANSI_PURPLE + iaScore + ANSI_RESET + " bon symboles.");
         String winner = (iaScore <= uScore) ? "Vous" : "Le maître";
         println(winner + " gagne la manche !");
     }
+
+    /**
+     * Returns how many good symbol are placed on the board at the given time.
+     * @param userRes   String with all the answers of the user.
+     * @param map       Board containing the good answers
+     * @return          integer being the number of user's good answers
+     */
 
     int getGoodSymbols(String userRes, MemoSymbol[] map) {
         int res = 0;
@@ -81,6 +94,11 @@ class MemoGame extends Mastermind {
         return res;
     }
 
+    /**
+     * Init the board with random symbols
+     * @param map Map not initialized yet.
+     */
+
     void initMap(MemoSymbol[] map) {
         String sColor = ANSI_BLUE;
         char sCar = 'A';
@@ -102,9 +120,21 @@ class MemoGame extends Mastermind {
         }
     }
 
+    /**
+     * Format a symbol character to be displayed.
+     * @param symbol
+     * @return String formated with the symbol and his color.
+     */
+
     String getSymbol(MemoSymbol symbol) {
         return symbol.color + symbol.car + ANSI_RESET;
     }
+
+    /**
+     * Format a Map of Symbols to be displayed
+     * @param symbol
+     * @return String formated with all the symbols and his color.
+     */
 
     String getMap(MemoSymbol[] map) {
         String res = "";
@@ -114,12 +144,10 @@ class MemoGame extends Mastermind {
         return res;
     }
 
-    void println(MemoSymbol[] map){
-        for(int i = 0; i < length(map); i++){
-            print(getSymbol(map[i]) + " ");
-        }
-        println();
-    }
+    /**
+     * Shuffle the given array of Symbols
+     * @param map Array of Symbols.
+     */
 
     void shuffleMap(MemoSymbol[] map) {
         MemoSymbol temp;
