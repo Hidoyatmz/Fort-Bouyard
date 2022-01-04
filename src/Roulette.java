@@ -13,7 +13,7 @@ class Roulette extends Fakir {
 
     boolean startRoulette(Epreuve epreuve) {
         String[] roulette = new String[15];
-        String cursor = "^" + ANSI_CURSOR_HIDE;
+        String cursor = "⮝" + ANSI_CURSOR_HIDE;
         boolean res = false;
         int tour = 1;
         int tourTodo = randInt(32,80);
@@ -65,6 +65,13 @@ class Roulette extends Fakir {
         }
     }
 
+    /**
+     * Returns the delay between each movement of the cursor depending on round
+     * @param tour      Current round
+     * @param tourTodo  Max round
+     * @return          Time to wait between each movement of cursor;
+     */
+
     int getDelay(int tour, int tourTodo){
         if(tour < (tourTodo/3)){
             return 100;
@@ -78,6 +85,11 @@ class Roulette extends Fakir {
             return 500;
         }
     }
+
+    /**
+     * Returns the color chosed by the user.
+     * @return String being the color chosed by the user.
+     */
 
     String askUserChoice(){
         String choice;
@@ -100,6 +112,11 @@ class Roulette extends Fakir {
         return choice;
     }
 
+    /**
+     * Display the wheel on the screen.
+     * @param roulette wheel to be displayed.
+     */
+
     void printRoulette(String[] roulette) {
         for(int i = 0; i < length(roulette); i++){
             print(roulette[i] + "•"+ ANSI_RESET + " ");
@@ -107,14 +124,26 @@ class Roulette extends Fakir {
         println();
     }
 
+    /**
+     * Returns a string being the cursor String depending on the round by adding whitespaces.
+     * @return String being the string to print to display the cursor
+     */
+
     String moveCursor(String cursor, int tour){
         if(tour%15 == 0){
-            cursor = "^";
+            cursor = "⮝";
         } else {
             cursor = "  " + cursor;
         }
         return cursor;
     }
+
+    /**
+     * Count the number of whitespace in the given String.
+     * @param cursor    String to count whitespaces.
+     * @return          int being then number of whitespaces in the String
+     * @version         currently bugged ?
+     */
     
     int countSpaceInString(String cursor){
         int res = 0;
