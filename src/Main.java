@@ -43,8 +43,9 @@ class Main extends GameManager {
             } else if(choice == 3) {
                 displayCredits();
             } else if(choice == 4) {
-                playSound("../ressources/sounds/theme2.mp3", true);
+                playSound("../ressources/sounds/theme.mp3", true);
             } else if (debug && choice == 6) {
+                myClearScreen();
                 Team team = registerTeam();
                 Game g = newGame(team);
                 for(int i = 0; i < length(g.epreuves); i++) {
@@ -198,6 +199,7 @@ class Main extends GameManager {
         Game game = new Game();
         game.team = team;
         game.nbKeys = 0;
+        game.timer = newTimer(1800);
         generateCode(game);
         setIndiceFind(game.indices[0]);
         game.gameState = GameState.KEYS;
@@ -233,7 +235,7 @@ class Main extends GameManager {
     // TODO CREATION ET SELECTION EPREUVES
 
     void initEpreuves(Game game) {
-        Epreuve[] generals = new Epreuve[]{initMastermind(), initRoulette(), initQuiz(), initPipeGame(), initSoundGame(), initMathematix(), initMemoGame()};
+        Epreuve[] generals = new Epreuve[]{initQuiz(), initMastermind(), initRoulette(), initPipeGame(), initSoundGame(), initMathematix(), initMemoGame()};
         Epreuve[] jugements = new Epreuve[]{initFakir(), initPileOuFace(), initShiFuMi()};
         Epreuve[] conseils = new Epreuve[]{initBouyardCard()};
         //game.epreuves = new Epreuve[MAXEPREUVESKEY + MAXEPREUVESJUGEMENT + MAXEPREUVESINDICES + MAXEPREUVESCONSEIL];

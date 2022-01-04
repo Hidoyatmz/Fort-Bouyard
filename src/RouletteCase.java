@@ -1,4 +1,4 @@
-﻿class RouletteCase {
+class RouletteCase {
 
     String color;
 

@@ -15,7 +15,7 @@ class Mastermind extends Roulette {
     }
 
     boolean startMastermind(Epreuve epreuve) {
-        int health = 3;
+        int health = 4;
         String move;
         String[] map = new String[SIZE];
         String[] usermap = new String[SIZE];
@@ -43,7 +43,7 @@ class Mastermind extends Roulette {
             health--;
             makeMove(usermap, move);
         } while(health > 0 && getGoodBlues(map, usermap) != 3);
-        return health > 0;
+        return health >= 0;
     }
 
     void makeMove(String[] usermap, String move) {
@@ -56,9 +56,12 @@ class Mastermind extends Roulette {
     }
 
     boolean isValideMove(String move){
-        int first = charToInt(charAt(move, 0));
-        int second = charToInt(charAt(move, 1));
-        return ((first >= 1 && first <= 5) && (second >= 1 && second <= 5) && (second != first) && (length(move) == 2));
+        if(length(move) >= 2){
+            int first = charToInt(charAt(move, 0));
+            int second = charToInt(charAt(move, 1));
+            return ((first >= 1 && first <= 5) && (second >= 1 && second <= 5) && (second != first));
+        }
+        return false;
     }
 
     /*boolean checkMastermind(String[] map, String[] usermap) {

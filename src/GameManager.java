@@ -47,18 +47,19 @@ class GameManager extends Quiz {
     // UPDATE LE NOMBRE DE CLES ET LE JOUEUR DE L'EPREUVE
     // UTILISER DANS LES PHASES KEYS ET JUGEMENT
     void updateKeys(Game game, Epreuve epreuve, boolean success) {
+        myClearScreen();
         if(success) {
             game.nbKeys = game.nbKeys + 1;
-            println("Félicitation jeune padawan, tu as gagné une clef pour ton équipe !\nVous avez maintenant " + game.nbKeys + "/4 clefs !");
+            println(ANSI_GREEN + "Félicitation jeune padawan, tu as gagné une clef pour ton équipe !\nVous avez maintenant " + game.nbKeys + "/4 clefs !" + ANSI_RESET);
         }
         else {
-            println("C'est perdu.. Quel dommage ahah !\nNe perdez pas le rythme ! Il vous faut encore " + (MAXEPREUVESKEY-game.nbKeys) + " clefs");
+            println(ANSI_RED + "C'est perdu.. Quel dommage ahah !\nNe perdez pas le rythme ! Il vous faut encore " + (MAXEPREUVESKEY-game.nbKeys) + " clefs" + ANSI_RESET);
             if(epreuve.gameState == GameState.KEYS) {
                 println("Le joueur " + ANSI_YELLOW + epreuve.player.pseudo + ANSI_RESET + " est envoyer en prsion !");
                 epreuve.player.jail = true;
             }
         }
-        delay(5000);
+        pressEnterToContinue();
     }
 
     // RENVOIE LE NOMBRE DE PERSONNES EN PRISON
@@ -126,6 +127,7 @@ class GameManager extends Quiz {
     void initEpreuve(Game game, Epreuve epreuve) {
         myClearScreen();
         epreuve.player = haulPlayer(game.team);
+        println("Vous avez passez : " + ANSI_CYAN + formatTime(getElapsedTime(game.timer)) + ANSI_RESET + " en jeu.");
         println("La prochaine épreuve sera : " + ANSI_YELLOW + epreuve.name + ANSI_RESET + " !");
         println("C'est à " + ANSI_YELLOW + epreuve.player.pseudo + ANSI_RESET + " de jouer !\n");
         pressEnterToContinue();

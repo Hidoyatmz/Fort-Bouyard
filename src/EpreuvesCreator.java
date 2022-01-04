@@ -1,6 +1,6 @@
 import extensions.*;
 
-class EpreuvesCreator extends Utils {
+class EpreuvesCreator extends TimerMethods {
 
     Epreuve newEpreuve(int id, String name, int timer, String rules, GameState gameState) {
         Epreuve epreuve = new Epreuve();

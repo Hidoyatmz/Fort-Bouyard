@@ -6,5 +6,6 @@ class Game {
     Indice[] indices;
     GameState gameState;
     Epreuve[] epreuves;
+    Timer timer;
 
 }

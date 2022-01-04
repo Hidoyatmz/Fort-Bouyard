@@ -4,22 +4,26 @@ class Quiz extends SoundGame {
     final String CHARADECSV = "charades.csv";
     
     Epreuve initQuiz() {
-        return newEpreuve(0, "Quiz", -1, "Trouve la réponse à la charade !", GameState.KEYS);
+        return newEpreuve(0, "Quiz", 60, "Trouve la réponse à la charade !", GameState.KEYS);
     }
 
     boolean startQuiz(Epreuve quiz){
         String[] charade = getRandomCharade(CHARADECSV);
         String answer;
         int trys = 3;
+        if(debug) {
+            trys = 50;
+        }
+        Timer timer = newTimer(quiz.timer);
         do{
             printIntro(quiz, charade);
-            printInfos(quiz, trys);
+            printInfos(quiz, trys, timer);
             answer = enterText();
             if(!isCharadeValidAnswer(answer, charade)){
                 trys = trys - 1;
             }
-        } while(!isCharadeValidAnswer(answer, charade) && trys > 0);
-        return trys > 0;
+        } while(inTime(timer) && !isCharadeValidAnswer(answer, charade) && trys > 0);
+        return trys > 0 && inTime(timer);
     }
 
     void printIntro(Epreuve quiz, String[] charade) {
@@ -29,9 +33,9 @@ class Quiz extends SoundGame {
         printCharade(charade);
     }
 
-    void printInfos(Epreuve quiz, int trys){
+    void printInfos(Epreuve quiz, int trys, Timer timer){
         println("Tu as " + ANSI_RED + trys + ANSI_RESET + " essais !");
-        println("Attention ! Tu as " + quiz.timer + " secondes pour trouver la réponse.");
+        println("Attention ! Il te reste " + getFormatRemainingTime(timer) + " secondes pour trouver la réponse.");
         println("Entrez votre réponse : ");
     }
 
@@ -46,7 +50,7 @@ class Quiz extends SoundGame {
     String[] getRandomCharade(String filename) {
         CSVFile charades = myLoadCSV(CHARADECSV);
         String[] res = new String[rowCount(charades)-1];
-        int line = randInt(1, rowCount(charades));
+        int line = randInt(1, rowCount(charades)-1);
         for(int i = 0; i < length(res); i++){
             res[i] = getCell(charades, line, i);
         }

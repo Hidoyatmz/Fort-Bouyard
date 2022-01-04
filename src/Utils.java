@@ -267,6 +267,20 @@ class Utils extends Program {
         return res;
     }
 
+    String replaceInString(String s, char toFind, char replace){
+        char toCheck;
+        String res = "";
+        for(int i = 0; i < length(s); i++){
+            toCheck = charAt(s, i);
+            if(toCheck == toFind){
+                res += replace;
+            } else {
+                res += toCheck;
+            }
+        }
+        return res;
+    }
+
     void testRemoveVoid() {
         assertArrayEquals(new String[]{"Bleu"}, removeVoid(new String[]{"", "Bleu", " "}));
     }
@@ -285,6 +299,20 @@ class Utils extends Program {
                 res[ires] = tab[i];
                 ires++;
             }
+        }
+        return res;
+    }
+
+    String toString(boolean bool){
+        return bool ? "1" : "0";
+    }
+
+    String formatTime(long time){
+        String res = time+"s";
+        if(time > 60){
+            String minutes = ""+(time % 3600) / 60;
+            String seconds = ""+(int) (time % 60);
+            res = minutes + "m" + seconds + "s";
         }
         return res;
     }
