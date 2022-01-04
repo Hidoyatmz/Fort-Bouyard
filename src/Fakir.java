@@ -30,8 +30,8 @@ class Fakir extends PileOuFace {
         placerBille(grille, columnStart);
         afficherFakir(grille);
         delay(700);
-        int[] pos = new int[]{0, columnStart};
-        while(pos[0] < length(grille, 1)-1) {
+        Coordonnees pos = newCoordonnees(0, columnStart);
+        while(pos.l < length(grille, 1)-1) {
             descendreBille(grille, pos);
             afficherFakir(grille);
             delay(700);
@@ -74,12 +74,12 @@ class Fakir extends PileOuFace {
      *  @param pos 
      *  @return the color of the hole, where the ball falled in
      */
-    FakirItems getHole(FakirItems[][] grille, int[] pos) {
+    FakirItems getHole(FakirItems[][] grille, Coordonnees pos) {
         FakirItems res;
-        if(pos[1] == (length(grille, 2)/2)) {
+        if(pos.c == (length(grille, 2)/2)) {
             res = FakirItems.TROU_ALL;
         }
-        else if(pos[1] % 2 == 0) {
+        else if(pos.c % 2 == 0) {
             res = FakirItems.TROU_BLANC;
         }
         else {
@@ -95,12 +95,12 @@ class Fakir extends PileOuFace {
      *  @param pos
      *  @return true, if the ball bounced
      */
-    boolean rebond(FakirItems[][] grille, int[] pos) {
+    boolean rebond(FakirItems[][] grille, Coordonnees pos) {
         int r = randInt(0, 2);
         // 1 chance sur 3 de rebondir a la fin
         if(r == 0) {
-            int[] nextPos1 = new int[]{pos[0], pos[1]-1};
-            int[] nextPos2 = new int[]{pos[0], pos[1]+1};
+            Coordonnees nextPos1 = newCoordonnees(pos.l, pos.c - 1);
+            Coordonnees nextPos2 = newCoordonnees(pos.l, pos.c + 1);
             aleaNextPosBille(grille, pos, nextPos1, nextPos2);
             return true;
         }
@@ -114,16 +114,16 @@ class Fakir extends PileOuFace {
      *  @param pos
      *  @return true, if the ball bounced
      */
-    void descendreBille(FakirItems[][] grille, int[] pos) {
-        FakirItems underBille = grille[pos[0]+1][pos[1]];
+    void descendreBille(FakirItems[][] grille, Coordonnees pos) {
+        FakirItems underBille = grille[pos.l+1][pos.c];
         if(underBille == FakirItems.BARRE) {
-            int[] nextPos1 = new int[]{pos[0]+1, pos[1]-1};
-            int[] nextPos2 = new int[]{pos[0]+1, pos[1]+1};
+            Coordonnees nextPos1 = newCoordonnees(pos.l+1, pos.c-1);
+            Coordonnees nextPos2 = newCoordonnees(pos.l+1, pos.c+1);
             aleaNextPosBille(grille, pos, nextPos1, nextPos2);
         }
         else {
-            moveBille(grille, pos, new int[]{pos[0]+1, pos[1]});
-            pos[0] = pos[0] + 1;
+            moveBille(grille, pos, newCoordonnees(pos.l+1, pos.c));
+            pos.l = pos.l + 1;
         }
     }
 
@@ -135,29 +135,29 @@ class Fakir extends PileOuFace {
      *  @param nextPos1 is one choice
      *  @param nextPos2 is one choice
      */
-    void aleaNextPosBille(FakirItems[][] grille, int[] pos, int[] nextPos1, int[] nextPos2) {
-        if(nextPos1[1] >= 0 && nextPos2[1] < length(grille, 2)) {
+    void aleaNextPosBille(FakirItems[][] grille, Coordonnees pos, Coordonnees nextPos1, Coordonnees nextPos2) {
+        if(nextPos1.c >= 0 && nextPos2.c < length(grille, 2)) {
             int r = randInt(0, 1);
             if(r == 0) {
                 moveBille(grille, pos, nextPos1);
-                pos[0] = nextPos1[0];
-                pos[1] = nextPos1[1];
+                pos.l = nextPos1.l;
+                pos.c = nextPos1.c;
             }
             else {
                 moveBille(grille, pos, nextPos2);
-                pos[0] = nextPos2[0];
-                pos[1] = nextPos2[1];
+                pos.l = nextPos2.l;
+                pos.c = nextPos2.c;
             }
         }
-        else if(nextPos1[1] >= 0) { // LA BILLE NE PEUT PAS ALLER A DROITE
+        else if(nextPos1.c >= 0) { // LA BILLE NE PEUT PAS ALLER A DROITE
             moveBille(grille, pos, nextPos1);
-            pos[0] = nextPos1[0];
-            pos[1] = nextPos1[1];
+            pos.l = nextPos1.l;
+            pos.c = nextPos1.c;
         }
         else { // LA BILLE NE PEUT ALLER QU'A DROITE
             moveBille(grille, pos, nextPos2);
-            pos[0] = nextPos2[0];
-            pos[1] = nextPos2[1];
+            pos.l = nextPos2.l;
+            pos.c = nextPos2.c;
         }
     }
 
@@ -168,21 +168,21 @@ class Fakir extends PileOuFace {
      *  @param from is the in-comming position
      *  @param to is the next position
      */
-    void moveBille(FakirItems[][] grille, int[] from, int[] to) {
-        if(from[0] < length(grille, 1)-1) {
-            grille[from[0]][from[1]] = FakirItems.VIDE;
+    void moveBille(FakirItems[][] grille, Coordonnees from, Coordonnees to) {
+        if(from.l < length(grille, 1)-1) {
+            grille[from.l][from.c] = FakirItems.VIDE;
         } else {
-            if(from[1] == (length(grille, 2)/2)) {
-                grille[from[0]][from[1]] = FakirItems.TROU_ALL;
+            if(from.c == (length(grille, 2)/2)) {
+                grille[from.l][from.c] = FakirItems.TROU_ALL;
             }
-            else if(from[1] % 2 == 0) {
-                grille[from[0]][from[1]] = FakirItems.TROU_BLANC;
+            else if(from.c % 2 == 0) {
+                grille[from.l][from.c] = FakirItems.TROU_BLANC;
             }
             else {
-                grille[from[0]][from[1]] = FakirItems.TROU_BLEU;
+                grille[from.l][from.c] = FakirItems.TROU_BLEU;
             }
         }
-        grille[to[0]][to[1]] = FakirItems.BILLE;
+        grille[to.l][to.c] = FakirItems.BILLE;
     }
 
     /**
@@ -285,5 +285,17 @@ class Fakir extends PileOuFace {
                 }
             }
         }
+    }
+
+    /**
+     *  Create new coordinate
+     *
+     *  @param grille is game's board, you can find obstacles and the ball inside it
+     */
+    Coordonnees newCoordonnees(int line, int column) {
+        Coordonnees coordonnees = new Coordonnees();
+        coordonnees.l = line;
+        coordonnees.c = column;
+        return coordonnees;
     }
 }

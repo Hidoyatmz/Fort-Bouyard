@@ -71,6 +71,7 @@ class Main extends GameManager {
     }
 
     void displayIntroGame() {
+        playSound("../ressources/sounds/passepartout.mp3", true);
         println(ANSI_CURSOR_HIDE);
         for(int i = 0; i <= 10; i++){
             myClearScreen();
