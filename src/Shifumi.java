@@ -1,23 +1,23 @@
 class Shifumi extends Maths {
     
     Epreuve initShiFuMi() {
-        return newEpreuve(5, "ShiFuMi", -1, "Choisis soit la pierre, le papier ou les ciseaux. La pierre bat les ciseaux, les ciseaux battent le papier et le papier bat la pierre. Le premier qui gagne 3 manches remporte la victoire !", GameState.JUGEMENT);
+        return newEpreuve(5, "ShiFuMi", -1, "Choisis soit la pierre, le papier ou les ciseaux. La pierre bat les ciseaux, les ciseaux battent le papier et le papier bat la pierre. Le premier qui gagne 3 manches remporte la victoire !", GameState.CONSEIL);
     }
 
     boolean startShiFuMi(Epreuve epreuve) {
         int[] winLose = new int[]{0, 0};
         int res; // joueur
-        int r; // robot
+        int r; // maitre
         while(!shiFuMiFinish(winLose)) {
             myClearScreen();
-            println("Manches gagnées par toi : " + winLose[0] + " | Manches gagnées par le robot : " + winLose[1]);
+            println("Manches gagnées par toi : " + winLose[0] + " | Manches gagnées par le maître : " + winLose[1]);
             printCoups();
             do {
                 res = enterNumber();
             } while(!isBetween(res, 1, 3));
             r = randInt(1, 3);
             println("Tu as joué " + getCoups(res));
-            println("Le robot a joué " + getCoups(r));
+            println("Le maître a joué " + getCoups(r));
             updateWinLose(winLose, res, r);
             delay(2000);
         }
@@ -29,7 +29,7 @@ class Shifumi extends Maths {
         if(winLose[0] > winLose[1]) {
             println("Bien jouer tu remportes la partie !");
         } else {
-            println("Dommage ! Le robot remporte la partie");
+            println("Dommage ! Le maître remporte la partie");
         }
     }
 

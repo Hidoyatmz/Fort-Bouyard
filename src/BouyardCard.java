@@ -1,5 +1,6 @@
 // EN COURS
 // FAIRE SYSTEME DE PIOCHE ET METTRE DANS SES CARTES 
+// VOIR SI la pioche ne devrait pas etre Card[][]
 
 
 class BouyardCard extends EpreuvesCreator {
@@ -17,13 +18,50 @@ class BouyardCard extends EpreuvesCreator {
         boolean win;
 
         int indexCurrentPlayer = randInt(0, 1);
+        int pioche;
 
         while(!wordComplete(players)) {
             printInfos(pioches, players, indexCurrentPlayer);
-            
+            pioche = askPioche(pioches, indexCurrentPlayer);
+
         }
 
         return true;
+    }
+
+    void discoverCard(char[][] pioches, int pioche, int currentPlayer) {
+        int iCard = indiceLastCard(pioches, pioche);
+
+    }
+
+    
+
+    int indiceLastCard(char[][] pioches, int pioche) {
+        int res = length(pioches, 2)-1;
+        while(res > 0 && pioches[pioche][res] == ' ') {
+            res--;
+        }
+        return res;
+    }
+
+    int askPioche(char[][] pioches, int currentPlayer) {
+        int res;
+        if(currentPlayer == 0) {
+            do {
+                res = enterNumber()-1;
+            } while(!isBetween(0, length(pioches, 1)-1) && !piocheEmpty(pioches, res));
+        }
+        else {
+            do {
+                res = (int) (random()*length(pioches));
+            } while(!piocheEmpty(pioches, res));
+            
+        }
+        return res;
+    }
+
+    boolean piocheEmpty(char[][] pioches, int pioche) {
+        return pioches[pioche][0] != ' ';
     }
 
     void printInfos(char[][] pioches, Card[][] players, int currentPlayer) {
