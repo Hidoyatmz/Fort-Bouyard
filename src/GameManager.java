@@ -51,10 +51,12 @@ class GameManager extends Quiz {
         myClearScreen();
         if(success) {
             game.nbKeys = game.nbKeys + 1;
+            playSound(SOUND_CORRECT_ANSWER, true);
             println(ANSI_GREEN + "Félicitation jeune padawan, tu as gagné une clef pour ton équipe !\nVous avez maintenant " + game.nbKeys + "/4 clefs !" + ANSI_RESET);
         }
         else {
             println(ANSI_RED + "C'est perdu.. Quel dommage ahah !\nNe perdez pas le rythme ! Il vous faut encore " + (MAXEPREUVESKEY-game.nbKeys) + " clefs" + ANSI_RESET);
+            playSound(SOUND_WRONG_ANSWER, true);
             if(epreuve.gameState == GameState.KEYS) {
                 println("Le joueur " + ANSI_YELLOW + epreuve.player.pseudo + ANSI_RESET + " est envoyé en prsion !");
                 epreuve.player.jail = true;

@@ -37,6 +37,7 @@ class Roulette extends Fakir {
             }
             tour = tour + 1;
         } while (tour <= tourTodo);
+        playSound("../ressources/sounds/ambiance/prize.mp3");
         println(ANSI_CURSOR_SHOW);
         if(inArray(posBlue,(countSpaceInString(cursor)+1))){
             res = equals(userChoice, ANSI_BLUE) ? true : false;

@@ -28,9 +28,11 @@ class EnglishGame extends BouyardCard {
             nextQuestion = getNextQuestion(englishCSV, CSVMAXROUNDS, played, round);
             goodAnswer = askUserQuestion(nextQuestion, round, score) ? true : false;
             if(goodAnswer){
+                playSound(SOUND_CORRECT_ANSWER,true);
                 println(ANSI_LIGHT_GREEN + "Félicitation ! Vous gagnez un point :)" + ANSI_RESET);
                 score++;
             } else {
+                playSound(SOUND_WRONG_ANSWER,true);
                 println(ANSI_LIGHT_RED + "Quel dommage ! La réponsé était " + ANSI_LIGHT_CYAN + nextQuestion[2] + ANSI_RESET);
             }
             delay(2000);
