@@ -457,4 +457,14 @@ class Utils extends Program {
         }
     }
 
+    boolean allDigits(String s){
+        boolean res = true;
+        int i = 0;
+        while(i < length(s) && res){
+            res = isDigit(charAt(s,i)) ? true: false;
+            i++;
+        }
+        return res;
+    }
+
 }

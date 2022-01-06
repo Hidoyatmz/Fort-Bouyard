@@ -28,9 +28,8 @@ class MemoGame extends Mastermind {
             myClearScreen();
             println("MANCHE #"+tour);
             shuffleMap(map);
-            println(getMap(map));
+            println("Mémorisez cette combinaison:\n" + getMap(map));
             delay(TIME*1000);
-            myClearScreen();
             userRes = askUserAnswer();
             iaScore = randInt(randInt(2,3), SIZE);
             uScore = getGoodSymbols(userRes, map);
@@ -79,16 +78,18 @@ class MemoGame extends Mastermind {
     }
 
     String askUserAnswer() {
+        myClearScreen();
+        debug("DEBUG");
         int i = 1;
-        char c;
+        String c;
         String res = "";
         char[] chars = new char[]{'A', 'T', 'G', 'C'};
         do {
-            print("Quel était la lettre n°" + i +" : ");
+            print("Quel était la lettre n°" + i +" (ATG ou C): ");
             do {
-                c = readChar();
-            } while(!inArray(chars, c));
-            res += c;
+                c = readString();
+            } while(!(length(c) > 0) || !inArray(chars, charAt(c,0)));
+            res += charAt(c,0);
             i++;
         } while(i <= SIZE);
         return res;
