@@ -1,6 +1,6 @@
 /**
  * @STATUS          : 90% COMPLETED;
- * @TODO            : Système de joker
+ * @TODO            : Système de timer pour répondre
  * @OPTIMIZATION    : NOT DONE
  */
 
@@ -22,7 +22,6 @@ class Maths extends EnglishGame {
             delay(15000);
             return false;
         }
-        // int joker = 1;
         int tour = 1;
         int[] played = new int[MAXCALC];
         boolean alive = true;
