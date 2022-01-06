@@ -448,4 +448,13 @@ class Utils extends Program {
         return res;
     }
 
+    void println(char[][] chars) {
+        for(int i=0; i<length(chars, 1); i++) {
+            for(int j=0; j<length(chars, 2); j++) {
+                print(chars[i][j] + " ");
+            }
+            print("\n");
+        }
+    }
+
 }
