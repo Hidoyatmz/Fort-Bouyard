@@ -121,6 +121,9 @@ class GameManager extends Quiz {
         else if(epreuve.id == 10) {
             res = startBouyardCard(epreuve);
         }
+        else if(epreuve.id == 11){
+            res = startEnglishGame(epreuve);
+        }
         return res;
     }
 

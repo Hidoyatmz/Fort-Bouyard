@@ -8,6 +8,7 @@
 * PipeGame
 * Quiz
 * SoundGame
+* EnglishGame
 
 ### Épreuves défis :
 * Roulette

@@ -5,7 +5,7 @@ class Main extends GameManager {
     final String[] mainMenu = new String[]{"Jouer", "Leaderboard", "Règles", "Crédits", "Activer la musique", "Quitter"};
     final String WORDSCSV = "words.csv";
     final String LEADERBOARDCSV = "leaderboard.csv";
-    final String[] DEPENDENCIES = new String[]{WORDSCSV, CHARADECSV, SOUNDGAMECSV};
+    final String[] DEPENDENCIES = new String[]{WORDSCSV, CHARADECSV, SOUNDGAMECSV, ENGLISHGAMECSV};
     
     void algorithm() {
         myClearScreen();
@@ -249,7 +249,7 @@ class Main extends GameManager {
     // TODO CREATION ET SELECTION EPREUVES
 
     void initEpreuves(Game game) {
-        Epreuve[] generals = new Epreuve[]{initRoulette(), initQuiz(), initMastermind(), initPipeGame(), initSoundGame(), initMathematix(), initMemoGame()};
+        Epreuve[] generals = new Epreuve[]{initEnglishGame(), initRoulette(), initQuiz(), initMastermind(), initPipeGame(), initSoundGame(), initMathematix(), initMemoGame()};
         Epreuve[] jugements = new Epreuve[]{initFakir(), initPileOuFace(), initShiFuMi()};
         Epreuve[] conseils = new Epreuve[]{initBouyardCard()};
         //game.epreuves = new Epreuve[MAXEPREUVESKEY + MAXEPREUVESJUGEMENT + MAXEPREUVESINDICES + MAXEPREUVESCONSEIL];

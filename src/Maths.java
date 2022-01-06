@@ -5,7 +5,7 @@
  */
 
 import extensions.*;
-class Maths extends BouyardCard {
+class Maths extends EnglishGame {
     final String MATHEMATIXCSV = "mathematix.csv";
 
     Epreuve initMathematix() {
