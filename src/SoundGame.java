@@ -7,6 +7,7 @@
 import extensions.*;
 class SoundGame extends PipeGame {
     final String SOUNDGAMECSV = "soundgame.csv";
+    final int MAXTRYS = 5;
     Epreuve initSoundGame() {
         return newEpreuve(2, "SoundGame", -1, "Vous devez trouver 3 animaux sur les 5 joués !", GameState.KEYS);
     }
@@ -18,8 +19,8 @@ class SoundGame extends PipeGame {
         int tour = 0;
         int goodAnswers = 0;
         shuffleArrays(sounds,answers);
-        sounds = cutArray(0,4,sounds);
-        answers = cutArray(0,4,answers);
+        sounds = cutArray(0,MAXTRYS-1,sounds);
+        answers = cutArray(0,MAXTRYS-1,answers);
         do {
             boolean found = doSound(sounds[tour], answers[tour], tour);
             myClearScreen();
@@ -34,8 +35,12 @@ class SoundGame extends PipeGame {
             }
             delay(1500);
             tour = tour +1;
-        } while(!userWon(goodAnswers, answers) && tour < length(answers));
+        } while(!userWon(goodAnswers, answers) && tour < length(answers) && canStillWin(tour, goodAnswers));
         return userWon(goodAnswers, answers);
+    }
+
+    boolean canStillWin(int tour, int goodAnswers) {
+        return ((MAXTRYS-tour) + goodAnswers) >= 3;
     }
 
     Sound[] cutArray(int s, int e, Sound[] sounds) {
