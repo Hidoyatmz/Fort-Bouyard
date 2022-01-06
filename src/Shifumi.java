@@ -54,7 +54,7 @@ class Shifumi extends Maths {
             println("Tu gagnes 1 point !");
         } else {
             winLose[1] = winLose[1] + 1;
-            println("Le robot prend 1 point !");
+            println("Le maître prend 1 point !");
         }
     }
 
