@@ -45,7 +45,7 @@ class Main extends GameManager {
                 myClearScreen();
                 if(!musicRunning){
                     musicRunning = true;
-                    playSound("../ressources/sounds/theme.mp3", true);
+                    playSound(SOUND_THEME, true);
                     printTxt("../ressources/music.txt");
                 } else {
                     info("La musique est déjà en cours..");

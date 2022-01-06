@@ -133,7 +133,9 @@ class GameManager extends Quiz {
     void initEpreuve(Game game, Epreuve epreuve) {
         myClearScreen();
         epreuve.player = haulPlayer(game.team);
-        println("Vous avez passez : " + ANSI_CYAN + formatTime(getElapsedTime(game.timer)) + ANSI_RESET + " en jeu.");
+        long elapsedTime = getElapsedTime(game.timer);
+        checkIfResetMusicBool(elapsedTime);
+        println("Vous avez passez : " + ANSI_CYAN + formatTime(elapsedTime) + ANSI_RESET + " en jeu.");
         println("La prochaine épreuve sera : " + ANSI_YELLOW + epreuve.name + ANSI_RESET + " !");
         println("C'est à " + ANSI_YELLOW + epreuve.player.pseudo + ANSI_RESET + " de jouer !\n");
         pressEnterToContinue();
@@ -142,6 +144,26 @@ class GameManager extends Quiz {
         println("");
         println(epreuve.rules + "\n");
         pressEnterToContinue();
+    }
+
+    void checkIfResetMusicBool(long elapsedTime) {
+        if(elapsedTime % 220 != elapsedTime){
+            musicRunning = false;
+        }
+        /*int choice;
+        if(musicRunning){
+            if(elapsedTime >= 220){
+                musicRunning = false;
+                println("La musique s'est arrêté, voulez-vous la relancer ?\n1. : Oui\n2. : Non");
+                do{
+                    choice = enterNumber();
+                } while(!isBetween(choice, 1,2));
+                if(choice == 1){
+                    musicRunning = true;
+                    playSound(SOUND_THEME, true);
+                }
+            }
+        }*/
     }
 
     // TIRE ALEATOIREMENT UN JOUEUR QUI N'EST PAS EN PRISON

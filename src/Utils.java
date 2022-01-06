@@ -14,6 +14,7 @@ class Utils extends Program {
     final String SOUND_CORRECT_ANSWER = "../ressources/sounds/ambiance/correct-sound.mp3";
     final String SOUND_CORRECT_ANSWER_2 = "../ressources/sounds/ambiance/correct-sound-2.mp3";
     final String SOUND_WRONG_ANSWER = "../ressources/sounds/ambiance/wrong-sound.mp3";
+    final String SOUND_THEME = "../ressources/sounds/ambiance/theme.mp3";
 
     /* Enter "debugme" on the first screen to activate debug mode */
     boolean debug = false;
