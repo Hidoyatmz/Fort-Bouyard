@@ -79,13 +79,12 @@ class MemoGame extends Mastermind {
 
     String askUserAnswer() {
         myClearScreen();
-        debug("DEBUG");
         int i = 1;
         String c;
         String res = "";
         char[] chars = new char[]{'A', 'T', 'G', 'C'};
         do {
-            print("Quel était la lettre n°" + i +" (ATG ou C): ");
+            print("Quel était la lettre n°" + i +" (A-T-C-G): ");
             do {
                 c = readString();
             } while(!(length(c) > 0) || !inArray(chars, charAt(c,0)));

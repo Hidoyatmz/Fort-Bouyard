@@ -11,7 +11,7 @@ class Mastermind extends Roulette {
     final int BLUE = 3;
 
     Epreuve initMastermind() {
-        return newEpreuve(9, "Mastermind", -1, "Retrouve la combinaison !", GameState.KEYS);
+        return newEpreuve(9, "Mastermind", -1, "Dans ce défi, vous devez reconstituer une combinaison de 5 balles bleues ou rouges. Pour ce faire, vous disposez de 4 essais.\nAprès chaque déplacement, le score de balles bleus bien placés s'affiche.", GameState.KEYS);
     }
 
     boolean startMastermind(Epreuve epreuve) {
