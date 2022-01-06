@@ -467,4 +467,13 @@ class Utils extends Program {
         return res;
     }
 
+    String[] cutArray(int s, int e, String[] strings) {
+        int size = e-s;
+        String[] newArray = new String[size+1];
+        for(int i = s; i <= e; i++){
+            newArray[i] = strings[i];
+        }
+        return newArray;
+    }
+
 }

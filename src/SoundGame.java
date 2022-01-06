@@ -52,15 +52,6 @@ class SoundGame extends PipeGame {
         return newArray;
     }
 
-    String[] cutArray(int s, int e, String[] strings) {
-        int size = e-s;
-        String[] newArray = new String[size+1];
-        for(int i = s; i <= e; i++){
-            newArray[i] = strings[i];
-        }
-        return newArray;
-    }
-
     void shuffleArrays(Sound[] sounds, String[] answers) {
         int r;
         int lenSounds = length(sounds);
