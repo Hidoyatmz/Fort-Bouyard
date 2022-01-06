@@ -25,7 +25,7 @@ class SoundGame extends PipeGame {
             boolean found = doSound(sounds[tour], answers[tour], tour);
             myClearScreen();
             if(found){
-                playSound(SOUND_CORRECT_ANSWER, true);
+                playSound(SOUND_CORRECT_ANSWER_2, true);
                 println("Bravo ! C'était bien un(e) " + answers[tour]);
                 goodAnswers += 1;
             } else {

@@ -20,9 +20,11 @@ class Quiz extends SoundGame {
             printInfos(quiz, trys, timer);
             answer = enterText();
             if(!isCharadeValidAnswer(answer, charade)){
+                playSound(SOUND_WRONG_ANSWER,true);
                 trys = trys - 1;
             }
         } while(inTime(timer) && !isCharadeValidAnswer(answer, charade) && trys > 0);
+        playSound(SOUND_CORRECT_ANSWER_2,true);
         return trys > 0 && inTime(timer);
     }
 
