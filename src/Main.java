@@ -28,8 +28,9 @@ class Main extends GameManager {
         int choice;
         while(play){
             choice = choiceMenuOption()-1;
-            if(!debug){
+            if(debug){
                 debug("User choiced : " + mainMenu[choice]);
+                delay(200);
             }
             if(choice == 0) {
                 Team team = registerTeam();
@@ -44,6 +45,7 @@ class Main extends GameManager {
             } else if(choice == 4) {
                 myClearScreen();
                 if(!musicRunning){
+                    musicTimer = newTimer(220);
                     musicRunning = true;
                     playSound(SOUND_THEME, true);
                     printTxt("../ressources/music.txt");

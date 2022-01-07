@@ -5,6 +5,7 @@ class GameManager extends Quiz {
     final int MAXEPREUVESINDICES = 5;
     final int MAXEPREUVESCONSEIL = 3;
     boolean musicRunning = false;
+    Timer musicTimer;
 
     // BOUCLE DU JEU
     void startGame(Game game) {
@@ -147,23 +148,10 @@ class GameManager extends Quiz {
     }
 
     void checkIfResetMusicBool(long elapsedTime) {
-        if(elapsedTime % 220 != elapsedTime){
-            musicRunning = false;
+        if(musicRunning && !inTime(musicTimer)){
+            playSound(SOUND_THEME, true);
+            musicTimer = newTimer(220);
         }
-        /*int choice;
-        if(musicRunning){
-            if(elapsedTime >= 220){
-                musicRunning = false;
-                println("La musique s'est arrêté, voulez-vous la relancer ?\n1. : Oui\n2. : Non");
-                do{
-                    choice = enterNumber();
-                } while(!isBetween(choice, 1,2));
-                if(choice == 1){
-                    musicRunning = true;
-                    playSound(SOUND_THEME, true);
-                }
-            }
-        }*/
     }
 
     // TIRE ALEATOIREMENT UN JOUEUR QUI N'EST PAS EN PRISON

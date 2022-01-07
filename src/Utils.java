@@ -438,6 +438,11 @@ class Utils extends Program {
         return bool ? "1" : "0";
     }
 
+    void testFormatTime(){
+        assertEquals("60s", formatTime(60));
+        assertEquals("1m30s", formatTime(90));
+    }
+
     /**
      * Returns the time formated with minutes and seconds.
      * @param time  the time as a long to format
@@ -463,6 +468,13 @@ class Utils extends Program {
         }
     }
 
+    void testAllDigits(){
+        assertEquals(false, allDigits("a123"));
+        assertEquals(false, allDigits("123a"));
+        assertEquals(false, allDigits("1a23"));
+        assertEquals(true, allDigits("123"));
+    }
+
     boolean allDigits(String s){
         boolean res = true;
         int i = 0;
@@ -471,6 +483,11 @@ class Utils extends Program {
             i++;
         }
         return res;
+    }
+
+    void testCutArray(){
+        String[] test = new String[]{"a", "b", "c", "d", "e"};
+        assertTrue(length(test) > length(cutArray(0,2,test)));
     }
 
     String[] cutArray(int s, int e, String[] strings) {
