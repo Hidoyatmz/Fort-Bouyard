@@ -30,7 +30,7 @@ class Maths extends EnglishGame {
             calc = getNextCalc(mathematixCSV, MAXCALC, played, tour);
             alive = doCalc(calc, tour);
             if(alive){
-                println(ANSI_GREEN + "Bravo ! "+ ANSI_RESET + getRandomCompliment());
+                println(ANSI_GREEN + "Bravo ! "+ ANSI_RESET + getRandomCongrats());
                 if(tour+1 < MAXCALC){
                     println("Passons au prochain calcul !");
                 }
@@ -43,9 +43,9 @@ class Maths extends EnglishGame {
         return alive;
     }
 
-    String getRandomCompliment() {
-        final String[] compliments = new String[]{"Tu es très bon en calcul mentaux !", "Tu maîtrises les chiffres !", "Ca se voit que tu es un bon élève !"};
-        return compliments[(randInt(1,length(compliments))-1)];
+    String getRandomCongrats() {
+        final String[] congrats = new String[]{"Tu es très bon en calcul mentaux !", "Tu maîtrises les chiffres !", "Ca se voit que tu es un bon élève !"};
+        return congrats[(randInt(1,length(congrats))-1)];
     }
 
     /**

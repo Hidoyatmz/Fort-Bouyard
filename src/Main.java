@@ -29,8 +29,9 @@ class Main extends GameManager {
         while(play){
             choice = choiceMenuOption()-1;
             if(debug){
-                debug("User choiced : " + mainMenu[choice]);
-                delay(200);
+                String uChoice = choice == 6 ? "Test a minigame" :  mainMenu[choice];
+                debug("User choiced : " + uChoice);
+                delay(500);
             }
             if(choice == 0) {
                 Team team = registerTeam();

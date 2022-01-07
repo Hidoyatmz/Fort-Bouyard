@@ -1,6 +1,6 @@
 /**
- * @STATUS          : 100% COMPLETED;
- * @TODO            : ---
+ * @STATUS          : 80% COMPLETED;
+ * @TODO            : Revoir la manière de faire gagner l'utilisateur. (Utiliser un tableau a 2 dimensions 2*X balles ?)
  * @OPTIMIZATION    : NOT DONE
  */
 
@@ -17,6 +17,7 @@ class Roulette extends Fakir {
         boolean res = false;
         int tour = 1;
         int tourTodo = randInt(32,80);
+        // Pas très propre mais solution "temporaire"
         int[] posBlue = new int[]{1,5,9,13,17,21,25,29};
         fillRoulette(roulette);
         String userChoice = askUserChoice();
