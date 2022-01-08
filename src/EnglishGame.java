@@ -11,7 +11,7 @@ class EnglishGame extends GeographyGame {
     final int MINSCORE = 3;
 
     Epreuve initEnglishGame() {
-        return newEpreuve(11, "EnglishGame", -1, "Jouez au jeu.", GameState.KEYS);
+        return newEpreuve(11, "EnglishGame", -1, "Dans cette épreuve, " + MAXROUNDS + " mots de vocabulaire vous sont donné. Donnez la traduction dans la langue indiqué pour gagner un point.\nIl vous faut un total de " + MINSCORE + " points pour remporter la victoire.\nPrécision : les accents sont pris en compte.", GameState.KEYS);
     }
 
     boolean startEnglishGame(Epreuve epreuve) {

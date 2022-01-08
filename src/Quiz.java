@@ -4,7 +4,7 @@ class Quiz extends SoundGame {
     final String CHARADECSV = "charades.csv";
     
     Epreuve initQuiz() {
-        return newEpreuve(0, "Quiz", 60, "Trouve la réponse à la charade !", GameState.KEYS);
+        return newEpreuve(0, "Charades du père fouras", 60, "Dans cette épreuve, vous devez résoudre la charade que le père fouras vous énoncera en moins de 3 essais et dans le temps imparti.\nPrécision : les accents sont pris en compte.", GameState.KEYS);
     }
 
     boolean startQuiz(Epreuve quiz){

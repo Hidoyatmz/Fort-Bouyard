@@ -8,7 +8,7 @@
 class Roulette extends Fakir {
     final int SIZE = 8;
     Epreuve initRoulette() {
-        return newEpreuve(8, "Roulette", -1, "Devinez sur quelle couleur s'arretera le curseur ! +1 clef bonus si vert.", GameState.KEYS);
+        return newEpreuve(8, "Roulette", -1, "Dans cette épreuve de chance, vous devez miser sur une des trois couleurs proposées.\nSi le curseur s'arrête sur votre couleur, vous remportez la victoire.", GameState.KEYS);
     }
 
     boolean startRoulette(Game game, Epreuve epreuve) {

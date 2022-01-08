@@ -9,7 +9,7 @@ class Maths extends EnglishGame {
     final String MATHEMATIXCSV = "mathematix.csv";
 
     Epreuve initMathematix() {
-        return newEpreuve(6, "Mathematix", -1, "Résolvez cette suite de 6 calculs mentaux pour gagner !", GameState.KEYS);
+        return newEpreuve(6, "Mathematix", -1, "Dans cette épreuve, résolvez un total de 6 calculs afin de remporter la victoire.\nEn cas d'une mauvaise réponse, c'est un echec.", GameState.KEYS);
     }
     boolean startMathematix(Epreuve mathematix) {
         CSVFile mathematixCSV = myLoadCSV(MATHEMATIXCSV);

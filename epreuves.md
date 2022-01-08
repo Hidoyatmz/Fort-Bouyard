@@ -4,7 +4,7 @@
 ## Dassonvile Valentin - Zaidi Mehdi
 
 ### Épreuves générales :
->Total : 6/6 
+>Total : 6/7
 * Quiz
 * PipeGame
 * SoundGame
