@@ -59,7 +59,7 @@ class GameManager extends Quiz {
             println(ANSI_RED + "C'est perdu.. Quel dommage ahah !\nNe perdez pas le rythme ! Il vous faut encore " + (MAXEPREUVESKEY-game.nbKeys) + " clefs" + ANSI_RESET);
             playSound(SOUND_WRONG_ANSWER, true);
             if(epreuve.gameState == GameState.KEYS) {
-                println("Le joueur " + ANSI_YELLOW + epreuve.player.pseudo + ANSI_RESET + " est envoyé en prsion !");
+                println("Le joueur " + ANSI_YELLOW + epreuve.player.pseudo + ANSI_RESET + " est envoyé en prison !");
                 epreuve.player.jail = true;
             }
         }
@@ -126,6 +126,9 @@ class GameManager extends Quiz {
         }
         else if(epreuve.id == 11){
             res = startEnglishGame(epreuve);
+        }
+        else if(epreuve.id == 12) {
+            res = startGeographyGame(epreuve);
         }
         return res;
     }

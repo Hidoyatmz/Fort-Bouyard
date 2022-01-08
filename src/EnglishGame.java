@@ -5,7 +5,7 @@
  */
 
 import extensions.*;
-class EnglishGame extends BouyardCard {
+class EnglishGame extends GeographyGame {
     final String ENGLISHGAMECSV = "englishgame.csv";
     final int MAXROUNDS = 5;
     final int MINSCORE = 3;
