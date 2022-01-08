@@ -6,13 +6,13 @@
 
 // import extensions.*;
 class Roulette extends Fakir {
-    final int SIZE = 8;
+    final int SIZE = 16;
     Epreuve initRoulette() {
         return newEpreuve(8, "Roulette", -1, "Dans cette épreuve de chance, vous devez miser sur une des trois couleurs proposées.\nSi le curseur s'arrête sur votre couleur, vous remportez la victoire.", GameState.KEYS);
     }
 
     boolean startRoulette(Game game, Epreuve epreuve) {
-        String[] roulette = new String[15];
+        String[] roulette = new String[SIZE];
         String cursor = "⮝" + ANSI_CURSOR_HIDE;
         boolean res = false;
         int tour = 1;
@@ -133,7 +133,7 @@ class Roulette extends Fakir {
      */
 
     String moveCursor(String cursor, int tour){
-        if(tour%15 == 0){
+        if(tour%SIZE == 0){
             cursor = "⮝";
         } else {
             cursor = "  " + cursor;

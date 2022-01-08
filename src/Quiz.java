@@ -30,8 +30,6 @@ class Quiz extends SoundGame {
 
     void printIntro(Epreuve quiz, String[] charade) {
         myClearScreen();
-        println("Bonjour et bienvenue dans le QUIQUIQUIZZZ !");
-        println("Voici les règles : " + quiz.rules);
         printCharade(charade);
     }
 

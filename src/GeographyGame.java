@@ -10,7 +10,7 @@ class GeographyGame extends BouyardCard {
     final String GEOGRAPHYCSV = "geography.csv";
 
     Epreuve initGeographyGame(){
-        return newEpreuve(12, "GeographyGame", -1, "Dans cette épreuve, une carte du monde ayant 3 continents numérotés s'affiche. Retrouvez le nom de ces 3 continents pour remporter la victoire.", GameState.KEYS);
+        return newEpreuve(12, "GeographyGame", -1, "Dans cette épreuve, une carte du monde ayant 3 continents numérotés s'affiche.\nRetrouvez le nom de ces 3 continents pour remporter la victoire.", GameState.KEYS);
     }
 
     boolean startGeographyGame(Epreuve epreuve){
@@ -29,7 +29,7 @@ class GeographyGame extends BouyardCard {
             println("Vous avez " + getFormatRemainingTime(qTimer) + " secondes pour répondre à la question.");
             println("Quel est le continent au point : " + ANSI_LIGHT_PINK + i + ANSI_RESET);
             uRes = toLowerCase(enterText());
-            res = (equals(uRes, answer[i]) || equals(uRes, "L'"+answer[i])) && inTime(qTimer) ? true : false;
+            res = (equals(uRes, answer[i]) || equals(uRes, "l'"+answer[i])) && inTime(qTimer) ? true : false;
             if(res){
                 info(ANSI_LIGHT_GREEN + "Bravo !" + ANSI_RESET + " C'est la bonne réponse :)");
             } else {
