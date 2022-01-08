@@ -1,6 +1,6 @@
 /**
- * @STATUS          : 0% COMPLETED;
- * @TODO            : Rien ?
+ * @STATUS          : 90% COMPLETED;
+ * @TODO            : Ajouter un timer par questions
  * @OPTIMIZATION    : NOT DONE
  */
 
@@ -10,7 +10,7 @@ class GeographyGame extends BouyardCard {
     final String GEOGRAPHYCSV = "geography.csv";
 
     Epreuve initGeographyGame(){
-        return newEpreuve(12, "GeographyGame", -1, "Jouez au jeu.", GameState.KEYS);
+        return newEpreuve(12, "GeographyGame", -1, "Retrouvez le nom du continent indiqué en moins de 20 secondes (ex: Antartique).", GameState.KEYS);
     }
 
     boolean startGeographyGame(Epreuve epreuve){
@@ -21,16 +21,23 @@ class GeographyGame extends BouyardCard {
         boolean res = true;
         int i = 1;
         String uRes;
+        Timer qTimer;
         do {
             myClearScreen();
+            qTimer = newTimer(20);
             printTxt("../ressources/geography/"+worldName);
-            println("Quel est le continent au point : " + i);
-            uRes = enterText();
-            res = equals(uRes, answer[i]) ? true : false;
+            println("Vous avez " + getFormatRemainingTime(qTimer) + " secondes pour répondre à la question.");
+            println("Quel est le continent au point : " + ANSI_LIGHT_PINK + i + ANSI_RESET);
+            uRes = toLowerCase(enterText());
+            res = equals(uRes, answer[i]) && inTime(qTimer) ? true : false;
             if(res){
-                info("Bravo ! C'est la bonne réponse :)");
+                info(ANSI_LIGHT_GREEN + "Bravo !" + ANSI_RESET + " C'est la bonne réponse :)");
             } else {
-                info("Quel dommage.. la bonne réponse était : " + ANSI_PURPLE + answer[i] + ANSI_RESET);
+                if(!inTime(qTimer)){
+                    erreur("Vous avez mis trop de temps pour répondre à la question..");
+                } else {
+                    erreur("Quel dommage.. la bonne réponse était : " + ANSI_PURPLE + answer[i] + ANSI_RESET);
+                }
             }
             i++;
             delay(1000);
@@ -43,7 +50,7 @@ class GeographyGame extends BouyardCard {
         int cCount = columnCount(geography);
         String[] res = new String[cCount];
         for(int i = 0; i < cCount; i++){
-            res[i] = getCell(geography, r, i);
+            res[i] = toLowerCase(getCell(geography, r, i));
         }
         return res;
     }

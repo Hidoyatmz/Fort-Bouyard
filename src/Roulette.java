@@ -100,7 +100,7 @@ class Roulette extends Fakir {
         cursor(0,0);
         int n;
         println("Vous avez le choix entre ces 3 couleurs :\n1. Bleu\n2. Rouge\n3. Vert");
-        print("Quelle vouleur voulez vous :");
+        print("Quelle couleur voulez vous :");
         cursor(6,0);
         do {
             n = enterNumber();

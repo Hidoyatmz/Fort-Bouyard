@@ -4,22 +4,26 @@
 ## Dassonvile Valentin - Zaidi Mehdi
 
 ### Épreuves générales :
-* Mathematix
-* PipeGame
+>Total : 6/6 
 * Quiz
+* PipeGame
 * SoundGame
+* Mathematix
 * EnglishGame
+* GeographyGame
 
 ### Épreuves défis :
-* Roulette
+>Total : 4/2 
 * Fakir
 * PileOuFace
+* Roulette
+* MasterMind
 
 ### Épreuves conseil :
+>Total : 3/2 
 * Shifumi
-* Mastermind
-* BouyardGame
 * MemoGame
+* BouyardGame
 
 
 #### Version : 0.11 - 06/01/2022

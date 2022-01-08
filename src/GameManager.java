@@ -1,9 +1,9 @@
 class GameManager extends Quiz {
 
-    final int MAXEPREUVESKEY = 4; // AUSSI LE NOMBRE DE CLES NECESSAIRES
-    final int MAXEPREUVESJUGEMENT = 2;
-    final int MAXEPREUVESINDICES = 5;
-    final int MAXEPREUVESCONSEIL = 3;
+    final int MAXEPREUVESKEY = 3; // AUSSI LE NOMBRE DE CLES NECESSAIRES // -1
+    final int MAXEPREUVESJUGEMENT = 2; // -1
+    final int MAXEPREUVESINDICES = 4;
+    final int MAXEPREUVESCONSEIL = 2; // -1
     boolean musicRunning = false;
     Timer musicTimer;
 
@@ -92,43 +92,43 @@ class GameManager extends Quiz {
         boolean res = false;
         initEpreuve(game, epreuve);
         if(epreuve.id == 0) {
-            res = startQuiz(epreuve);
+            res = startQuiz(epreuve); // GENERAL
         }
         else if(epreuve.id == 1) {
-            res = startPipeGame(epreuve);
+            res = startPipeGame(epreuve); // GENERAL
         }
         else if(epreuve.id == 2) {
-            res = startSoundGame(epreuve);
+            res = startSoundGame(epreuve); // GENERAL
         }
         else if(epreuve.id == 3) {
-            res = startFakir(epreuve);
+            res = startFakir(epreuve); // DEFI
         }
         else if(epreuve.id == 4) {
-            res = startPileOuFace(epreuve);
+            res = startPileOuFace(epreuve); // DEFI
         }
         else if(epreuve.id == 5) {
-            res = startShiFuMi(epreuve);
+            res = startShiFuMi(epreuve); // CONSEIL
         }
         else if(epreuve.id == 6) {
-            res = startMathematix(epreuve);
+            res = startMathematix(epreuve); // GENERAL
         }
         else if(epreuve.id == 7) {
-            res = startMemoGame(epreuve);
+            res = startMemoGame(epreuve); // CONSEIL
         }
         else if(epreuve.id == 8) {
-            res = startRoulette(game, epreuve);
+            res = startRoulette(game, epreuve); // DEFI
         }
         else if(epreuve.id == 9) {
-            res = startMastermind(epreuve);
+            res = startMastermind(epreuve); // DEFI
         }
         else if(epreuve.id == 10) {
-            res = startBouyardCard(epreuve);
+            res = startBouyardCard(epreuve); // CONSEIL
         }
         else if(epreuve.id == 11){
-            res = startEnglishGame(epreuve);
+            res = startEnglishGame(epreuve); // GENERAL
         }
         else if(epreuve.id == 12) {
-            res = startGeographyGame(epreuve);
+            res = startGeographyGame(epreuve); // GENERAL
         }
         return res;
     }
