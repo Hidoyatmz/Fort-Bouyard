@@ -12,7 +12,7 @@ class SoundGame extends PipeGame {
         return newEpreuve(2, "Le Zoo", -1, "Dans cette épreuve, vous devez trouvé le nom de l'animal dont son cri est joué.\nTrouvez un total de 3 animaux sur les 5 joués pour remporter la victoire.\nPrécision : les accents sont pris en compte.", GameState.KEYS);
     }
 
-    boolean startSoundGame(Epreuve soundgame){
+    boolean startSoundGame(Epreuve soundgame, Game g){
         CSVFile soundCSV = myLoadCSV(SOUNDGAMECSV);
         String[] answers = new String[rowCount(soundCSV)-1];
         Sound[] sounds = registerSounds(soundCSV, answers);
@@ -27,9 +27,11 @@ class SoundGame extends PipeGame {
             if(found){
                 playSound(SOUND_CORRECT_ANSWER_2, true);
                 println("Bravo ! C'était bien un(e) " + answers[tour]);
+                increaseGoodAnswers(g);
                 goodAnswers += 1;
             } else {
                 playSound(SOUND_WRONG_ANSWER, true);
+                increaseBadAnswers(g);
                 println("Pas de chance ! La réponse était : " + answers[tour]);
             }
             if(tour < length(answers)-1 ){

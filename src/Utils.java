@@ -499,4 +499,25 @@ class Utils extends Program {
         return newArray;
     }
 
+    void increaseNbJails(Game g){
+        g.stats[0] = g.stats[0] + 1;
+    }
+    
+    void increaseGoodAnswers(Game g){
+        g.stats[1] = g.stats[1] + 1;
+    }
+
+    void increaseBadAnswers(Game g){
+        g.stats[2] = g.stats[2] + 1;
+    }
+
+    void setFinalTime(Game g){
+        // g.stats[3] = (int) getElapsedTime(g.timer);
+        g.stats[3] = 0;
+    }
+
+    void increaseConseilTimeWon(Game g){
+        g.stats[4] = g.stats[4] + 30;
+    }
+
 }

@@ -7,7 +7,7 @@ class Quiz extends SoundGame {
         return newEpreuve(0, "Charades du père fouras", 60, "Dans cette épreuve, vous devez résoudre la charade que le père fouras vous énoncera en moins de 3 essais et dans le temps imparti.\nPrécision : les accents sont pris en compte.", GameState.KEYS);
     }
 
-    boolean startQuiz(Epreuve quiz){
+    boolean startQuiz(Epreuve quiz, Game g){
         String[] charade = getRandomCharade(CHARADECSV);
         String answer;
         int trys = 3;
@@ -22,8 +22,10 @@ class Quiz extends SoundGame {
             if(!isCharadeValidAnswer(answer, charade)){
                 playSound(SOUND_WRONG_ANSWER,true);
                 trys = trys - 1;
+                increaseBadAnswers(g);
             }
         } while(inTime(timer) && !isCharadeValidAnswer(answer, charade) && trys > 0);
+        increaseGoodAnswers(g);
         playSound(SOUND_CORRECT_ANSWER_2,true);
         return trys > 0 && inTime(timer);
     }

@@ -14,7 +14,7 @@ class EnglishGame extends GeographyGame {
         return newEpreuve(11, "EnglishGame", -1, "Dans cette épreuve, " + MAXROUNDS + " mots de vocabulaire vous sont donné. Donnez la traduction dans la langue indiqué pour gagner un point.\nIl vous faut un total de " + MINSCORE + " points pour remporter la victoire.\nPrécision : les accents sont pris en compte.", GameState.KEYS);
     }
 
-    boolean startEnglishGame(Epreuve epreuve) {
+    boolean startEnglishGame(Epreuve epreuve, Game g) {
         CSVFile englishCSV = myLoadCSV(ENGLISHGAMECSV);
         final int CSVMAXROUNDS = rowCount(englishCSV) - 1;
         boolean goodAnswer;
@@ -30,10 +30,12 @@ class EnglishGame extends GeographyGame {
             if(goodAnswer){
                 playSound(SOUND_CORRECT_ANSWER_2,true);
                 println(ANSI_LIGHT_GREEN + "Félicitation ! Vous gagnez un point :)" + ANSI_RESET);
+                increaseGoodAnswers(g);
                 score++;
             } else {
                 playSound(SOUND_WRONG_ANSWER,true);
                 println(ANSI_LIGHT_RED + "Quel dommage ! La réponsé était " + ANSI_LIGHT_CYAN + nextQuestion[2] + ANSI_RESET);
+                increaseBadAnswers(g);
             }
             delay(2000);
             round++;

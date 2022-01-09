@@ -13,7 +13,7 @@ class GeographyGame extends BouyardCard {
         return newEpreuve(12, "GeographyGame", -1, "Dans cette épreuve, une carte du monde ayant 3 continents numérotés s'affiche.\nRetrouvez le nom de ces 3 continents pour remporter la victoire.", GameState.KEYS);
     }
 
-    boolean startGeographyGame(Epreuve epreuve){
+    boolean startGeographyGame(Epreuve epreuve, Game g){
         CSVFile geography = myLoadCSV(GEOGRAPHYCSV);
         final int MAX_WORLDS = rowCount(geography) - 1;
         String[] answer = loadNewWorld(geography, MAX_WORLDS);
@@ -31,14 +31,16 @@ class GeographyGame extends BouyardCard {
             uRes = toLowerCase(enterText());
             res = (equals(uRes, answer[i]) || equals(uRes, "l'"+answer[i])) && inTime(qTimer) ? true : false;
             if(res){
+                increaseGoodAnswers(g);
                 info(ANSI_LIGHT_GREEN + "Bravo !" + ANSI_RESET + " C'est la bonne réponse :)");
             } else {
+                increaseBadAnswers(g);
                 if(!inTime(qTimer)){
                     erreur("Vous avez dépassé le temps imparti de " + ANSI_LIGHT_PINK + (getElapsedTime(qTimer) - qTimer.maxTime) + ANSI_RESET + " secondes...");
                 } else {
                     erreur("Quel dommage.. la bonne réponse était : " + ANSI_PURPLE + answer[i] + ANSI_RESET);
                 }
-            }
+            }   
             i++;
             delay(1000);
         } while(i < length(answer) && res);

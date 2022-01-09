@@ -32,6 +32,7 @@ class GameManager extends Quiz {
         }
         // ON REGARDE SI IL Y A BESOIN D'UN JUGEMENT
         else if(needJugement(game)) {
+            game.jugementDone = true;
             // TO DO BOUCLE EPREUVES JUGEMENTS
         }
         /*
@@ -40,6 +41,7 @@ class GameManager extends Quiz {
             - ASSIGNER UN JOUEUR A L'EPREUVE (TIRER ALEATOIREMENT PARMIS LES JOUEURS QUI NE SONT PAS EN PRISON) -- FAIT
             - L'EPREUVE RETOURNE TRUE SI LE JOUEUR A REUSSI SINON FALSE ET L'ENVOIE EN PRISON -- FAIT
         */
+        setFinalTime(game);
     }
 
     boolean needJugement(Game game) {
@@ -60,6 +62,7 @@ class GameManager extends Quiz {
             playSound(SOUND_WRONG_ANSWER, true);
             if(epreuve.gameState == GameState.KEYS) {
                 println("Le joueur " + ANSI_YELLOW + epreuve.player.pseudo + ANSI_RESET + " est envoyé en prison !");
+                increaseNbJails(game);
                 epreuve.player.jail = true;
             }
         }
@@ -92,13 +95,13 @@ class GameManager extends Quiz {
         boolean res = false;
         initEpreuve(game, epreuve);
         if(epreuve.id == 0) {
-            res = startQuiz(epreuve); // GENERAL
+            res = startQuiz(epreuve, game); // GENERAL
         }
         else if(epreuve.id == 1) {
             res = startPipeGame(epreuve); // GENERAL
         }
         else if(epreuve.id == 2) {
-            res = startSoundGame(epreuve); // GENERAL
+            res = startSoundGame(epreuve, game); // GENERAL
         }
         else if(epreuve.id == 3) {
             res = startFakir(epreuve); // DEFI
@@ -110,7 +113,7 @@ class GameManager extends Quiz {
             res = startShiFuMi(epreuve); // CONSEIL
         }
         else if(epreuve.id == 6) {
-            res = startMathematix(epreuve); // GENERAL
+            res = startMathematix(epreuve, game); // GENERAL
         }
         else if(epreuve.id == 7) {
             res = startMemoGame(epreuve); // CONSEIL
@@ -125,10 +128,10 @@ class GameManager extends Quiz {
             res = startBouyardCard(epreuve); // CONSEIL
         }
         else if(epreuve.id == 11){
-            res = startEnglishGame(epreuve); // GENERAL
+            res = startEnglishGame(epreuve, game); // GENERAL
         }
         else if(epreuve.id == 12) {
-            res = startGeographyGame(epreuve); // GENERAL
+            res = startGeographyGame(epreuve, game); // GENERAL
         }
         return res;
     }

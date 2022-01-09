@@ -217,11 +217,22 @@ class Main extends GameManager {
         game.team = team;
         game.nbKeys = 0;
         game.timer = newTimer(1800);
+        game.jugementDone = false;
         generateCode(game);
         setIndiceFind(game.indices[0]);
         game.gameState = GameState.KEYS;
+        initStats(game);
         initEpreuves(game);
         return game;
+    }
+
+    void initStats(Game g){
+        int nbStats = 5;
+        // 0: NB_JAIL_TOTAL 1: NB_GOOD_ANSWERS 2: NB_BAD_ANSWERS 3: FINAL_TIME_SECONDES 5: CONSEIL_TIME_WON_SECONDES
+        g.stats = new int[nbStats];
+        for(int i = 0; i < length(g.stats); i++){
+            g.stats[i] = 0;
+        }
     }
 
     void generateCode(Game game){

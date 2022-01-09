@@ -11,7 +11,7 @@ class Maths extends EnglishGame {
     Epreuve initMathematix() {
         return newEpreuve(6, "Mathematix", -1, "Dans cette épreuve, résolvez un total de 6 calculs afin de remporter la victoire.\nEn cas d'une mauvaise réponse, c'est un echec.", GameState.KEYS);
     }
-    boolean startMathematix(Epreuve mathematix) {
+    boolean startMathematix(Epreuve mathematix, Game g) {
         CSVFile mathematixCSV = myLoadCSV(MATHEMATIXCSV);
         final int MAXCALC = rowCount(mathematixCSV) - 1;
         final int solveToWin = 6;
@@ -30,15 +30,17 @@ class Maths extends EnglishGame {
             calc = getNextCalc(mathematixCSV, MAXCALC, played, tour);
             alive = doCalc(calc, tour);
             if(alive){
+                increaseGoodAnswers(g);
                 println(ANSI_GREEN + "Bravo ! "+ ANSI_RESET + getRandomCongrats());
                 if(tour+1 < MAXCALC){
                     println("Passons au prochain calcul !");
                 }
             } else {
+                increaseBadAnswers(g);
                 println(ANSI_RED + "Oh non... " + ANSI_RESET + "\nTu as perdu...");
             }
             tour++;
-            delay(3000);
+            delay(2000);
         } while(tour <= solveToWin && alive);
         return alive;
     }

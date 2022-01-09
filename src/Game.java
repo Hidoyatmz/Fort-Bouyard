@@ -7,5 +7,6 @@ class Game {
     GameState gameState;
     Epreuve[] epreuves;
     Timer timer;
-
+    int[] stats;
+    boolean jugementDone;
 }
