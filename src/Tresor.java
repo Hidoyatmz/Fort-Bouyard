@@ -1,0 +1,3 @@
+class Tresor extends Quiz {
+    
+}

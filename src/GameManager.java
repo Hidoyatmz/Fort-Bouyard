@@ -1,4 +1,4 @@
-class GameManager extends Quiz {
+class GameManager extends Tresor {
 
     final int MAXEPREUVESKEY = 3; // AUSSI LE NOMBRE DE CLES NECESSAIRES // -1
     final int MAXEPREUVESJUGEMENT = 2; // -1

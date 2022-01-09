@@ -53,6 +53,16 @@ class Utils extends Program {
         return ((letter >= '0') && (letter <= '9'));
     }
 
+    boolean isDigit(String mot) {
+        boolean res = true;
+        int i = 0;
+        while(i<length(mot) && res) {
+            if(!isDigit(charAt(mot, i))) res = false;
+            i++;
+        }
+        return res;
+    }
+
     void testRandInt(){
         assertEquals(true, isBetween(randInt(1,100),1,100));
         assertEquals(false, isBetween(randInt(101,150),1,100));
@@ -190,7 +200,7 @@ class Utils extends Program {
             curp();
             clearLine();
             s = readString();
-        } while(!(length(s) > 0) || !isDigit(charAt(s, 0)));
+        } while(!(length(s) > 0) || !isDigit(s));
         return stringToInt(s);
     }
 

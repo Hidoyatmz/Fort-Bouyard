@@ -10,6 +10,16 @@ class TimerMethods extends Utils {
         long initTime = timer.initTime;
         return (getTime() - initTime)/1000;
     }
+
+    /**
+     * Returns a long that represents the time elasped since creation of the timer in milliseconds.
+     * @param timer The timer to calculate elapsed time.
+     * @return      a long that represents the time elapsed.
+     */
+
+    long getElapsedTimeMs(Timer timer) {
+        return getTime() - timer.initTime;
+    }
     
     /**
      * Returns if the timer is expired or not.
