@@ -31,7 +31,7 @@ class MemoGame extends Mastermind {
             println("Mémorisez cette combinaison:\n" + getMap(map));
             delay(TIME*1000);
             userRes = askUserAnswer();
-            iaScore = randInt(randInt(2,3), SIZE);
+            iaScore = randInt(randInt(4,5), SIZE);
             uScore = getGoodSymbols(userRes, map);
             points = (iaScore <= uScore) ? points+1 : points;
             myClearScreen();

@@ -34,7 +34,7 @@ class GeographyGame extends BouyardCard {
                 info(ANSI_LIGHT_GREEN + "Bravo !" + ANSI_RESET + " C'est la bonne réponse :)");
             } else {
                 if(!inTime(qTimer)){
-                    erreur("Vous avez mis trop de temps pour répondre à la question..");
+                    erreur("Vous avez dépassé le temps imparti de " + ANSI_LIGHT_PINK + (getElapsedTime(qTimer) - qTimer.maxTime) + ANSI_RESET + " secondes...");
                 } else {
                     erreur("Quel dommage.. la bonne réponse était : " + ANSI_PURPLE + answer[i] + ANSI_RESET);
                 }
