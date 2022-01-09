@@ -69,7 +69,7 @@ class Mastermind extends Roulette {
 
     boolean isValideMove(String move){
         int lenMove = length(move);
-        boolean allDigits = true;
+        //boolean allDigits = true;
         int i = 0;
         if(lenMove >= 2 && allDigits(move)){
             int first = charToInt(charAt(move, 0));

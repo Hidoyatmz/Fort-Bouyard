@@ -511,6 +511,7 @@ class Utils extends Program {
         g.stats[2] = g.stats[2] + 1;
     }
 
+    /* A modifier */
     void setFinalTime(Game g){
         // g.stats[3] = (int) getElapsedTime(g.timer);
         g.stats[3] = 0;

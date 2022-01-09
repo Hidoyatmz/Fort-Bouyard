@@ -10,7 +10,7 @@ class GeographyGame extends BouyardCard {
     final String GEOGRAPHYCSV = "geography.csv";
 
     Epreuve initGeographyGame(){
-        return newEpreuve(12, "GeographyGame", -1, "Dans cette épreuve, une carte du monde ayant 3 continents numérotés s'affiche.\nRetrouvez le nom de ces 3 continents pour remporter la victoire.", GameState.KEYS);
+        return newEpreuve(12, "Géograsquiz", -1, "Dans cette épreuve, une carte du monde ayant 3 continents numérotés s'affiche.\nRetrouvez le nom de ces 3 continents pour remporter la victoire.", GameState.KEYS);
     }
 
     boolean startGeographyGame(Epreuve epreuve, Game g){
