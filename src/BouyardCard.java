@@ -56,7 +56,7 @@ class BouyardCard extends EpreuvesCreator {
             if(player == 0) {
                 do {
                     println("Tu as piocher un joker ! Quelle lettre veux tu remplacer ?");
-                    c = charAt(enterText(), 0);
+                    c = charAt(toUpperCase(enterText()), 0);
                 } while(!inArray(cards, c));
             }
             else {

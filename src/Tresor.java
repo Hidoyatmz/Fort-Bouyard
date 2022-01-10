@@ -108,7 +108,7 @@ class Tresor extends Quiz {
     void printIndices(Indice[] indices) {
         String res = "Indices : ";
         for(int i=0; i<length(indices); i++) {
-            if(indices[i].found) res = res + indices[i] + " ";
+            if(indices[i].found) res = res + indices[i].indice + " ";
         }
         println(res);
     }

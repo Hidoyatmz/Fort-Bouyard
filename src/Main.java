@@ -220,11 +220,17 @@ class Main extends GameManager {
         game.timerTresor = 120;
         game.jugementDone = false;
         generateCode(game);
-        setIndiceFind(game.indices[0]);
+        giveFreeIndice(game);
         game.gameState = GameState.KEYS;
         initStats(game);
         initEpreuves(game);
         return game;
+    }
+
+    void giveFreeIndice(Game game) {
+        for(int i=0; i<(6-MAXEPREUVESINDICES); i++) {
+            setIndiceFind(game.indices[i]);
+        }
     }
 
     void initStats(Game g){
@@ -261,58 +267,45 @@ class Main extends GameManager {
         return res;
     }
 
-    // TODO CREATION ET SELECTION EPREUVES
-
+    // Selectionne les épreuves de la game aléatoirement
     void initEpreuves(Game game) {
-        Epreuve[] generals = new Epreuve[]{initGeographyGame(),initEnglishGame(), initRoulette(), initQuiz(), initMastermind(), initPipeGame(), initSoundGame(), initMathematix(), initMemoGame()};
-        Epreuve[] jugements = new Epreuve[]{initFakir(), initPileOuFace(), initShiFuMi()};
-        Epreuve[] conseils = new Epreuve[]{initBouyardCard()};
-        //game.epreuves = new Epreuve[MAXEPREUVESKEY + MAXEPREUVESJUGEMENT + MAXEPREUVESINDICES + MAXEPREUVESCONSEIL];
-        game.epreuves = new Epreuve[length(generals) + length(jugements) + length(conseils)];
-        /*int i = 0;
-        randomEpreuves(game, i, generals, MAXEPREUVESKEY);
-        i = i + MAXEPREUVESKEY;
-        randomEpreuves(game, i, jugements, MAXEPREUVESJUGEMENT);
-        i = i + MAXEPREUVESJUGEMENT;
-        randomEpreuves(game, i, generals, MAXEPREUVESINDICES);
-        i = i + MAXEPREUVESINDICES;
-        randomEpreuves(game, i, conseils, MAXEPREUVESCONSEIL);*/
-        // game.epreuves[0] = generals[0];
-        // game.epreuves[0] = generals[2];
-        // game.epreuves[0] = generals[1];
+        Epreuve[] generals = new Epreuve[]{initGeographyGame(), initEnglishGame(), initQuiz(), initPipeGame(), initSoundGame(), initMathematix(), initPipeGame()};
+        Epreuve[] jugements = new Epreuve[]{initFakir(), initPileOuFace(), initRoulette(), initMastermind()};
+        Epreuve[] conseils = new Epreuve[]{initBouyardCard(), initShiFuMi(), initMemoGame()};
+        shuffleEpreuves(generals);
+        shuffleEpreuves(jugements);
+        shuffleEpreuves(conseils);
+        game.epreuves = new Epreuve[MAXEPREUVESKEY + MAXEPREUVESJUGEMENT + MAXEPREUVESINDICES + MAXEPREUVESCONSEIL];
         int indexEpreuve = 0;
-        for(int i = 0; i < length(generals); i++) {
+        for(int i = 0; i < MAXEPREUVESKEY; i++) {
             game.epreuves[indexEpreuve] = generals[i];
             indexEpreuve++;
         }
-        for(int i = 0; i < length(jugements); i++) {
+        for(int i = 0; i < MAXEPREUVESJUGEMENT; i++) {
             game.epreuves[indexEpreuve] = jugements[i];
             indexEpreuve++;
         }
-        for(int i = 0; i < length(conseils); i++) {
+        for(int i = MAXEPREUVESKEY; i<(MAXEPREUVESINDICES+MAXEPREUVESKEY); i++) {
+            game.epreuves[indexEpreuve] = generals[i];
+            indexEpreuve++;
+        }
+        for(int i = 0; i < MAXEPREUVESCONSEIL; i++) {
             game.epreuves[indexEpreuve] = conseils[i];
             indexEpreuve++;
         }
-        // game.epreuves[0] = generals[4];
-        // game.epreuves[1] = generals[1];
-        // game.epreuves[2] = jugements[0];
-        // game.epreuves[3] = jugements[1];
-        // game.epreuves[4] = jugements[2];
     }
-    
-    // A TESTER QUAND IL Y AURA ASSEZ DEPREUVES
-    void randomEpreuves(Game game, int startIndex, Epreuve[] epreuves, int maxEpreuves) {
+
+    // Melange un tableau d'épreuves
+    void shuffleEpreuves(Epreuve[] epreuves) {
         int r;
         Epreuve tmp;
-        int lastIndex = length(epreuves)-1;
-        for(int i=0; i<maxEpreuves; i++) {
-            r = (int) (random()*(lastIndex-i));
-            tmp = epreuves[r];
-            epreuves[r] = epreuves[lastIndex-i];
-            epreuves[lastIndex-i] = tmp;
-        }
-        for(int i=startIndex; i<maxEpreuves; i++) {
-            game.epreuves[i] = epreuves[lastIndex-i];
+        for(int j=0; j<10; j++) {
+            for(int i=0; i<length(epreuves); i++) {
+                r = randInt(0, length(epreuves)-1);
+                tmp = epreuves[i];
+                epreuves[i] = epreuves[r];
+                epreuves[r] = tmp;
+            }
         }
     }
 }

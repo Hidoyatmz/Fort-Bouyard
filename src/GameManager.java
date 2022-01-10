@@ -1,9 +1,9 @@
 class GameManager extends Tresor {
 
-    final int MAXEPREUVESKEY = 3; // AUSSI LE NOMBRE DE CLES NECESSAIRES // -1
-    final int MAXEPREUVESJUGEMENT = 2; // -1
+    final int MAXEPREUVESKEY = 3; // AUSSI LE NOMBRE DE CLES NECESSAIRES
+    final int MAXEPREUVESJUGEMENT = 2;
     final int MAXEPREUVESINDICES = 4;
-    final int MAXEPREUVESCONSEIL = 3; // -1
+    final int MAXEPREUVESCONSEIL = 2;
     boolean musicRunning = false;
     Timer musicTimer;
 
@@ -11,10 +11,7 @@ class GameManager extends Tresor {
     void startGame(Game game) {
         // PARTIE DES CLES
         myClearScreen();
-        println("Epreuves des clés !");
-        println("Ton but est de " + ANSI_RED + "ramasser un maximum de clés !" + ANSI_RESET);
-        println(ANSI_RED + "ATTENTION si tous les joueurs sont en prison, la partie s'arrête !" + ANSI_RESET);
-        pressEnterToContinue();
+        printInfo(game);
         int epreuveIndex = 0;
         boolean success;
         while(!allPlayersInJail(game.team) && epreuveIndex < MAXEPREUVESKEY) {
@@ -23,35 +20,131 @@ class GameManager extends Tresor {
             epreuveIndex++;
         }
 
-        // SI LE JUGEMENT NE PEUT PAS RATTRAPPER LES CLES MANQUANTES, LA PARTIE S'ARRETE 
-        if((game.nbKeys + MAXEPREUVESJUGEMENT) < MAXEPREUVESKEY) {
-            myClearScreen();
-            println(ANSI_RED + "Vous n'avez pas réussi à réunir assez de clés pour continuer la partie !\nTu réussieras la prochaine fois !" + ANSI_RESET);
-            // ARRET DE LA PARTIE
-            return;
+        // SI LE JUGEMENT NE PEUT PAS RATTRAPPER LES CLES MANQUANTES, LA PARTIE S'ARRETE
+        if((game.nbKeys + MAXEPREUVESJUGEMENT) < MAXEPREUVESKEY || allPlayersInJail(game.team)) {
+            stopGame();
         }
         // ON REGARDE SI IL Y A BESOIN D'UN JUGEMENT
         else if(needJugement(game)) {
             game.jugementDone = true;
-            for(int i=epreuveIndex; i<MAXEPREUVESJUGEMENT; i++) {
+            game.gameState = GameState.JUGEMENT;
+            printInfo(game);
+            int iJugement = epreuveIndex;
+            while(iJugement < MAXEPREUVESJUGEMENT+MAXEPREUVESKEY && needJugement(game)){
                 success = startEpreuve(game, game.epreuves[epreuveIndex]);
+                if(success) {
+                    game.epreuves[epreuveIndex].player.jail = false;
+                    game.nbKeys = game.nbKeys + 1;
+                    info(game.epreuves[epreuveIndex].player.pseudo + " a été libérer ! Vous gagnez donc une clé !");
+                    delay(1000);
+                }
                 epreuveIndex++;
+                iJugement++;
             }
         }
         epreuveIndex = MAXEPREUVESKEY + MAXEPREUVESJUGEMENT;
-        
-        /*
-            TODO
-            - LA BOUCLE DE JEU -- EN COURS
-            - ASSIGNER UN JOUEUR A L'EPREUVE (TIRER ALEATOIREMENT PARMIS LES JOUEURS QUI NE SONT PAS EN PRISON) -- FAIT
-            - L'EPREUVE RETOURNE TRUE SI LE JOUEUR A REUSSI SINON FALSE ET L'ENVOIE EN PRISON -- FAIT
-        */
-        startTresor(game);
+        if(needJugement(game)){
+            stopGame();
+        }
+        // Partie indices
+        game.gameState = GameState.INDICES;
+        printInfo(game);
+        for(int i = epreuveIndex; i < MAXEPREUVESJUGEMENT+MAXEPREUVESKEY+MAXEPREUVESINDICES; i++){
+            success = startEpreuve(game, game.epreuves[epreuveIndex]);
+            if(success){
+                setNextIndiceFind(game);
+                info("Vous avez gagné un indice ! Il sera révélé au début de la salle au Trésor.");
+            }
+            epreuveIndex++;
+        }
+        // Partie Conseil
+        game.gameState = GameState.CONSEIL;
+        printInfo(game);
+        for(int i = epreuveIndex; i < MAXEPREUVESJUGEMENT+MAXEPREUVESKEY+MAXEPREUVESINDICES+MAXEPREUVESCONSEIL; i++){
+            success = startEpreuve(game, game.epreuves[epreuveIndex]);
+            if(success){
+                game.timerTresor += 10;
+                info("Vous avez gagné 10 secondes dans la salle au Trésor !");
+            }
+            epreuveIndex++;
+        }
+        // Tresor
+        game.gameState = GameState.TRESOR;
+        printInfo(game);
+        int pieces = startTresor(game);
         setFinalTime(game);
+        // CALCULER SCORE
+        // METTRE DANS LE LEADERBOARD
+    }
+
+    void stopGame() {
+        myClearScreen();
+        println(ANSI_RED + "Vous n'avez pas réussi à réunir assez de clés pour continuer la partie !\nTu réussieras la prochaine fois !" + ANSI_RESET);
+        pressEnterToContinue();
+        // ARRET DE LA PARTIE
+        return;
+    }
+
+    void setNextIndiceFind(Game game) {
+        int i=0;
+        boolean found = false;
+        while(i<length(game.indices) && !found) {
+            if(!game.indices[i].found) {
+                game.indices[i].found = true;
+                found = true;
+            }
+            i++;
+        }
     }
 
     boolean needJugement(Game game) {
         return game.nbKeys < MAXEPREUVESKEY || nbPlayersInJail(game.team) > 0;
+    }
+
+    void printInfo(Game game) {
+        myClearScreen();
+        GameState gameState = game.gameState;
+        if(gameState == GameState.KEYS) {
+            println("Epreuves des clés !");
+            println("Ton but est de " + ANSI_LIGHT_GREEN + "ramasser un maximum de clés !" + ANSI_RESET);
+            println("Pour se faire, remportez la victoire à une épreuve pour en récuperer sa clef.");
+            println(ANSI_RED + "ATTENTION si tous les joueurs sont en prison, la partie s'arrête !" + ANSI_RESET);
+            pressEnterToContinue();
+        }
+        else if(gameState == GameState.JUGEMENT) {
+            println("Epreuves du jugement !");
+            println("Si tu es ici, c'est que tu as échoué aux épreuves des clefs !");
+            if(nbPlayersInJail(game.team) > 0){
+                println(ANSI_PURPLE + nbPlayersInJail(game.team) + ANSI_RESET + " joueur(s) de votre équipe, est/sont en prison ! C'est donc à lui/eux de jouer en priorité(s).\n"+ ANSI_GREEN +"Si le joueur gagne le défi, alors il est libéré."+ANSI_RESET);
+                String[] playersNameInJail = getPlayersNameInJail(game.team);
+
+                // TODO : while
+                for(int i = 0; i < length(playersNameInJail) && i < 3; i++){
+                    println(playersNameInJail[i] + " prépares toi à jouer un défi !");
+                }
+            }
+            info("De plus, chaque victoire à un défi vous rapporte une des clefs manquante.");
+            pressEnterToContinue();
+        }
+        else if(gameState == GameState.INDICES) {
+            println("Epreuves des indices !");
+            println("Ton but est de " + ANSI_LIGHT_GREEN + "trouver un maximum d'indices!" + ANSI_RESET);
+            println("Pour se faire, remportez la victoire à une épreuve pour afficher son indice.");
+            pressEnterToContinue();
+        }
+        else if(gameState == GameState.CONSEIL) {
+            println("Epreuves du conseil !");
+            println("Vous êtes ici dans le but de " + ANSI_LIGHT_GREEN + " gagner du temps dans la salle du trésor" + ANSI_RESET);
+            println("Pour se faire, remportez le duel contre le maître du conseil afin de gagner " + ANSI_LIGHT_PINK +"10 secondes" + ANSI_RESET + " par duel.");
+            info("Une défaite ne vous fait pas perdre de temps.");
+            pressEnterToContinue();
+        }
+        else if(gameState == GameState.TRESOR) {
+            println("Et tout de suite ! L'épreuve FINALE ! La salle du trésor !!!");
+            println("Trouvez le mot code à l'aide des indices puis ramassez un maximum de pièce afin d'augmenter considérablement votre score final.");
+            info("Vous ne pouvez pas portez plus de 15 pièces à la fois et devez déposer vos pièces sur la case verte en bas à gauche.");
+            pressEnterToContinue();
+        }
     }
 
     // UPDATE LE NOMBRE DE CLES ET LE JOUEUR DE L'EPREUVE
@@ -61,7 +154,7 @@ class GameManager extends Tresor {
         if(success) {
             game.nbKeys = game.nbKeys + 1;
             playSound(SOUND_CORRECT_ANSWER, true);
-            println(ANSI_GREEN + "Félicitation jeune padawan, tu as gagné une clef pour ton équipe !\nVous avez maintenant " + game.nbKeys + "/4 clefs !" + ANSI_RESET);
+            println(ANSI_GREEN + "Félicitation jeune padawan, tu as gagné une clef pour ton équipe !\nVous avez maintenant " + game.nbKeys + "/" + MAXEPREUVESKEY + " clefs !" + ANSI_RESET);
         }
         else {
             println(ANSI_RED + "C'est perdu.. Quel dommage ahah !\nNe perdez pas le rythme ! Il vous faut encore " + (MAXEPREUVESKEY-game.nbKeys) + " clefs" + ANSI_RESET);
@@ -82,6 +175,18 @@ class GameManager extends Tresor {
             if(team.players[i].jail) somme = somme + 1;
         }
         return somme;
+    }
+
+    String[] getPlayersNameInJail(Team team){
+        String[] res = new String[nbPlayersInJail(team)];
+        int cpt = 0;
+        for(int i=0; i<length(team.players); i++) {
+            if(team.players[i].jail){
+                res[cpt] = team.players[i].pseudo;
+                cpt++;
+            }
+        }
+        return res;
     }
 
     // RENVOIE SI TOUT LES JOUEURS SONT EN PRISONS
@@ -146,6 +251,10 @@ class GameManager extends Tresor {
     void initEpreuve(Game game, Epreuve epreuve) {
         myClearScreen();
         epreuve.player = haulPlayer(game.team);
+        // TODO : Améliorer ça
+        if(game.gameState == GameState.JUGEMENT){
+            epreuve.player = haulPrisonPlayer(game.team);
+        }
         long elapsedTime = getElapsedTime(game.timer);
         checkIfResetMusicBool(elapsedTime);
         println("Vous avez passez : " + ANSI_CYAN + formatTime(elapsedTime) + ANSI_RESET + " en jeu.");
@@ -157,6 +266,20 @@ class GameManager extends Tresor {
         println("");
         println(epreuve.rules + "\n");
         pressEnterToContinue();
+    }
+
+    Player haulPrisonPlayer(Team team){
+        boolean res = false;
+        Player pRes = team.players[0];
+        int i = 0;
+        while(i < length(team.players) && !res){
+            if(team.players[i].jail){
+                pRes = team.players[i];
+                res = true;
+            }
+            i++;
+        }
+        return pRes;
     }
 
     void checkIfResetMusicBool(long elapsedTime) {

@@ -86,7 +86,7 @@ class MemoGame extends Mastermind {
         do {
             print("Quel était la lettre n°" + i +" (A-T-C-G): ");
             do {
-                c = readString();
+                c = toUpperCase(readString());
             } while(!(length(c) > 0) || !inArray(chars, charAt(c,0)));
             res += charAt(c,0);
             i++;
