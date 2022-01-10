@@ -24,7 +24,7 @@ class GameManager extends Tresor {
         }
 
         // SI LE JUGEMENT NE PEUT PAS RATTRAPPER LES CLES MANQUANTES, LA PARTIE S'ARRETE 
-        if(game.nbKeys + MAXEPREUVESJUGEMENT < MAXEPREUVESKEY) {
+        if((game.nbKeys + MAXEPREUVESJUGEMENT) < MAXEPREUVESKEY) {
             myClearScreen();
             println(ANSI_RED + "Vous n'avez pas réussi à réunir assez de clés pour continuer la partie !\nTu réussieras la prochaine fois !" + ANSI_RESET);
             // ARRET DE LA PARTIE
@@ -33,13 +33,12 @@ class GameManager extends Tresor {
         // ON REGARDE SI IL Y A BESOIN D'UN JUGEMENT
         else if(needJugement(game)) {
             game.jugementDone = true;
-            // TO DO BOUCLE EPREUVES JUGEMENTS
             for(int i=epreuveIndex; i<MAXEPREUVESJUGEMENT; i++) {
                 success = startEpreuve(game, game.epreuves[epreuveIndex]);
                 epreuveIndex++;
             }
         }
-
+        epreuveIndex = MAXEPREUVESKEY + MAXEPREUVESJUGEMENT;
         
         /*
             TODO
