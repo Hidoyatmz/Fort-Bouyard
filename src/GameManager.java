@@ -54,6 +54,7 @@ class GameManager extends Tresor {
             if(success){
                 setNextIndiceFind(game);
                 info("Vous avez gagné un indice ! Il sera révélé au début de la salle au Trésor.");
+                delay(1000);
             }
             epreuveIndex++;
         }
@@ -65,6 +66,7 @@ class GameManager extends Tresor {
             if(success){
                 game.timerTresor += 10;
                 info("Vous avez gagné 10 secondes dans la salle au Trésor !");
+                delay(1000);
             }
             epreuveIndex++;
         }
@@ -74,6 +76,8 @@ class GameManager extends Tresor {
         int pieces = startTresor(game);
         setFinalTime(game);
         // CALCULER SCORE
+        /* NB_PIECE x (((1.5-(0.25xNB_PRISON))>0) x ((1+(NB_BONNES_REPONSES - NB_FAUSSES_REPONSES))>0) 
+        x (1+((1/TEMPS_MIS_MINUTES)x3))) x (1.5 SI NON JUGEMENTS) x (1+((TEMPS_GAGNE_CONSEIL_SECONDES/30)/10))*/
         // METTRE DANS LE LEADERBOARD
     }
 
