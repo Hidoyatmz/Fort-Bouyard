@@ -217,6 +217,7 @@ class Main extends GameManager {
         game.team = team;
         game.nbKeys = 0;
         game.timer = newTimer(1800);
+        game.timerTresor = 120;
         game.jugementDone = false;
         generateCode(game);
         setIndiceFind(game.indices[0]);

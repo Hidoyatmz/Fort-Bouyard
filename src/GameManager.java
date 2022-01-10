@@ -3,7 +3,7 @@ class GameManager extends Tresor {
     final int MAXEPREUVESKEY = 3; // AUSSI LE NOMBRE DE CLES NECESSAIRES // -1
     final int MAXEPREUVESJUGEMENT = 2; // -1
     final int MAXEPREUVESINDICES = 4;
-    final int MAXEPREUVESCONSEIL = 2; // -1
+    final int MAXEPREUVESCONSEIL = 3; // -1
     boolean musicRunning = false;
     Timer musicTimer;
 
@@ -34,13 +34,20 @@ class GameManager extends Tresor {
         else if(needJugement(game)) {
             game.jugementDone = true;
             // TO DO BOUCLE EPREUVES JUGEMENTS
+            for(int i=epreuveIndex; i<MAXEPREUVESJUGEMENT; i++) {
+                success = startEpreuve(game, game.epreuves[epreuveIndex]);
+                epreuveIndex++;
+            }
         }
+
+        
         /*
             TODO
             - LA BOUCLE DE JEU -- EN COURS
             - ASSIGNER UN JOUEUR A L'EPREUVE (TIRER ALEATOIREMENT PARMIS LES JOUEURS QUI NE SONT PAS EN PRISON) -- FAIT
             - L'EPREUVE RETOURNE TRUE SI LE JOUEUR A REUSSI SINON FALSE ET L'ENVOIE EN PRISON -- FAIT
         */
+        startTresor(game);
         setFinalTime(game);
     }
 
