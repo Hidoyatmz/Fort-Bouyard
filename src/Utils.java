@@ -544,7 +544,7 @@ class Utils extends Program {
     /* A modifier */
     void setFinalTime(Game g){
         // g.stats[3] = (int) getElapsedTime(g.timer);
-        g.stats[3] = 0;
+        g.stats[3] = 10;
     }
 
     int getConseilTimeWon(Game g){
