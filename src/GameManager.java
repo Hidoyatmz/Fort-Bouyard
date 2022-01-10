@@ -1,4 +1,8 @@
+import extensions.*;
+
 class GameManager extends Tresor {
+
+    final String LEADERBOARDCSV = "leaderboard.csv";
 
     final int MAXEPREUVESKEY = 3; // AUSSI LE NOMBRE DE CLES NECESSAIRES
     final int MAXEPREUVESJUGEMENT = 2;
@@ -59,6 +63,7 @@ class GameManager extends Tresor {
         int base = 10;
         int score = (int) ((base + pieces) * mult_prison * mult_answers * mult_jugement * mult_conseil);
         debug(""+score);
+        saveInLeaderBoard(game, score);
         pressEnterToContinue();
         /* NB_PIECE x (((1.5-(0.25xNB_PRISON))>0) x ((1+(NB_BONNES_REPONSES - NB_FAUSSES_REPONSES))>0) 
         x (1+((1/TEMPS_MIS_MINUTES)x3))) x (1.5 SI NON JUGEMENTS) x (1+((TEMPS_GAGNE_CONSEIL_SECONDES/30)/10))*/
@@ -83,7 +88,7 @@ class GameManager extends Tresor {
                 game.epreuves[epreuveIndex].player.jail = false;
                 game.nbKeys = game.nbKeys + 1;
                 info(game.epreuves[epreuveIndex].player.pseudo + " a été libérer ! Vous gagnez donc une clé !");
-                delay(1000);
+                delay(3000);
             }
             epreuveIndex++;
             iJugement++;
@@ -97,7 +102,7 @@ class GameManager extends Tresor {
             if(success){
                 setNextIndiceFind(game);
                 info("Vous avez gagné un indice ! Il sera révélé au début de la salle au Trésor.");
-                delay(1000);
+                delay(3000);
             }
             epreuveIndex++;
         }
@@ -110,17 +115,17 @@ class GameManager extends Tresor {
             if(success){
                 game.timerTresor += 10;
                 info("Vous avez gagné 10 secondes dans la salle au Trésor !");
-                delay(1000);
+                delay(3000);
             }
             epreuveIndex++;
         }
     }
 
+    // ARRET DE LA PARTIE
     void stopGame() {
         myClearScreen();
         println(ANSI_RED + "Vous n'avez pas réussi à réunir assez de clés pour continuer la partie !\nTu réussieras la prochaine fois !" + ANSI_RESET);
         pressEnterToContinue();
-        // ARRET DE LA PARTIE
         return;
     }
 
@@ -185,7 +190,7 @@ class GameManager extends Tresor {
         else if(gameState == GameState.TRESOR) {
             println("Et tout de suite ! L'épreuve FINALE ! La salle du trésor !!!");
             println("Trouvez le mot code à l'aide des indices puis ramassez un maximum de pièce afin d'augmenter considérablement votre score final.");
-            info("Vous ne pouvez pas portez plus de 15 pièces à la fois et devez déposer vos pièces sur la case verte en bas à gauche.");
+            info("Vous ne pouvez pas portez plus de 15 pièces à la fois dans ton sac ! Vous devez déposer vos pièces sur la case verte en bas à gauche pour les mettre dans le trésor.");
             pressEnterToContinue();
         }
     }
@@ -343,4 +348,46 @@ class GameManager extends Tresor {
         return player;
     }
     
+    void saveInLeaderBoard(Game game, int score) {
+        String[][] cells = getLeaderBoardNewLine();
+        cells[length(cells, 1)-1] = new String[]{game.team.name, game.team.cry, ""+score, formatTime(getElapsedTime(game.timer))};
+        sortNewScore(cells);
+        saveCSV(cells, "../ressources/csv/" + LEADERBOARDCSV, ';');
+    }
+
+    String[][] getLeaderBoardNewLine() {
+        CSVFile csv = myLoadCSV(LEADERBOARDCSV, ';');
+        String[][] res = new String[rowCount(csv)+1][columnCount(csv)];
+        for(int i=0; i<rowCount(csv); i++) {
+            for(int j=0; j<columnCount(csv); j++) {
+                res[i][j] = getCell(csv, i, j);
+            }
+        }
+        return res;
+    }
+
+    void sortNewScore(String[][] cells) {
+        String[] temp = new String[length(cells, 2)];
+        boolean placer = false;
+        int i = length(cells, 1)-1;
+        while(i >= 2 && !placer) {
+            if(stringToInt(cells[i][2]) > stringToInt(cells[i-1][2])) {
+                copyTab(temp, cells[i-1]);
+                copyTab(cells[i-1], cells[i]);
+                copyTab(cells[i], temp);
+            }
+            else {
+                placer = true;
+            }
+            i--;
+        }
+    }
+
+    void copyTab(String[] receive, String[] toCopy) {
+        if(length(receive) == length(toCopy)) {
+            for(int j=0; j<length(receive); j++) {
+                receive[j] = toCopy[j];
+            }
+        }
+    }
 }

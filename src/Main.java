@@ -4,7 +4,7 @@ class Main extends GameManager {
 
     final String[] mainMenu = new String[]{"Jouer", "Leaderboard", "Règles", "Crédits", "Activer la musique", "Quitter"};
     final String WORDSCSV = "words.csv";
-    final String LEADERBOARDCSV = "leaderboard.csv";
+    
     final String[] DEPENDENCIES = new String[]{WORDSCSV, CHARADECSV, SOUNDGAMECSV, ENGLISHGAMECSV};
     
     void algorithm() {
@@ -90,12 +90,12 @@ class Main extends GameManager {
     void createLeaderboardFile(){
         debug("LeaderBoard file doesn't exist ! Creating it...");
         delay(1000);
-        saveCSV(new String[][]{{"Teamname", "score"}}, LEADERBOARDCSV);
+        saveCSV(new String[][]{{"Teamname", "Cri", "Score", "Temps"}}, LEADERBOARDCSV);
     }
 
     void displayLeaderboard() {
         myClearScreen();
-        CSVFile csv = myLoadCSV(LEADERBOARDCSV);
+        CSVFile csv = myLoadCSV(LEADERBOARDCSV, ';');
         printLeaderboard(csv, 10);
         pressEnterToContinue();
     }
@@ -134,10 +134,14 @@ class Main extends GameManager {
     }
 
     void printLeaderboard(CSVFile csv, int rowCount) {
-        println("Rank - Name - Score");
+        println("Classement - Nom - Cri - Score - Temps");
         int maxRows = rowCount <= rowCount(csv)-1 ? rowCount : rowCount(csv)-1;
         for(int row = 1; row <= maxRows; row++) {
-            println(row + " - " + getCell(csv, row, 0) + " - " + getCell(csv, row, 1));
+            print(row);
+            for(int col = 0; col<columnCount(csv); col++) {
+                print(" - " + getCell(csv, row, col));
+            }
+            print("\n");
         }
         println("");
     }
@@ -227,12 +231,14 @@ class Main extends GameManager {
         return game;
     }
 
+    // donne des indices gratuits en fonction du nombre d'épreuves d'indices
     void giveFreeIndice(Game game) {
         for(int i=0; i<(6-MAXEPREUVESINDICES); i++) {
             setIndiceFind(game.indices[i]);
         }
     }
 
+    // initialise les stats de la partie (pour le calcul du score final)
     void initStats(Game g){
         int nbStats = 5;
         // 0: NB_JAIL_TOTAL 1: NB_GOOD_ANSWERS 2: NB_BAD_ANSWERS 3: FINAL_TIME_SECONDES 5: CONSEIL_TIME_WON_SECONDES
@@ -242,6 +248,7 @@ class Main extends GameManager {
         }
     }
 
+    // génére le mot code et les indices d'une partie
     void generateCode(Game game){
         CSVFile words = myLoadCSV(WORDSCSV);
         int line = randInt(1, rowCount(words)-1);
@@ -252,6 +259,7 @@ class Main extends GameManager {
         }
     }
 
+    // vérifie les dépendances
     boolean checkDependencies(){
         boolean res = true;
         String file;

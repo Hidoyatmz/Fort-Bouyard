@@ -188,6 +188,10 @@ class Utils extends Program {
         return loadCSV("../ressources/csv/" + filename);
     }
 
+    CSVFile myLoadCSV(String filename, char separator){
+        return loadCSV("../ressources/csv/" + filename, separator);
+    }
+
     /**
      * Returns an integer asked to user while it is not a valid digit between 0 and 9.
      * @return integer from user after validation.
