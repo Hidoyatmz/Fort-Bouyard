@@ -76,6 +76,14 @@ class GameManager extends Tresor {
         int pieces = startTresor(game);
         setFinalTime(game);
         // CALCULER SCORE
+        double mult_prison = 1.5 - 0.25 * getNbJails(game) > 0 ? 1.5 - 0.25 * getNbJails(game) : 0;
+        double mult_answers = 1+((getGoodAnswers(game) - getBadAnswers(game))) > 0 ? 1+((getGoodAnswers(game) - getBadAnswers(game))) : 0;
+        double mult_jugement = game.jugementDone ? 1 : 1.5;
+        double mult_conseil = 1+((getConseilTimeWon(game)/30)/10);
+        int base = 10;
+        int score = (int) ((base + pieces) * mult_prison * mult_answers * mult_jugement * mult_conseil);
+        debug(""+score);
+        pressEnterToContinue();
         /* NB_PIECE x (((1.5-(0.25xNB_PRISON))>0) x ((1+(NB_BONNES_REPONSES - NB_FAUSSES_REPONSES))>0) 
         x (1+((1/TEMPS_MIS_MINUTES)x3))) x (1.5 SI NON JUGEMENTS) x (1+((TEMPS_GAGNE_CONSEIL_SECONDES/30)/10))*/
         // METTRE DANS LE LEADERBOARD

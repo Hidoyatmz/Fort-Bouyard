@@ -509,22 +509,42 @@ class Utils extends Program {
         return newArray;
     }
 
+    int getNbJails(Game g){
+        return g.stats[0];
+    }
+
     void increaseNbJails(Game g){
         g.stats[0] = g.stats[0] + 1;
+    }
+
+    int getGoodAnswers(Game g){
+        return g.stats[1];
     }
     
     void increaseGoodAnswers(Game g){
         g.stats[1] = g.stats[1] + 1;
     }
 
+    int getBadAnswers(Game g){
+        return g.stats[2];
+    }
+
     void increaseBadAnswers(Game g){
         g.stats[2] = g.stats[2] + 1;
+    }
+
+    int getFinaltime(Game g){
+        return g.stats[3];
     }
 
     /* A modifier */
     void setFinalTime(Game g){
         // g.stats[3] = (int) getElapsedTime(g.timer);
         g.stats[3] = 0;
+    }
+
+    int getConseilTimeWon(Game g){
+        return g.stats[4];
     }
 
     void increaseConseilTimeWon(Game g){
