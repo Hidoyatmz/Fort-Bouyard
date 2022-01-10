@@ -7,18 +7,16 @@ class GameManager extends Tresor {
     boolean musicRunning = false;
     Timer musicTimer;
 
+    int epreuveIndex;
+
     // BOUCLE DU JEU
     void startGame(Game game) {
+        epreuveIndex = 0;
+
         // PARTIE DES CLES
-        myClearScreen();
         printInfo(game);
-        int epreuveIndex = 0;
-        boolean success;
-        while(!allPlayersInJail(game.team) && epreuveIndex < MAXEPREUVESKEY) {
-            success = startEpreuve(game, game.epreuves[epreuveIndex]);
-            updateKeys(game, game.epreuves[epreuveIndex], success);
-            epreuveIndex++;
-        }
+        setGameState(game, GameState.KEYS);
+        startKeysStage(game);
 
         // SI LE JUGEMENT NE PEUT PAS RATTRAPPER LES CLES MANQUANTES, LA PARTIE S'ARRETE
         if((game.nbKeys + MAXEPREUVESJUGEMENT) < MAXEPREUVESKEY || allPlayersInJail(game.team)) {
@@ -27,54 +25,32 @@ class GameManager extends Tresor {
         // ON REGARDE SI IL Y A BESOIN D'UN JUGEMENT
         else if(needJugement(game)) {
             game.jugementDone = true;
-            game.gameState = GameState.JUGEMENT;
+            setGameState(game, GameState.JUGEMENT);
             printInfo(game);
-            int iJugement = epreuveIndex;
-            while(iJugement < MAXEPREUVESJUGEMENT+MAXEPREUVESKEY && needJugement(game)){
-                success = startEpreuve(game, game.epreuves[epreuveIndex]);
-                if(success) {
-                    game.epreuves[epreuveIndex].player.jail = false;
-                    game.nbKeys = game.nbKeys + 1;
-                    info(game.epreuves[epreuveIndex].player.pseudo + " a été libérer ! Vous gagnez donc une clé !");
-                    delay(1000);
-                }
-                epreuveIndex++;
-                iJugement++;
-            }
+            startJugementStage(game);
         }
-        epreuveIndex = MAXEPREUVESKEY + MAXEPREUVESJUGEMENT;
+        // Si le jugement n'a pas permis de récupérer les clés manquantes
         if(needJugement(game)){
             stopGame();
         }
+
         // Partie indices
-        game.gameState = GameState.INDICES;
+        epreuveIndex = MAXEPREUVESKEY + MAXEPREUVESJUGEMENT;
+        setGameState(game, GameState.INDICES);
         printInfo(game);
-        for(int i = epreuveIndex; i < MAXEPREUVESJUGEMENT+MAXEPREUVESKEY+MAXEPREUVESINDICES; i++){
-            success = startEpreuve(game, game.epreuves[epreuveIndex]);
-            if(success){
-                setNextIndiceFind(game);
-                info("Vous avez gagné un indice ! Il sera révélé au début de la salle au Trésor.");
-                delay(1000);
-            }
-            epreuveIndex++;
-        }
+        startIndicesStage(game);
+
         // Partie Conseil
-        game.gameState = GameState.CONSEIL;
+        setGameState(game, GameState.CONSEIL);
         printInfo(game);
-        for(int i = epreuveIndex; i < MAXEPREUVESJUGEMENT+MAXEPREUVESKEY+MAXEPREUVESINDICES+MAXEPREUVESCONSEIL; i++){
-            success = startEpreuve(game, game.epreuves[epreuveIndex]);
-            if(success){
-                game.timerTresor += 10;
-                info("Vous avez gagné 10 secondes dans la salle au Trésor !");
-                delay(1000);
-            }
-            epreuveIndex++;
-        }
+        startConseilStage(game);
+
         // Tresor
-        game.gameState = GameState.TRESOR;
+        setGameState(game, GameState.TRESOR);
         printInfo(game);
         int pieces = startTresor(game);
         setFinalTime(game);
+
         // CALCULER SCORE
         double mult_prison = 1.5 - 0.25 * getNbJails(game) > 0 ? 1.5 - 0.25 * getNbJails(game) : 0;
         double mult_answers = 1+((getGoodAnswers(game) - getBadAnswers(game))) > 0 ? 1+((getGoodAnswers(game) - getBadAnswers(game))) : 0;
@@ -89,12 +65,67 @@ class GameManager extends Tresor {
         // METTRE DANS LE LEADERBOARD
     }
 
+    void startKeysStage(Game game) {
+        boolean success;
+        while(!allPlayersInJail(game.team) && epreuveIndex < MAXEPREUVESKEY) {
+            success = startEpreuve(game, game.epreuves[epreuveIndex]);
+            updateKeys(game, game.epreuves[epreuveIndex], success);
+            epreuveIndex++;
+        }
+    }
+
+    void startJugementStage(Game game) {
+        boolean success;
+        int iJugement = epreuveIndex;
+        while(iJugement < MAXEPREUVESJUGEMENT+MAXEPREUVESKEY && needJugement(game)){
+            success = startEpreuve(game, game.epreuves[epreuveIndex]);
+            if(success) {
+                game.epreuves[epreuveIndex].player.jail = false;
+                game.nbKeys = game.nbKeys + 1;
+                info(game.epreuves[epreuveIndex].player.pseudo + " a été libérer ! Vous gagnez donc une clé !");
+                delay(1000);
+            }
+            epreuveIndex++;
+            iJugement++;
+        }
+    }
+
+    void startIndicesStage(Game game) {
+        boolean success;
+        for(int i = epreuveIndex; i < MAXEPREUVESJUGEMENT+MAXEPREUVESKEY+MAXEPREUVESINDICES; i++){
+            success = startEpreuve(game, game.epreuves[epreuveIndex]);
+            if(success){
+                setNextIndiceFind(game);
+                info("Vous avez gagné un indice ! Il sera révélé au début de la salle au Trésor.");
+                delay(1000);
+            }
+            epreuveIndex++;
+        }
+    }
+
+    void startConseilStage(Game game) {
+        boolean success;
+        for(int i = epreuveIndex; i < MAXEPREUVESJUGEMENT+MAXEPREUVESKEY+MAXEPREUVESINDICES+MAXEPREUVESCONSEIL; i++){
+            success = startEpreuve(game, game.epreuves[epreuveIndex]);
+            if(success){
+                game.timerTresor += 10;
+                info("Vous avez gagné 10 secondes dans la salle au Trésor !");
+                delay(1000);
+            }
+            epreuveIndex++;
+        }
+    }
+
     void stopGame() {
         myClearScreen();
         println(ANSI_RED + "Vous n'avez pas réussi à réunir assez de clés pour continuer la partie !\nTu réussieras la prochaine fois !" + ANSI_RESET);
         pressEnterToContinue();
         // ARRET DE LA PARTIE
         return;
+    }
+
+    void setGameState(Game game, GameState gameState) {
+        game.gameState = gameState;
     }
 
     void setNextIndiceFind(Game game) {

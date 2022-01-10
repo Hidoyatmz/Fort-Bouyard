@@ -18,7 +18,7 @@ class Tresor extends Quiz {
             myClearScreen();
             printHelp(help, game.motCode);
             printIndices(game.indices);
-            println("Il te reste " + getFormatRemainingTime(timer) + " secondes");
+            println("Il te reste " + ANSI_GREEN + formatTime(getRemainingTime(timer)) + ANSI_RESET + " secondes");
             println("Trouver le mot code :");
             res = readString();
         } while(inTime(timer) && !equals(toUpperCase(game.motCode), toUpperCase(res)));

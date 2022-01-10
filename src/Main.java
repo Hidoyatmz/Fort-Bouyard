@@ -287,6 +287,7 @@ class Main extends GameManager {
         }
         for(int i = MAXEPREUVESKEY; i<(MAXEPREUVESINDICES+MAXEPREUVESKEY); i++) {
             game.epreuves[indexEpreuve] = generals[i];
+            game.epreuves[indexEpreuve].gameState = GameState.INDICES;
             indexEpreuve++;
         }
         for(int i = 0; i < MAXEPREUVESCONSEIL; i++) {
