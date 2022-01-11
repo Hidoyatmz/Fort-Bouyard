@@ -1,17 +1,15 @@
-/**
- * @STATUS          : 100% COMPLETED;
- * @TODO            : ---
- * @OPTIMIZATION    : NOT DONE
- */
 
 import extensions.*;
 class SoundGame extends PipeGame {
     final String SOUNDGAMECSV = "soundgame.csv";
     final int MAXTRYS = 5;
+
+    // init
     Epreuve initSoundGame() {
         return newEpreuve(2, "Le Zoo", -1, "Dans cette épreuve, vous devez trouvé le nom de l'animal dont son cri est joué.\nTrouvez un total de 3 animaux sur les 5 joués pour remporter la victoire.\nPrécision : les accents sont pris en compte.", GameState.KEYS);
     }
 
+    // start le jeu
     boolean startSoundGame(Epreuve soundgame, Game g){
         CSVFile soundCSV = myLoadCSV(SOUNDGAMECSV);
         String[] answers = new String[rowCount(soundCSV)-1];
@@ -90,7 +88,7 @@ class SoundGame extends PipeGame {
         int trys = 2;
         String toCheck;
         boolean res = false;
-        debug("Sound is running...");
+        if(debug) debug("Sound is running...");
         play(sound);
         do{
             myClearScreen();

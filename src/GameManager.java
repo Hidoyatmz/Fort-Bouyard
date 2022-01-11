@@ -25,6 +25,7 @@ class GameManager extends Tresor {
         // SI LE JUGEMENT NE PEUT PAS RATTRAPPER LES CLES MANQUANTES, LA PARTIE S'ARRETE
         if((game.nbKeys + MAXEPREUVESJUGEMENT) < MAXEPREUVESKEY || allPlayersInJail(game.team)) {
             stopGame();
+            return;
         }
         // ON REGARDE SI IL Y A BESOIN D'UN JUGEMENT
         else if(needJugement(game)) {
@@ -36,6 +37,7 @@ class GameManager extends Tresor {
         // Si le jugement n'a pas permis de récupérer les clés manquantes
         if(needJugement(game)){
             stopGame();
+            return;
         }
 
         // Partie indices
@@ -58,17 +60,17 @@ class GameManager extends Tresor {
         // CALCULER SCORE
         /* NB_PIECE x (((1.5-(0.25xNB_PRISON))>0) x ((1+(NB_BONNES_REPONSES - NB_FAUSSES_REPONSES))>0) 
         x (1+((1/TEMPS_MIS_MINUTES)x3))) x (1.5 SI NON JUGEMENTS) x (1+((TEMPS_GAGNE_CONSEIL_SECONDES/30)/10))*/
-        double mult_prison = 1.5 - 0.25 * getNbJails(game) > 0 ? 1.5 - 0.25 * getNbJails(game) : 0;
-        double mult_answers = 1+((getGoodAnswers(game) - getBadAnswers(game))) > 0 ? 1+((getGoodAnswers(game) - getBadAnswers(game))) : 0;
+        double mult_prison = 1.5 - (0.25 * getNbJails(game)) > 0.5 ? 1.5 - (0.25 * getNbJails(game)) : 0.5;
+        double mult_answers = 1+((getGoodAnswers(game) - getBadAnswers(game))) > 0.5 ? 1+((getGoodAnswers(game) - getBadAnswers(game))) : 0.5;
         double mult_jugement = game.jugementDone ? 1 : 1.5;
-        double mult_conseil = 1+((getConseilTimeWon(game)/30)/10);
-        int base = 10;
-        int score = (int) ((base + pieces) * mult_prison * mult_answers * mult_jugement * mult_conseil);
+        double mult_conseil = 1+((getConseilTimeWon(game)/30)/5);
+        int score = (int) ((pieces * mult_prison * mult_answers * mult_jugement * mult_conseil))*10;
         debug(""+score);
         saveInLeaderBoard(game, score); // METTRE DANS LE LEADERBOARD
         pressEnterToContinue();
     }
 
+    // Partie des clés
     void startKeysStage(Game game) {
         boolean success;
         while(!allPlayersInJail(game.team) && epreuveIndex < MAXEPREUVESKEY) {
@@ -78,6 +80,7 @@ class GameManager extends Tresor {
         }
     }
 
+    // Partie du jugement
     void startJugementStage(Game game) {
         boolean success;
         int iJugement = epreuveIndex;
@@ -94,6 +97,7 @@ class GameManager extends Tresor {
         }
     }
 
+    // Partie des indices
     void startIndicesStage(Game game) {
         boolean success;
         for(int i = epreuveIndex; i < MAXEPREUVESJUGEMENT+MAXEPREUVESKEY+MAXEPREUVESINDICES; i++){
@@ -107,6 +111,7 @@ class GameManager extends Tresor {
         }
     }
 
+    // Partie du conseil
     void startConseilStage(Game game) {
         boolean success;
         for(int i = epreuveIndex; i < MAXEPREUVESJUGEMENT+MAXEPREUVESKEY+MAXEPREUVESINDICES+MAXEPREUVESCONSEIL; i++){
@@ -125,13 +130,14 @@ class GameManager extends Tresor {
         myClearScreen();
         println(ANSI_RED + "Vous n'avez pas réussi à réunir assez de clés pour continuer la partie !\nTu réussieras la prochaine fois !" + ANSI_RESET);
         pressEnterToContinue();
-        return;
     }
 
+    // Setter gameState de la partie
     void setGameState(Game game, GameState gameState) {
         game.gameState = gameState;
     }
 
+    // Debloque un nouvel indice
     void setNextIndiceFind(Game game) {
         int i=0;
         boolean found = false;
@@ -144,10 +150,12 @@ class GameManager extends Tresor {
         }
     }
 
+    // Si besoin d'un jugement
     boolean needJugement(Game game) {
         return game.nbKeys < MAXEPREUVESKEY || nbPlayersInJail(game.team) > 0;
     }
 
+    // Print les infos selon le gameState
     void printInfo(Game game) {
         myClearScreen();
         GameState gameState = game.gameState;
@@ -224,6 +232,7 @@ class GameManager extends Tresor {
         return somme;
     }
 
+    // Renvoie les noms des joueurs en prison
     String[] getPlayersNameInJail(Team team){
         String[] res = new String[nbPlayersInJail(team)];
         int cpt = 0;
@@ -315,6 +324,7 @@ class GameManager extends Tresor {
         pressEnterToContinue();
     }
 
+    // Tire un prisonnier
     Player haulPrisonPlayer(Team team){
         boolean res = false;
         Player pRes = team.players[0];
@@ -329,6 +339,7 @@ class GameManager extends Tresor {
         return pRes;
     }
 
+    // Rejouer la musique
     void checkIfResetMusicBool(long elapsedTime) {
         if(musicRunning && !inTime(musicTimer)){
             playSound(SOUND_THEME, true);
@@ -347,6 +358,7 @@ class GameManager extends Tresor {
         return player;
     }
     
+    // SAUVEGARDER LE LEADERBOARD
     void saveInLeaderBoard(Game game, int score) {
         String[][] cells = getLeaderBoardNewLine();
         cells[length(cells, 1)-1] = new String[]{game.team.name, game.team.cry, ""+score, formatTime(getElapsedTime(game.timer))};
@@ -354,6 +366,7 @@ class GameManager extends Tresor {
         saveCSV(cells, "../ressources/csv/" + LEADERBOARDCSV, ';');
     }
 
+    // RECUPERE LE LEADERBOARD ACTUEL 
     String[][] getLeaderBoardNewLine() {
         CSVFile csv = myLoadCSV(LEADERBOARDCSV, ';');
         String[][] res = new String[rowCount(csv)+1][columnCount(csv)];
@@ -365,6 +378,7 @@ class GameManager extends Tresor {
         return res;
     }
 
+    // Trier le nouveau score
     void sortNewScore(String[][] cells) {
         String[] temp = new String[length(cells, 2)];
         boolean placer = false;
@@ -382,6 +396,7 @@ class GameManager extends Tresor {
         }
     }
 
+    // Copy un tableau toCopy dans le tableau receive
     void copyTab(String[] receive, String[] toCopy) {
         if(length(receive) == length(toCopy)) {
             for(int j=0; j<length(receive); j++) {

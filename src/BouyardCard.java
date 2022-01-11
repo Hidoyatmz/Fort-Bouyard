@@ -5,12 +5,14 @@
 
 class BouyardCard extends EpreuvesCreator {
     
+    // init
     Epreuve initBouyardCard() {
         return newEpreuve(10, "Les cartes Bouyard", -1, "Toi et le maître doivent piocher chacun leur tour une carte dans l'un de ces tas afin de reconstituer le mot BOUYARD écrit devant vous.\n" +
         "Il est possible de tomber sur un joker qui peut remplacer n'importe quelle lettre\n" +
         "Le premier bien sûr qui recompose le mot BOUYARD remporte ce défi.", GameState.CONSEIL);
     }
 
+    // start epreuve
     boolean startBouyardCard(Epreuve epreuve) {
         char[] cards = new char[]{'B', 'O', 'U', 'Y', 'A', 'R', 'D', 'J'};
         char[][] pioches = initPioches(cards);

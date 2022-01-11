@@ -1,8 +1,3 @@
-/**
- * @STATUS          : 100% COMPLETED;
- * @TODO            : Rien ?
- * @OPTIMIZATION    : NOT DONE
- */
 
 import extensions.*;
 class EnglishGame extends GeographyGame {
@@ -10,10 +5,12 @@ class EnglishGame extends GeographyGame {
     final int MAXROUNDS = 5;
     final int MINSCORE = 3;
 
+    // init
     Epreuve initEnglishGame() {
         return newEpreuve(11, "EnglishGame", -1, "Dans cette épreuve, " + MAXROUNDS + " mots de vocabulaire vous sont donné. Donnez la traduction dans la langue indiqué pour gagner un point.\nIl vous faut un total de " + MINSCORE + " points pour remporter la victoire.\nPrécision : les accents sont pris en compte.", GameState.KEYS);
     }
 
+    // start epreuve
     boolean startEnglishGame(Epreuve epreuve, Game g) {
         CSVFile englishCSV = myLoadCSV(ENGLISHGAMECSV);
         final int CSVMAXROUNDS = rowCount(englishCSV) - 1;
@@ -44,6 +41,7 @@ class EnglishGame extends GeographyGame {
         return score >= MINSCORE;
     }
 
+    // demande la réponse au joueur
     boolean askUserQuestion(String[] nextQuestion, int round, int score) {
         boolean res = false;
         String type = stringToInt(nextQuestion[0]) == 1 ? "Français"  : "Anglais";
@@ -58,10 +56,12 @@ class EnglishGame extends GeographyGame {
         return res;
     }
 
+    // Renvoie si le joueur peut encore gagner
     boolean canWin(int score, int round) {
         return ((MAXROUNDS-round) + (score+1)) >= MINSCORE;
     }
 
+    // Prend la prochaine question
     String[] getNextQuestion(CSVFile englishCSV, int CSVMAXROUNDS, int[] played, int round) {
         String[] res = new String[3];
         int r;

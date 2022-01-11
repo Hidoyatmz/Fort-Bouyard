@@ -9,6 +9,7 @@ class Main extends GameManager {
     
     void algorithm() {
         myClearScreen();
+        enableKeyTypedInConsole(false);
 
         // NE LANCE PAS LE JEU SI IL MANQUE DES DEPENDENCIES
         /* @TODO : Check les sounds */
@@ -73,6 +74,7 @@ class Main extends GameManager {
         delay(1000);
     }
 
+    // Display 
     void displayIntroGame() {
         println(ANSI_CURSOR_HIDE);
         for(int i = 0; i <= 10; i++){
@@ -86,12 +88,14 @@ class Main extends GameManager {
         }
     }
 
+    // créer le leaderboard
     void createLeaderboardFile(){
         debug("LeaderBoard file doesn't exist ! Creating it...");
         delay(1000);
         saveCSV(new String[][]{{"Teamname", "Cri", "Score", "Temps"}}, LEADERBOARDCSV);
     }
 
+    // afficher le leaderboard
     void displayLeaderboard() {
         myClearScreen();
         CSVFile csv = myLoadCSV(LEADERBOARDCSV, ';');
@@ -99,18 +103,21 @@ class Main extends GameManager {
         pressEnterToContinue();
     }
 
+    // afficher les règles
     void displayRules(){
         myClearScreen();
         printTxt("../ressources/rules.txt");
         pressEnterToContinue();
     }
 
+    // afficher les crédits
     void displayCredits() {
         myClearScreen();
         printTxt("../ressources/credits.txt");
         pressEnterToContinue();
     }
 
+    // afficher le menu
     void printMenu() {
         myClearScreen();
         for(int i = 0; i < length(mainMenu); i++){
@@ -121,6 +128,7 @@ class Main extends GameManager {
         }
     }
 
+    // récupère le choix du joueur
     int choiceMenuOption() {
         int choice;
         int lenoptions = debug ? length(mainMenu) + 1 : length(mainMenu);
@@ -132,6 +140,7 @@ class Main extends GameManager {
         return choice;
     }
 
+    // afficher le leaderboard
     void printLeaderboard(CSVFile csv, int rowCount) {
         println("Classement - Nom - Cri - Score - Temps");
         int maxRows = rowCount <= rowCount(csv)-1 ? rowCount : rowCount(csv)-1;
@@ -145,12 +154,14 @@ class Main extends GameManager {
         println("");
     }
     
+    // afficher un tableau de String
     void println(String[] s){
         for(int i = 0; i < length(s); i++){
             println(s[i]);
         }
     }
 
+    // Constructeur Player
     Player newPlayer(String pseudo) {
         Player player = new Player();
         player.pseudo = pseudo;
@@ -158,6 +169,7 @@ class Main extends GameManager {
         return player;
     }
 
+    // Register Team
     Team registerTeam(){
         /* Init variables */
         String teamName;
