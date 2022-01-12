@@ -26,7 +26,7 @@ Poour ceci entrez la commande suivante dans le terminal à la racine du projet :
 `./compile.sh`
 
 Une fois le jeu compilé, il suffit de le lancer en exécutant la commande suivante, toujours à la racine du projet :
-`./run.sh HarryThmetik`
+`./run.sh Main`
 
 ## Modification des épreuves :
 
