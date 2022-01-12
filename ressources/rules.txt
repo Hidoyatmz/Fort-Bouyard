@@ -6,9 +6,12 @@ U |  _"\ u \| ___"|/U /"___|u  |"|    \| ___"|/U|' \/ '|u\| ___"|/| \ |"|   |_ "
   //   \\_  <<   >>   _)(|_    //  \\  <<   >> <<,-,,-.   <<   >> ||   \\,-._// \\_  
  (__)  (__)(__) (__) (__)__)  (_")("_)(__) (__) (./  \.) (__) (__)(_")  (_/(__) (__) 
 
-Bonjour à toi jeune entrepreneur !
+Bonjour à toi jeune camarade !
 
 Dans le fort il y a des règles à respecter !
 
-Règle 1 : Dans le doute reboot.
-Règle 2 : Si soudain il y a un bug, ferme les yeux. Hop la ! Il a disparu.
+Règle 1 : Uniquement le joueur désigné au lancement d'une épreuve ne doit la jouer.
+Règle 2 : Vous devez obtenir un total de 3 clefs à la fin des épreuves du jugement afin de continuer une partie.
+Règle 3 : Veillez à l'orthographe de vos réponses, notamment les accents.
+Règle 4 : Il n'y a pas de règle 4.
+Règle 5 : Si le jeu plante, relancez le.
