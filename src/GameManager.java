@@ -6,7 +6,7 @@ class GameManager extends Tresor {
 
     final int MAXEPREUVESKEY = 3; // AUSSI LE NOMBRE DE CLES NECESSAIRES
     final int MAXEPREUVESJUGEMENT = 2;
-    final int MAXEPREUVESINDICES = 3;
+    final int MAXEPREUVESINDICES = 4;
     final int MAXEPREUVESCONSEIL = 2;
     boolean musicRunning = false;
     Timer musicTimer;

@@ -288,7 +288,7 @@ class Main extends GameManager {
 
     // Selectionne les épreuves de la game aléatoirement
     void initEpreuves(Game game) {
-        Epreuve[] generals = new Epreuve[]{initGeographyGame(), initEnglishGame(), initQuiz(), initPipeGame(), initSoundGame(), initMathematix()};
+        Epreuve[] generals = new Epreuve[]{initGeographyGame(), initEnglishGame(), initQuiz(), initPipeGame(), initPipeGame(), initSoundGame(), initMathematix()};
         Epreuve[] jugements = new Epreuve[]{initFakir(), initPileOuFace(), initRoulette(), initMastermind()};
         Epreuve[] conseils = new Epreuve[]{initBouyardCard(), initShiFuMi(), initMemoGame()};
         shuffleEpreuves(generals);

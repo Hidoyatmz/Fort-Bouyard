@@ -45,7 +45,7 @@ class Tresor extends Quiz {
             println("Tu as " + ANSI_RED + tresor.playerCoins + ANSI_RESET + " pièces dans ton sac !");
             println("Trésor : " + ANSI_GREEN + tresor.tresor + ANSI_RESET + " pièces !");
             enableKeyTypedInConsole(true);
-            readString(1000);
+            delay(100);
         }
         enableKeyTypedInConsole(false);
         show();
