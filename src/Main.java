@@ -33,9 +33,8 @@ class Main extends GameManager {
                 play = false;
             }
         }
-        myClearScreen();
-        println("A bientôt !");
-        delay(1000);
+        // play is false, end of the game.
+        closeGame();
     }
 
     // Action from user choice
@@ -143,6 +142,13 @@ class Main extends GameManager {
         if(debug){
             println("7. Test a minigame");
         }
+    }
+
+    // Just to close the game
+    void closeGame(){
+        myClearScreen();
+        println("A bientôt !");
+        delay(1000);
     }
 
     // récupère le choix du joueur
