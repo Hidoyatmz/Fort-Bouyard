@@ -72,4 +72,4 @@ Une fois le jeu compilé, il suffit de le lancer en exécutant la commande suiva
 * ZAIDI Mehdi (IUT A Lille - BUT 1 Groupe C)
 
 #### Version : 0.24 - 12/01/2022 (Version finale)
-[Repo github public](https://github.com/Hidoyatmz/SAE102PUBLIC)
+[Repo github public](https://github.com/Hidoyatmz/SAE102)

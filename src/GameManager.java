@@ -90,7 +90,7 @@ class GameManager extends Tresor {
             if(success) {
                 game.epreuves[epreuveIndex].player.jail = false;
                 game.nbKeys = game.nbKeys + 1;
-                info(game.epreuves[epreuveIndex].player.pseudo + " a été libérer ! Vous gagnez donc une clé !");
+                info(game.epreuves[epreuveIndex].player.pseudo + " a été libéré ! Vous gagnez donc une clé !");
                 delay(3000);
             }
             epreuveIndex++;
