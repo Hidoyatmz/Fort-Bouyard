@@ -38,10 +38,13 @@ class Main extends GameManager {
                 Team team = registerTeam();
                 Game g = newGame(team);
                 if(startGame(g)){
+                    myClearScreen();
+                    info("Bravo ! Vous avez gagné ! Relancez le jeu pour en faire une nouvelle :)");
+                    pressEnterToContinue();
                     return;
                 } else {
                     myClearScreen();
-                    debug("Vous avez perdu mais retentez votre chance plus tard !");
+                    info("Vous avez perdu mais retentez votre chance plus tard !");
                     pressEnterToContinue();
                 }
             } else if(choice == 1) {
