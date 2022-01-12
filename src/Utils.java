@@ -512,7 +512,4 @@ class Utils extends Program {
         }
         return newArray;
     }
-
-    
-
 }
