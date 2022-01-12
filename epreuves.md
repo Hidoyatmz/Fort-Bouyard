@@ -4,7 +4,7 @@
 ## Dassonvile Valentin - Zaidi Mehdi
 
 ### Épreuves générales :
->Total : 6/7
+>Total : 6/6
 * Quiz
 * PipeGame
 * SoundGame
@@ -24,8 +24,4 @@
 * Shifumi
 * MemoGame
 * BouyardGame
-
-
-#### Version : 0.11 - 06/01/2022
-[Repo github](https://github.com/Hidoyatmz/SAE102)
 
