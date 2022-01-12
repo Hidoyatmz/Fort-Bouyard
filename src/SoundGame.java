@@ -92,9 +92,9 @@ class SoundGame extends PipeGame {
             debug("Sound is running...");
             debug(answer);
         }
+        hide();
         info("Ecoutes le cri de l'animal.");
         play(sound);
-        hide();
         do{
             myClearScreen();
             show();
