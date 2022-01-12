@@ -14,7 +14,7 @@ class GameManager extends Tresor {
     int epreuveIndex;
 
     // BOUCLE DU JEU
-    void startGame(Game game) {
+    boolean startGame(Game game) {
         epreuveIndex = 0;
 
         // PARTIE DES CLES
@@ -25,7 +25,7 @@ class GameManager extends Tresor {
         // SI LE JUGEMENT NE PEUT PAS RATTRAPPER LES CLES MANQUANTES, LA PARTIE S'ARRETE
         if((game.nbKeys + MAXEPREUVESJUGEMENT) < MAXEPREUVESKEY || allPlayersInJail(game.team)) {
             stopGame();
-            return;
+            return false;
         }
         // ON REGARDE SI IL Y A BESOIN D'UN JUGEMENT
         else if(needJugement(game)) {
@@ -37,7 +37,7 @@ class GameManager extends Tresor {
         // Si le jugement n'a pas permis de récupérer les clés manquantes
         if(needJugement(game)){
             stopGame();
-            return;
+            return false;
         }
 
         // Partie indices
@@ -67,9 +67,10 @@ class GameManager extends Tresor {
         double mult_jugement = game.jugementDone ? 1 : 1.5;
         double mult_conseil = 1+((getConseilTimeWon(game)/30)/5);
         int score = (int) ((pieces * mult_prison * mult_answers * mult_jugement * mult_conseil))*10;
-        debug(""+score);
+        info("Félicitation les " + game.team.name + " ! Vous avez obtenu un score de " + score + " points. " + toUpperCase(game.team.cry) +" !!!");
         saveInLeaderBoard(game, score); // METTRE DANS LE LEADERBOARD
         pressEnterToContinue();
+        return true;
     }
 
     void playMists(Game game){

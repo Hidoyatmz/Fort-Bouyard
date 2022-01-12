@@ -88,10 +88,16 @@ class SoundGame extends PipeGame {
         int trys = 2;
         String toCheck;
         boolean res = false;
-        if(debug) debug("Sound is running...");
+        if(debug) {
+            debug("Sound is running...");
+            debug(answer);
+        }
+        info("Ecoutes le cri de l'animal.");
         play(sound);
+        hide();
         do{
             myClearScreen();
+            show();
             println("Animal n°" + (tour + 1));
             println("De quel animal sagit-il ?");
             println("Tu as " + ANSI_RED + trys + ANSI_RESET + " essais !");

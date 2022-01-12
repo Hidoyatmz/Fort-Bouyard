@@ -37,7 +37,13 @@ class Main extends GameManager {
             if(choice == 0) {
                 Team team = registerTeam();
                 Game g = newGame(team);
-                startGame(g);
+                if(startGame(g)){
+                    return;
+                } else {
+                    myClearScreen();
+                    debug("Vous avez perdu mais retentez votre chance plus tard !");
+                    pressEnterToContinue();
+                }
             } else if(choice == 1) {
                 displayLeaderboard();
             } else if(choice == 2) {
