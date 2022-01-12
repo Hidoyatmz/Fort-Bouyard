@@ -51,8 +51,6 @@ class GameManager extends Tresor {
         printInfo(game);
         startConseilStage(game);
 
-        // Merci ijava pour avoir cassé mon jeu :/ playMists(game);
-
         // Tresor
         setGameState(game, GameState.TRESOR);
         printInfo(game);
@@ -71,18 +69,6 @@ class GameManager extends Tresor {
         saveInLeaderBoard(game, score); // METTRE DANS LE LEADERBOARD
         pressEnterToContinue();
         return true;
-    }
-
-    void playMists(Game game){
-        myClearScreen();
-        println("AHAH ! Et tout de suite, l'épreuve bonus des indices !");
-        pressEnterToContinue();
-        boolean successMists = startMists();
-        if(successMists){
-            setNextIndiceFind(game);
-            info("Vous avez gagné un indice ! Il sera révélé au début de la salle au Trésor.");
-            delay(3000);
-        }
     }
 
     // Partie des clés

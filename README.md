@@ -21,6 +21,8 @@ Ce score est sauvegardé dans un tableau des scores que les élèves peuvent con
 
 ## Utilisation de Fort Bouyard :
 
+Pour une meilleure expérience, nous vous conseillons de lancer le terminal en pleine écran et également effectuer un zoom avant. 
+
 Afin de lancer le jeu, il faut dans un premier temps le compiler (si ce n'est pas déjà fait). 
 Poour ceci entrez la commande suivante dans le terminal à la racine du projet :
 `./compile.sh`
@@ -33,10 +35,6 @@ Une fois le jeu compilé, il suffit de le lancer en exécutant la commande suiva
 ### Modification du quiz :
 * Se rendre dans le fichier **"ressources/csv/charades.csv"**
 * Ajouter une ligne avec la nouvelle question en suivant le format de la première ligne du fichier (1 ligne = 1 charade)
-
-### Modification du PipeGame :
-* Se rendre dans le dossier **"ressources/pipegame"**
-* Valentin à toi de jouer
 
 ### Modification du SoundGame :
 * Se rendre dans le dossier **"ressources/sounds"**
@@ -67,6 +65,7 @@ Une fois le jeu compilé, il suffit de le lancer en exécutant la commande suiva
 * MemoGame
 * BouyardGame
 - Cependant, ces jeux possèdent des **initialisations & exécutions aléatoire** les rendant "unique" à chaque nouvelle partie.
+* PipeGame
 
 ## Auteurs :
 * DASSONVILE Valentin (IUT A Lille - BUT 1 Groupe C)
