@@ -24,63 +24,71 @@ class Main extends GameManager {
         
         displayIntroGame();
         myClearScreen();
-        // MENU CHOIX
+        // LANCEMENT DU JEU
         boolean play = true;
         int choice;
         while(play){
             choice = choiceMenuOption()-1;
-            if(debug){
-                String uChoice = choice == 6 ? "Test a minigame" :  mainMenu[choice];
-                debug("User choiced : " + uChoice);
-                delay(500);
-            }
-            if(choice == 0) {
-                Team team = registerTeam();
-                Game g = newGame(team);
-                if(startGame(g)){
-                    myClearScreen();
-                    info("Bravo ! Vous avez gagné ! Relancez le jeu pour en faire une nouvelle :)");
-                    pressEnterToContinue();
-                    return;
-                } else {
-                    myClearScreen();
-                    info("Vous avez perdu mais retentez votre chance plus tard !");
-                    pressEnterToContinue();
-                }
-            } else if(choice == 1) {
-                displayLeaderboard();
-            } else if(choice == 2) {
-                displayRules();
-            } else if(choice == 3) {
-                displayCredits();
-            } else if(choice == 4) {
-                myClearScreen();
-                if(!musicRunning){
-                    musicTimer = newTimer(220);
-                    musicRunning = true;
-                    playSound(SOUND_THEME, true);
-                    printTxt("../ressources/music.txt");
-                } else {
-                    info("La musique est déjà en cours..");
-                }
-                delay(1000);
-            } else if (debug && choice == 6) {
-                myClearScreen();
-                Team team = registerTeam();
-                Game g = newGame(team);
-                for(int i = 0; i < length(g.epreuves); i++) {
-                    println(i + " " + g.epreuves[i].name);
-                }
-                info("Entrez l'id du jeu à tester : ");
-                int debugGameId = enterNumber();
-                startEpreuve(g, g.epreuves[debugGameId]);
-            } else {
+            if(!doMenuAction(choice)){
                 play = false;
             }
         }
         myClearScreen();
         println("A bientôt !");
         delay(1000);
+    }
+
+    // Action from user choice
+    boolean doMenuAction(int choice){
+        if(debug){
+            String uChoice = choice == 6 ? "Test a minigame" :  mainMenu[choice];
+            debug("User choiced : " + uChoice);
+            delay(500);
+        }
+        if(choice == 0) {
+            Team team = registerTeam();
+            Game g = newGame(team);
+            if(startGame(g)){
+                myClearScreen();
+                info("Bravo ! Vous avez gagné ! Relancez le jeu pour en faire une nouvelle :)");
+                pressEnterToContinue();
+                return false;
+            } else {
+                myClearScreen();
+                info("Vous avez perdu mais retentez votre chance plus tard !");
+                pressEnterToContinue();
+            }
+        } else if(choice == 1) {
+            displayLeaderboard();
+        } else if(choice == 2) {
+            displayRules();
+        } else if(choice == 3) {
+            displayCredits();
+        } else if(choice == 4) {
+            myClearScreen();
+            if(!musicRunning){
+                musicTimer = newTimer(220);
+                musicRunning = true;
+                playSound(SOUND_THEME, true);
+                printTxt("../ressources/music.txt");
+            } else {
+                info("La musique est déjà en cours..");
+            }
+            delay(1000);
+        } else if (debug && choice == 6) {
+            myClearScreen();
+            Team team = registerTeam();
+            Game g = newGame(team);
+            for(int i = 0; i < length(g.epreuves); i++) {
+                println(i + " " + g.epreuves[i].name);
+            }
+            info("Entrez l'id du jeu à tester : ");
+            int debugGameId = enterNumber();
+            startEpreuve(g, g.epreuves[debugGameId]);
+        } else {
+            return false;
+        }
+        return true;
     }
 
     // Display 
