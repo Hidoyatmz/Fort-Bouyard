@@ -2,7 +2,7 @@
 * The Fakir game is a guessing game : You've to find the color of the hole where the ball will fall
 * 
 */
-class Fakir extends PileOuFace {
+class Fakir extends Mists {
 
 
     /**

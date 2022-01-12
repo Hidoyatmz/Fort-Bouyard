@@ -6,7 +6,7 @@ class GameManager extends Tresor {
 
     final int MAXEPREUVESKEY = 3; // AUSSI LE NOMBRE DE CLES NECESSAIRES
     final int MAXEPREUVESJUGEMENT = 2;
-    final int MAXEPREUVESINDICES = 4;
+    final int MAXEPREUVESINDICES = 3;
     final int MAXEPREUVESCONSEIL = 2;
     boolean musicRunning = false;
     Timer musicTimer;
@@ -51,6 +51,8 @@ class GameManager extends Tresor {
         printInfo(game);
         startConseilStage(game);
 
+        // Merci ijava pour avoir cassé mon jeu :/ playMists(game);
+
         // Tresor
         setGameState(game, GameState.TRESOR);
         printInfo(game);
@@ -68,6 +70,18 @@ class GameManager extends Tresor {
         debug(""+score);
         saveInLeaderBoard(game, score); // METTRE DANS LE LEADERBOARD
         pressEnterToContinue();
+    }
+
+    void playMists(Game game){
+        myClearScreen();
+        println("AHAH ! Et tout de suite, l'épreuve bonus des indices !");
+        pressEnterToContinue();
+        boolean successMists = startMists();
+        if(successMists){
+            setNextIndiceFind(game);
+            info("Vous avez gagné un indice ! Il sera révélé au début de la salle au Trésor.");
+            delay(3000);
+        }
     }
 
     // Partie des clés

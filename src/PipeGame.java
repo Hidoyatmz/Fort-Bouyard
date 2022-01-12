@@ -6,7 +6,7 @@ class PipeGame extends MemoGame {
     final Direction[] dirs = new Direction[]{Direction.N, Direction.E, Direction.S, Direction.W};
 
     Epreuve initPipeGame() {
-        return newEpreuve(1, "PipeGame", 60, "Pour résoudre ce puzzle vous devez relier les extrémités à la source\n" +
+        return newEpreuve(1, "PipeGame", 90, "Pour résoudre ce puzzle vous devez relier les extrémités à la source\n" +
                              "avec l'aide des tuyaux pour faire circuler l'énergie avant que le temps ne soit écoulé.\n" +
                              "Les tuyaux " + ANSI_RED_BG + "marqué d'un arrière plan rouge" + ANSI_RESET + " ne peuvent pas être tourné.", GameState.KEYS);
     }
